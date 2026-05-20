@@ -770,7 +770,7 @@ pre code {
 
 .command-list .command-item {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(210px, 0.82fr);
+  grid-template-columns: 1fr;
   gap: 8px;
   align-items: stretch;
   border-color: color-mix(in srgb, var(--theme-soft) 32%, var(--line));
@@ -797,13 +797,13 @@ pre code {
 .permission-box {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 8px 10px;
+  gap: 8px 12px;
   align-items: center;
   min-width: 0;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: #111719;
-  padding: 9px;
+  padding: 12px;
 }
 
 .command-box label,
@@ -818,6 +818,8 @@ pre code {
 
 .command-box code,
 .permission-box code {
+  grid-column: 1;
+  grid-row: 2;
   display: block;
   width: 100%;
   max-width: 100%;
@@ -825,7 +827,11 @@ pre code {
   overflow-y: hidden;
   white-space: nowrap;
   word-break: normal;
-  font-size: 0.78rem;
+  color: var(--text);
+  font-family: "Consolas", "SFMono-Regular", "Liberation Mono", monospace;
+  font-size: 0.86rem;
+  font-weight: 750;
+  line-height: 1.45;
 }
 
 .command-list p,
@@ -836,6 +842,9 @@ pre code {
 
 .command-list p {
   grid-column: 1 / -1;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
   margin: 0;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -844,8 +853,23 @@ pre code {
   padding: 9px;
 }
 
+.command-list p::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 6px;
+  height: 6px;
+  margin-top: 0.48em;
+  border-radius: 999px;
+  background: var(--theme-soft);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-soft) 14%, transparent);
+}
+
 .copy-command {
-  min-height: 30px;
+  grid-column: 2;
+  grid-row: 2;
+  align-self: center;
+  justify-self: end;
+  min-height: 26px;
   border: 1px solid color-mix(in srgb, var(--theme-soft) 42%, var(--line));
   border-radius: 8px;
   background: color-mix(in srgb, var(--theme-dark) 52%, #111719);
@@ -854,7 +878,9 @@ pre code {
   font: inherit;
   font-size: 0.74rem;
   font-weight: 800;
-  padding: 0 9px;
+  line-height: 1;
+  padding-block: 0;
+  padding-inline: 9px;
   white-space: nowrap;
 }
 
@@ -1030,10 +1056,6 @@ a,
 
   .command-list .command-item {
     grid-template-columns: 1fr;
-  }
-
-  .copy-command {
-    justify-self: start;
   }
 
   .settings-grid {
