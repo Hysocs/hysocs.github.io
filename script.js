@@ -239,6 +239,24 @@ function scrollToPageTop() {
   });
 }
 
+function syncDemoVideos() {
+  document.querySelectorAll(".demo-video").forEach((video) => {
+    const isActive = Boolean(video.closest(".tab-panel.is-active"));
+
+    video.muted = true;
+    video.defaultMuted = true;
+
+    if (!isActive) {
+      video.pause();
+      return;
+    }
+
+    video.play().catch(() => {
+      // Some browsers only allow autoplay after the user interacts.
+    });
+  });
+}
+
 function activateTab(targetId, updateUrl = true, scrollMode = "top") {
   let activeTheme = "";
 
@@ -269,6 +287,8 @@ function activateTab(targetId, updateUrl = true, scrollMode = "top") {
   if (scrollMode === "top") {
     scrollToPageTop();
   }
+
+  syncDemoVideos();
 }
 
 tabs.forEach((tab) => {

@@ -560,6 +560,17 @@ dd {
   min-height: 420px;
 }
 
+.demo-video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  min-height: 420px;
+  border: 1px solid rgba(169, 180, 174, 0.18);
+  border-radius: 8px;
+  background: #111719;
+  object-fit: contain;
+}
+
 .doc-section {
   scroll-margin-top: 18px;
   margin-bottom: 38px;
