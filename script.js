@@ -43,6 +43,37 @@ tabs.forEach((tab) => {
   });
 });
 
+async function copyText(text) {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  textarea.setAttribute("readonly", "");
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand("copy");
+  textarea.remove();
+}
+
+document.querySelectorAll(".copy-command").forEach((button) => {
+  button.addEventListener("click", async () => {
+    const command = button.closest(".command-list div")?.querySelector("code")?.textContent.trim();
+    if (!command) return;
+
+    await copyText(command);
+    const originalText = button.textContent;
+    button.textContent = "Copied";
+    window.setTimeout(() => {
+      button.textContent = originalText;
+    }, 1200);
+  });
+});
+
 function activateRoute() {
   const redirectedPath = sessionStorage.getItem("wiki:path");
   if (redirectedPath) {

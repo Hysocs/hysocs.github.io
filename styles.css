@@ -503,9 +503,15 @@ pre code {
 
 .command-list div {
   display: grid;
-  grid-template-columns: minmax(360px, 0.46fr) minmax(0, 1fr);
+  grid-template-columns: minmax(380px, 0.46fr) minmax(0, 1fr) auto;
   gap: 16px;
-  align-items: start;
+  align-items: center;
+}
+
+.command-meta {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
 }
 
 .command-list code {
@@ -518,6 +524,12 @@ pre code {
   word-break: normal;
 }
 
+.command-meta small {
+  color: var(--muted);
+  font-size: 0.78rem;
+  overflow-wrap: anywhere;
+}
+
 .command-list span,
 .settings-grid span {
   display: block;
@@ -527,6 +539,25 @@ pre code {
 
 .command-list span {
   margin-top: 0;
+}
+
+.copy-command {
+  min-height: 36px;
+  border: 1px solid color-mix(in srgb, var(--theme-soft) 42%, var(--line));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--theme-dark) 52%, #111719);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 800;
+  padding: 0 12px;
+  white-space: nowrap;
+}
+
+.copy-command:hover,
+.copy-command:focus-visible {
+  border-color: var(--theme-soft);
 }
 
 .settings-grid strong {
@@ -570,6 +601,10 @@ footer {
 
   .command-list div {
     grid-template-columns: 1fr;
+  }
+
+  .copy-command {
+    justify-self: start;
   }
 
   .settings-grid {
