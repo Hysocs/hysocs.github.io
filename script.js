@@ -197,7 +197,49 @@ function applyTheme(themeName, animate = true) {
   themeAnimationId = requestAnimationFrame(frame);
 }
 
-function activateTab(targetId, updateUrl = true) {
+if ("scrollRestoration" in window.history) {
+  window.history.scrollRestoration = "manual";
+}
+
+let activeTabId = document.querySelector(".tab-panel.is-active")?.id || null;
+
+function getActiveTabId() {
+  return activeTabId || document.querySelector(".tab-panel.is-active")?.id || null;
+}
+
+function withInstantScroll(callback) {
+  const root = document.documentElement;
+  const previousBehavior = root.style.scrollBehavior;
+  const previousBodyBehavior = document.body.style.scrollBehavior;
+
+  root.classList.add("is-instant-scroll");
+  root.style.scrollBehavior = "auto";
+  document.body.style.scrollBehavior = "auto";
+  callback();
+
+  window.requestAnimationFrame(() => {
+    root.style.scrollBehavior = previousBehavior;
+    document.body.style.scrollBehavior = previousBodyBehavior;
+    root.classList.remove("is-instant-scroll");
+  });
+}
+
+function scrollToPageTop() {
+  withInstantScroll(() => {
+    const forceTop = () => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    };
+
+    forceTop();
+    window.requestAnimationFrame(forceTop);
+    window.requestAnimationFrame(() => window.requestAnimationFrame(forceTop));
+    window.setTimeout(forceTop, 0);
+  });
+}
+
+function activateTab(targetId, updateUrl = true, scrollMode = "top") {
   let activeTheme = "";
 
   tabs.forEach((tab) => {
@@ -210,6 +252,8 @@ function activateTab(targetId, updateUrl = true) {
     panel.classList.toggle("is-active", panel.id === targetId);
   });
 
+  activeTabId = targetId;
+
   if (activeTheme) {
     applyTheme(activeTheme, hasSetInitialTheme);
     hasSetInitialTheme = true;
@@ -221,11 +265,25 @@ function activateTab(targetId, updateUrl = true) {
       window.history.pushState({ tab: targetId }, "", nextPath);
     }
   }
+
+  if (scrollMode === "top") {
+    scrollToPageTop();
+  }
 }
 
 tabs.forEach((tab) => {
-  tab.addEventListener("click", () => {
-    activateTab(tab.dataset.tab);
+  tab.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    const targetId = tab.dataset.tab;
+
+    if (!targetId || targetId === getActiveTabId()) return;
+
+    if (window.location.hash) {
+      window.history.replaceState(window.history.state || {}, "", window.location.pathname);
+    }
+
+    activateTab(targetId, true, "top");
   });
 });
 
@@ -327,19 +385,121 @@ function updateCodeShellScrollState() {
 updateCodeShellScrollState();
 window.addEventListener("resize", updateCodeShellScrollState);
 
+function setupHeroActionGradients() {
+  document.querySelectorAll(".hero-actions").forEach((group) => {
+    const buttons = [...group.querySelectorAll(".button-link")];
+    const lastIndex = Math.max(buttons.length - 1, 1);
+
+    buttons.forEach((button, index) => {
+      const progress = Math.round((index / lastIndex) * 100);
+      button.style.setProperty("--action-position", `${progress}%`);
+    });
+  });
+}
+
+function scrollToPageSection(target) {
+  const activePanel = document.querySelector(".tab-panel.is-active");
+  if (!target || !activePanel || !activePanel.contains(target)) return false;
+
+  target.scrollIntoView({ behavior: "smooth", block: "start" });
+  return true;
+}
+
+document.querySelectorAll(".hero-actions a[href^='#']").forEach((link) => {
+  link.addEventListener("click", (event) => {
+    const targetId = decodeURIComponent(link.getAttribute("href").slice(1));
+    const target = document.getElementById(targetId);
+
+    if (!scrollToPageSection(target)) return;
+
+    event.preventDefault();
+    window.history.replaceState(window.history.state || {}, "", `${window.location.pathname}#${targetId}`);
+  });
+});
+
+setupHeroActionGradients();
+
 function activateRoute() {
   const redirectedPath = sessionStorage.getItem("wiki:path");
+
   if (redirectedPath) {
     sessionStorage.removeItem("wiki:path");
     window.history.replaceState({}, "", redirectedPath);
   }
 
   const targetId = routeToTab[window.location.pathname] || routeToTab["/"];
-  activateTab(targetId, false);
+  activateTab(targetId, false, window.location.hash ? "none" : "top");
+
+  if (window.location.hash) {
+    window.requestAnimationFrame(() => {
+      const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+      scrollToPageSection(target);
+    });
+  }
 }
 
 window.addEventListener("popstate", activateRoute);
 activateRoute();
+
+const MODRINTH_MOD_BASE_URL = "https://modrinth.com/mod/";
+const modrinthVersionCache = new Map();
+const modrinthProjectCache = new Map();
+const modrinthVersionByIdCache = new Map();
+const skippedRequirementProjects = new Set(["fabric-loader", "fabricloader", "minecraft"]);
+const requirementProjectAliases = {
+  everlastingutils: "e-utils",
+  "everlasting-utils": "e-utils",
+  eutils: "e-utils",
+};
+
+function normalizeRequirementSlug(slug) {
+  const normalized = String(slug || "").trim().toLowerCase();
+  return requirementProjectAliases[normalized] || normalized;
+}
+
+function isSkippedRequirement(projectOrSlug) {
+  const slug = normalizeRequirementSlug(projectOrSlug?.slug || projectOrSlug?.id || projectOrSlug);
+  const title = String(projectOrSlug?.title || projectOrSlug?.name || "").trim().toLowerCase().replace(/\s+/g, "-");
+  return skippedRequirementProjects.has(slug) || skippedRequirementProjects.has(title);
+}
+
+function getProjectLinkTarget(project) {
+  const target = String(project?.slug || project?.id || "").trim();
+  if (!target || isSkippedRequirement(target)) return "";
+  if (/^https?:\/\//i.test(target)) return "";
+  if (/\s|[<>"']/g.test(target)) return "";
+  return `${MODRINTH_MOD_BASE_URL}${encodeURIComponent(target)}`;
+}
+
+async function getLatestModrinthVersion(project) {
+  if (!project) return null;
+
+  if (!modrinthVersionCache.has(project)) {
+    const params = new URLSearchParams({
+      loaders: JSON.stringify(["fabric"]),
+      game_versions: JSON.stringify(["1.21.1"]),
+      include_changelog: "false",
+    });
+
+    modrinthVersionCache.set(
+      project,
+      fetch(`https://api.modrinth.com/v2/project/${encodeURIComponent(project)}/version?${params}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Modrinth returned ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((versions) => versions.find((version) => version.status === "listed") || versions[0] || null)
+        .catch((error) => {
+          console.info(`Could not load Modrinth version for ${project}:`, error);
+          return null;
+        }),
+    );
+  }
+
+  return modrinthVersionCache.get(project);
+}
 
 async function loadModrinthVersion(element) {
   const project = element.dataset.modrinthProject;
@@ -348,37 +508,191 @@ async function loadModrinthVersion(element) {
 
   if (!project) return;
 
-  const params = new URLSearchParams({
-    loaders: JSON.stringify(["fabric"]),
-    game_versions: JSON.stringify(["1.21.1"]),
-    include_changelog: "false",
-  });
+  const latestListedVersion = await getLatestModrinthVersion(project);
 
-  try {
-    const response = await fetch(`https://api.modrinth.com/v2/project/${project}/version?${params}`);
-
-    if (!response.ok) {
-      throw new Error(`Modrinth returned ${response.status}`);
-    }
-
-    const versions = await response.json();
-    const latestListedVersion = versions.find((version) => version.status === "listed") || versions[0];
-
-    if (!latestListedVersion) {
-      throw new Error("No public Modrinth versions found");
-    }
-
-    element.textContent = latestListedVersion.version_number;
-    if (note) {
-      note.textContent = `Latest on Modrinth for ${latestListedVersion.game_versions.join(", ")}`;
-    }
-  } catch (error) {
+  if (!latestListedVersion) {
     element.textContent = fallbackVersion;
     if (note) {
       note.textContent = "Modrinth version unavailable";
     }
-    console.info(`Could not load Modrinth version for ${project}:`, error);
+    return;
+  }
+
+  element.textContent = latestListedVersion.version_number;
+  if (note) {
+    note.textContent = `Latest on Modrinth for ${latestListedVersion.game_versions.join(", ")}`;
   }
 }
 
 document.querySelectorAll(".modrinth-version").forEach(loadModrinthVersion);
+
+async function getModrinthProject(projectIdOrSlug) {
+  const slug = normalizeRequirementSlug(projectIdOrSlug);
+  if (!slug || isSkippedRequirement(slug)) return null;
+
+  if (!modrinthProjectCache.has(slug)) {
+    modrinthProjectCache.set(
+      slug,
+      fetch(`https://api.modrinth.com/v2/project/${encodeURIComponent(slug)}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Modrinth returned ${response.status}`);
+          }
+          return response.json();
+        })
+        .catch((error) => {
+          console.info(`Could not load Modrinth project for ${slug}:`, error);
+          return null;
+        }),
+    );
+  }
+
+  return modrinthProjectCache.get(slug);
+}
+
+async function getModrinthVersionById(versionId) {
+  const id = String(versionId || "").trim();
+  if (!id) return null;
+
+  if (!modrinthVersionByIdCache.has(id)) {
+    modrinthVersionByIdCache.set(
+      id,
+      fetch(`https://api.modrinth.com/v2/version/${encodeURIComponent(id)}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Modrinth returned ${response.status}`);
+          }
+          return response.json();
+        })
+        .catch((error) => {
+          console.info(`Could not load Modrinth dependency version ${id}:`, error);
+          return null;
+        }),
+    );
+  }
+
+  return modrinthVersionByIdCache.get(id);
+}
+
+function createRequirementText(name) {
+  const span = document.createElement("span");
+  span.className = "requirement-name";
+  span.textContent = name || "Unknown requirement";
+  return span;
+}
+
+function createRequirementLink(project, fallbackName) {
+  const href = getProjectLinkTarget(project);
+  const label = fallbackName || project?.title || project?.slug || project?.id || "Unknown requirement";
+
+  if (!href) {
+    return createRequirementText(label);
+  }
+
+  const link = document.createElement("a");
+  link.className = "requirement-link";
+  link.href = href;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.textContent = label;
+  return link;
+}
+
+function renderRequirementLinks(element, projects) {
+  const fragment = document.createDocumentFragment();
+  const uniqueProjects = [];
+  const seen = new Set();
+
+  projects.forEach((project) => {
+    if (!project || isSkippedRequirement(project)) return;
+    const key = project.id || project.slug || project.title;
+    if (!key || seen.has(key)) return;
+    seen.add(key);
+    uniqueProjects.push(project);
+  });
+
+  uniqueProjects.forEach((project, index) => {
+    if (index > 0) fragment.append(", ");
+    fragment.append(createRequirementLink(project));
+  });
+
+  if (uniqueProjects.length) {
+    element.replaceChildren(fragment);
+  }
+}
+
+async function loadRequirementLink(element) {
+  const rawSlug = element.dataset.modrinthRequirement;
+  const slug = normalizeRequirementSlug(rawSlug);
+  const fallbackName = element.textContent.trim();
+
+  if (!slug || isSkippedRequirement(slug)) {
+    element.remove();
+    return;
+  }
+
+  const project = await getModrinthProject(slug);
+  if (!project || isSkippedRequirement(project)) {
+    element.replaceWith(createRequirementText(fallbackName));
+    return;
+  }
+
+  element.replaceWith(createRequirementLink(project, fallbackName));
+}
+
+async function getDependencyProject(dependency) {
+  if (dependency.project_id) {
+    return getModrinthProject(dependency.project_id);
+  }
+
+  if (dependency.version_id) {
+    const dependencyVersion = await getModrinthVersionById(dependency.version_id);
+    if (dependencyVersion?.project_id) {
+      return getModrinthProject(dependencyVersion.project_id);
+    }
+  }
+
+  return null;
+}
+
+async function loadVersionRequirements(element) {
+  const project = element.dataset.modrinthRequirementsFor;
+  if (!project) return;
+
+  const latestVersion = await getLatestModrinthVersion(project);
+  const dependencies = latestVersion?.dependencies || [];
+  const requiredDependencies = dependencies.filter((dependency) => dependency.dependency_type === "required");
+
+  if (!requiredDependencies.length) {
+    element.querySelectorAll("[data-modrinth-requirement]").forEach(loadRequirementLink);
+    return;
+  }
+
+  const projects = (await Promise.all(requiredDependencies.map(getDependencyProject)))
+    .filter((dependencyProject) => dependencyProject && !isSkippedRequirement(dependencyProject));
+
+  if (!projects.length) {
+    element.querySelectorAll("[data-modrinth-requirement]").forEach(loadRequirementLink);
+    return;
+  }
+
+  renderRequirementLinks(element, projects);
+}
+
+document.querySelectorAll("[data-modrinth-requirements-for]").forEach(loadVersionRequirements);
+document
+  .querySelectorAll("[data-modrinth-requirement]")
+  .forEach((element) => {
+    if (!element.closest("[data-modrinth-requirements-for]")) {
+      loadRequirementLink(element);
+    }
+  });
+
+document.addEventListener("click", (event) => {
+  const link = event.target.closest("a.requirement-link");
+  if (!link) return;
+
+  if (!link.href || !link.href.startsWith(MODRINTH_MOD_BASE_URL)) {
+    event.preventDefault();
+  }
+});
