@@ -11,12 +11,12 @@
       <div class="header-inner">
         <div>
           <p class="eyebrow">Minecraft Mods Wiki</p>
-          <h1>Server Mod Documentation</h1>
+          <h1>Mod Wiki</h1>
         </div>
         <nav class="mod-tabs" aria-label="Mod tabs">
           <button class="tab is-active" type="button" data-tab="cobblespawnregions">CobbleSpawnRegions</button>
-          <button class="tab" type="button" data-tab="coming-soon-a">Next Mod</button>
-          <button class="tab" type="button" data-tab="coming-soon-b">More Mods</button>
+          <button class="tab" type="button" data-tab="coming-soon-a">Under constructions</button>
+          <button class="tab" type="button" data-tab="coming-soon-b">Under constructions</button>
         </nav>
       </div>
     </header>
@@ -30,6 +30,10 @@
               <p class="eyebrow">Fabric 1.21.1</p>
               <h2>CobbleSpawnRegions</h2>
               <p class="lead">Create named regions that control Cobblemon natural spawns and custom Pokemon spawns.</p>
+              <div class="hero-actions">
+                <a class="button-link" href="https://modrinth.com/mod/cobblespawnregions" target="_blank" rel="noopener">View on Modrinth</a>
+                <a class="button-link secondary" href="#commands">Commands</a>
+              </div>
             </div>
           </div>
           <dl class="facts">
@@ -46,11 +50,12 @@
               </dd>
             </div>
             <div><dt>Requires</dt><dd>Fabric Loader, Fabric API, Fabric Language Kotlin, Cobblemon</dd></div>
+            <div><dt>Modrinth</dt><dd><a href="https://modrinth.com/mod/cobblespawnregions" target="_blank" rel="noopener">Open project page</a></dd></div>
           </dl>
         </section>
 
-        <section class="content-grid">
-          <article class="panel">
+        <section class="quick-start-section">
+          <article class="panel quick-start">
             <h3>Quick Start</h3>
             <ol>
               <li>Run <code>/csr giveclaimstick coords</code> or <code>/csr giveclaimstick chunk</code>.</li>
@@ -61,15 +66,20 @@
             </ol>
           </article>
 
-          <article class="panel">
-            <h3>Region Modes</h3>
-            <p><strong>Coords mode</strong> uses the exact two block positions selected with the claim stick.</p>
-            <p><strong>Chunk mode</strong> expands the selected chunks into a full-height region from the world's bottom to top Y.</p>
-            <p>Region IDs are generated from the name by lowercasing it and replacing unsupported characters with underscores.</p>
+          <article class="panel screenshot-card">
+            <h3>Image Slot</h3>
+            <div class="image-placeholder">
+              <span>Add GUI or region screenshot here</span>
+            </div>
           </article>
+        </section>
 
-          <article class="panel wide">
-            <h3>Core Commands</h3>
+        <section id="commands" class="doc-section">
+          <div class="section-heading">
+            <p class="eyebrow">Reference</p>
+            <h3>Commands</h3>
+          </div>
+          <article class="panel">
             <div class="command-list">
               <div><code>/csr giveclaimstick coords|chunk</code><span>Gives a region selection stick.</span></div>
               <div><code>/csr create &lt;name&gt;</code><span>Creates a region from the current two-point selection.</span></div>
@@ -84,7 +94,20 @@
               <div><code>/csr reload</code><span>Reloads config files and rescans loaded chunks.</span></div>
             </div>
           </article>
+        </section>
 
+        <section class="doc-section">
+          <div class="section-heading">
+            <p class="eyebrow">Usage</p>
+            <h3>Features</h3>
+          </div>
+          <div class="feature-grid">
+            <article class="panel">
+              <h3>Region Modes</h3>
+              <p><strong>Coords mode</strong> uses the exact two block positions selected with the claim stick.</p>
+              <p><strong>Chunk mode</strong> expands the selected chunks into a full-height region from the world's bottom to top Y.</p>
+              <p>Region IDs are generated from the name by lowercasing it and replacing unsupported characters with underscores.</p>
+            </article>
           <article class="panel">
             <h3>Natural Spawn Controls</h3>
             <p>Natural spawn settings affect wild Cobblemon spawns inside the region that wins priority at a position.</p>
@@ -96,7 +119,6 @@
               <li><strong>Conditions</strong> blocks spawns matching configured condition strings.</li>
             </ul>
           </article>
-
           <article class="panel">
             <h3>Custom Spawn Controls</h3>
             <p>Custom spawns are Pokemon the region spawns itself. They obey the region timer, selected Pokemon entries, spawn caps, block filters, time, weather, and region priority.</p>
@@ -107,8 +129,7 @@
               <li><strong>Require Player Nearby</strong> only spawns while a player is within the configured range around the bounds.</li>
             </ul>
           </article>
-
-          <article class="panel wide">
+          <article class="panel">
             <h3>Pokemon Entry Settings</h3>
             <div class="settings-grid">
               <div><strong>Chance</strong><span>Competitive entries are weighted against each other. Independent entries roll their own percent chance first.</span></div>
@@ -121,21 +142,37 @@
               <div><strong>Stay In Region</strong><span>Custom-spawned Pokemon can path back toward a random, center, or closest region point.</span></div>
             </div>
           </article>
-
           <article class="panel">
             <h3>Priority and Overlap</h3>
             <p>When regions overlap, the highest priority region controls that position. If priorities match, smaller regions win before larger regions, then region ID is used as a final tie-breaker.</p>
             <p>Use <code>/csr priority &lt;regionId&gt; &lt;value&gt;</code> to change priority.</p>
           </article>
-
           <article class="panel">
             <h3>Config Files</h3>
             <p>Main config lives at <code>config/cobblespawnregions</code>. Regions are saved as JSON/JSONC files under <code>config/cobblespawnregions/regions</code>.</p>
             <p>The mod also tracks custom spawned Pokemon in <code>config/cobblespawnregions/tracked_spawns.json</code> so unloaded entities still count against caps.</p>
           </article>
+          </div>
+        </section>
 
-          <article class="panel wide">
+        <section class="doc-section">
+          <div class="section-heading">
+            <p class="eyebrow">Media</p>
+            <h3>Image Slots</h3>
+          </div>
+          <div class="image-grid">
+            <div class="image-placeholder"><span>Region editor GUI</span></div>
+            <div class="image-placeholder"><span>Particle visualization</span></div>
+            <div class="image-placeholder"><span>Pokemon entry settings</span></div>
+          </div>
+        </section>
+
+        <section class="doc-section">
+          <div class="section-heading">
+            <p class="eyebrow">Reference</p>
             <h3>Admin Commands</h3>
+          </div>
+          <article class="panel">
             <div class="command-list">
               <div><code>/csr addmon &lt;regionId&gt; &lt;pokemon&gt; [form] [aspects]</code><span>Adds a custom spawn entry.</span></div>
               <div><code>/csr removemon &lt;regionId&gt; &lt;pokemon&gt; [form] [aspects]</code><span>Removes a custom spawn entry.</span></div>
@@ -150,20 +187,52 @@
             </div>
           </article>
         </section>
+
+        <section class="doc-section">
+          <div class="section-heading">
+            <p class="eyebrow">Examples</p>
+            <h3>Config Examples</h3>
+          </div>
+          <div class="examples-grid">
+            <article class="panel">
+              <h3>Region File</h3>
+              <pre><code>{
+  "regionId": "forest_spawns",
+  "regionName": "Forest Spawns",
+  "dimension": "minecraft:overworld",
+  "mode": "COORDS",
+  "priority": 10,
+  "spawnTimerTicks": 200,
+  "spawnAmountPerSpawn": 1,
+  "maxTotalSpawns": 20
+}</code></pre>
+            </article>
+            <article class="panel">
+              <h3>Pokemon Entry</h3>
+              <pre><code>{
+  "pokemonName": "pikachu",
+  "spawnChance": 50.0,
+  "spawnChanceType": "COMPETITIVE",
+  "minLevel": 5,
+  "maxLevel": 20,
+  "maxSpawnCount": 5,
+  "spawnSettings": {
+    "spawnTime": "DAY",
+    "spawnWeather": "ALL",
+    "allowedBlocks": ["#solid"]
+  }
+}</code></pre>
+            </article>
+          </div>
+        </section>
       </section>
 
       <section id="coming-soon-a" class="tab-panel">
-        <section class="empty-state">
-          <h2>Next Mod</h2>
-          <p>Add the next mod's wiki content here when you are ready. The tab structure is already in place for a multi-mod GitHub Pages wiki.</p>
-        </section>
+        <section class="empty-state"></section>
       </section>
 
       <section id="coming-soon-b" class="tab-panel">
-        <section class="empty-state">
-          <h2>More Mods</h2>
-          <p>This placeholder keeps the layout ready for additional mod pages without changing the site structure later.</p>
-        </section>
+        <section class="empty-state"></section>
       </section>
     </main>
 
