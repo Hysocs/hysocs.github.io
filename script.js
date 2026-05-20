@@ -24,6 +24,10 @@ const sidebarToggle = document.querySelector(".sidebar-toggle");
 function setSidebarCollapsed(isCollapsed) {
   document.body.classList.toggle("is-sidebar-collapsed", isCollapsed);
 
+  document.querySelectorAll(".tab-label, .sidebar-link-label").forEach((label) => {
+    label.setAttribute("aria-hidden", String(isCollapsed));
+  });
+
   if (sidebarToggle) {
     sidebarToggle.setAttribute("aria-expanded", String(!isCollapsed));
     sidebarToggle.setAttribute("aria-label", isCollapsed ? "Expand sidebar" : "Collapse sidebar");
@@ -245,11 +249,15 @@ function activateTab(targetId, updateUrl = true, scrollMode = "top") {
   tabs.forEach((tab) => {
     const isActive = tab.dataset.tab === targetId;
     tab.classList.toggle("is-active", isActive);
+    tab.setAttribute("aria-selected", String(isActive));
+    tab.tabIndex = isActive ? 0 : -1;
     if (isActive) activeTheme = tab.dataset.theme || "";
   });
 
   panels.forEach((panel) => {
-    panel.classList.toggle("is-active", panel.id === targetId);
+    const isActive = panel.id === targetId;
+    panel.classList.toggle("is-active", isActive);
+    panel.hidden = !isActive;
   });
 
   activeTabId = targetId;
@@ -284,6 +292,28 @@ tabs.forEach((tab) => {
     }
 
     activateTab(targetId, true, "top");
+  });
+
+  tab.addEventListener("keydown", (event) => {
+    const tabList = [...tabs];
+    const currentIndex = tabList.indexOf(tab);
+    let nextIndex = currentIndex;
+
+    if (event.key === "ArrowDown" || event.key === "ArrowRight") {
+      nextIndex = (currentIndex + 1) % tabList.length;
+    } else if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
+      nextIndex = (currentIndex - 1 + tabList.length) % tabList.length;
+    } else if (event.key === "Home") {
+      nextIndex = 0;
+    } else if (event.key === "End") {
+      nextIndex = tabList.length - 1;
+    } else {
+      return;
+    }
+
+    event.preventDefault();
+    tabList[nextIndex].focus();
+    tabList[nextIndex].click();
   });
 });
 

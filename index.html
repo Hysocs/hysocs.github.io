@@ -21,24 +21,24 @@
             </button>
           </div>
 
-          <nav class="mod-tabs" aria-label="Mod tabs">
-            <button class="tab is-active theme-regions" type="button" data-tab="cobblespawnregions" data-theme="theme-regions-page">
+          <nav class="mod-tabs" aria-label="Mod tabs" role="tablist">
+            <button id="tab-cobblespawnregions" class="tab is-active theme-regions" type="button" role="tab" aria-label="CobbleSpawnRegions" aria-selected="true" aria-controls="cobblespawnregions" tabindex="0" data-tab="cobblespawnregions" data-theme="theme-regions-page">
               <span class="tab-icon" aria-hidden="true"><img src="assets/cobblespawnregions-icon.png" alt=""></span>
               <span class="tab-label">CobbleSpawnRegions</span>
             </button>
-            <button class="tab theme-hunts" type="button" data-tab="cobblehunts" data-theme="theme-hunts-page">
+            <button id="tab-cobblehunts" class="tab theme-hunts" type="button" role="tab" aria-label="CobbleHunts" aria-selected="false" aria-controls="cobblehunts" tabindex="-1" data-tab="cobblehunts" data-theme="theme-hunts-page">
               <span class="tab-icon" aria-hidden="true"><img src="assets/cobblehunts-icon.png" alt=""></span>
               <span class="tab-label">CobbleHunts</span>
             </button>
-            <button class="tab theme-battle" type="button" data-tab="cobblebattlerewards" data-theme="theme-battle-page">
+            <button id="tab-cobblebattlerewards" class="tab theme-battle" type="button" role="tab" aria-label="CobbleBattleRewards" aria-selected="false" aria-controls="cobblebattlerewards" tabindex="-1" data-tab="cobblebattlerewards" data-theme="theme-battle-page">
               <span class="tab-icon" aria-hidden="true"><img src="assets/cobblebattlerewards-icon.png" alt=""></span>
               <span class="tab-label">CobbleBattleRewards</span>
             </button>
-            <button class="tab theme-rtp" type="button" data-tab="blanketrtp" data-theme="theme-rtp-page">
+            <button id="tab-blanketrtp" class="tab theme-rtp" type="button" role="tab" aria-label="B-RTP" aria-selected="false" aria-controls="blanketrtp" tabindex="-1" data-tab="blanketrtp" data-theme="theme-rtp-page">
               <span class="tab-icon" aria-hidden="true"><img src="assets/blanketrtp-icon.png" alt=""></span>
               <span class="tab-label">B-RTP</span>
             </button>
-            <button class="tab" type="button" data-tab="coming-soon-b">
+            <button id="tab-coming-soon-b" class="tab" type="button" role="tab" aria-label="Under construction" aria-selected="false" aria-controls="coming-soon-b" tabindex="-1" data-tab="coming-soon-b">
               <span class="tab-icon tab-icon-placeholder" aria-hidden="true">+</span>
               <span class="tab-label">Under construction</span>
             </button>
@@ -67,7 +67,7 @@
 
       <div class="site-page">
         <main>
-      <section id="cobblespawnregions" class="tab-panel is-active">
+      <section id="cobblespawnregions" class="tab-panel is-active" role="tabpanel" aria-labelledby="tab-cobblespawnregions">
         <section class="mod-hero">
           <div class="mod-title">
             <img src="assets/cobblespawnregions-icon.png" alt="" class="mod-icon">
@@ -512,7 +512,7 @@
         </section>
       </section>
 
-      <section id="cobblebattlerewards" class="tab-panel">
+      <section id="cobblebattlerewards" class="tab-panel" role="tabpanel" aria-labelledby="tab-cobblebattlerewards" hidden>
         <section class="mod-hero">
           <div class="mod-title">
             <img src="assets/cobblebattlerewards-icon.png" alt="" class="mod-icon">
@@ -813,7 +813,7 @@
         </section>
       </section>
 
-      <section id="cobblehunts" class="tab-panel">
+      <section id="cobblehunts" class="tab-panel" role="tabpanel" aria-labelledby="tab-cobblehunts" hidden>
         <section class="mod-hero">
           <div class="mod-title">
             <img src="assets/cobblehunts-icon.png" alt="" class="mod-icon">
@@ -1145,7 +1145,7 @@
         </section>
       </section>
 
-      <section id="blanketrtp" class="tab-panel">
+      <section id="blanketrtp" class="tab-panel" role="tabpanel" aria-labelledby="tab-blanketrtp" hidden>
         <section class="mod-hero">
           <div class="mod-title">
             <img src="assets/blanketrtp-icon.png" alt="" class="mod-icon">
@@ -1398,7 +1398,7 @@
         </section>
       </section>
 
-      <section id="coming-soon-b" class="tab-panel">
+      <section id="coming-soon-b" class="tab-panel" role="tabpanel" aria-labelledby="tab-coming-soon-b" hidden>
         <section class="empty-state"></section>
       </section>
         </main>
