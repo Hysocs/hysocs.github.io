@@ -587,6 +587,7 @@ window.addEventListener("popstate", activateRoute);
 activateRoute();
 
 const MODRINTH_MOD_BASE_URL = "https://modrinth.com/mod/";
+const MODRINTH_USER_AGENT = "Everlasting.mods-Wiki/1.0.0 (Minecraft mod documentation site; https://github.com/Hysocs/hysocs.github.io)";
 const modrinthVersionCache = new Map();
 const modrinthProjectCache = new Map();
 const modrinthVersionByIdCache = new Map();
@@ -616,6 +617,19 @@ function getProjectLinkTarget(project) {
   return `${MODRINTH_MOD_BASE_URL}${encodeURIComponent(target)}`;
 }
 
+async function fetchModrinth(url) {
+  try {
+    return await fetch(url, {
+      headers: {
+        "User-Agent": MODRINTH_USER_AGENT,
+      },
+    });
+  } catch (error) {
+    console.info("Browser blocked the custom Modrinth User-Agent header; retrying without it.", error);
+    return fetch(url);
+  }
+}
+
 async function getLatestModrinthVersion(project) {
   if (!project) return null;
 
@@ -628,7 +642,7 @@ async function getLatestModrinthVersion(project) {
 
     modrinthVersionCache.set(
       project,
-      fetch(`https://api.modrinth.com/v2/project/${encodeURIComponent(project)}/version?${params}`)
+      fetchModrinth(`https://api.modrinth.com/v2/project/${encodeURIComponent(project)}/version?${params}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error(`Modrinth returned ${response.status}`);
@@ -678,7 +692,7 @@ async function getModrinthProject(projectIdOrSlug) {
   if (!modrinthProjectCache.has(slug)) {
     modrinthProjectCache.set(
       slug,
-      fetch(`https://api.modrinth.com/v2/project/${encodeURIComponent(slug)}`)
+      fetchModrinth(`https://api.modrinth.com/v2/project/${encodeURIComponent(slug)}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error(`Modrinth returned ${response.status}`);
@@ -702,7 +716,7 @@ async function getModrinthVersionById(versionId) {
   if (!modrinthVersionByIdCache.has(id)) {
     modrinthVersionByIdCache.set(
       id,
-      fetch(`https://api.modrinth.com/v2/version/${encodeURIComponent(id)}`)
+      fetchModrinth(`https://api.modrinth.com/v2/version/${encodeURIComponent(id)}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error(`Modrinth returned ${response.status}`);
