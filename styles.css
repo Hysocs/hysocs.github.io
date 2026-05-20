@@ -378,6 +378,30 @@ dd {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.json-guide {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.json-basics {
+  min-height: 260px;
+}
+
+.example-wide {
+  grid-column: 1 / -1;
+}
+
+.json-guide pre code {
+  max-height: 720px;
+  overflow: auto;
+}
+
+.json-guide .panel h3 + p {
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+
 p {
   margin: 0 0 12px;
 }
@@ -487,6 +511,7 @@ footer {
   .quick-start-section,
   .feature-grid,
   .image-grid,
+  .json-guide,
   .examples-grid,
   .command-list {
     grid-template-columns: 1fr;

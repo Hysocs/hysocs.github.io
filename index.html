@@ -167,36 +167,303 @@
         <section class="doc-section">
           <div class="section-heading">
             <p class="eyebrow">Examples</p>
-            <h3>Config Examples</h3>
+            <h3>JSON Config Guide</h3>
           </div>
-          <div class="examples-grid">
-            <article class="panel">
-              <h3>Region File</h3>
+          <div class="json-guide">
+            <article class="panel json-basics">
+              <h3>Before Editing JSON</h3>
+              <ul>
+                <li>Region files live in <code>config/cobblespawnregions/regions</code>.</li>
+                <li>Each region is one <code>region_name.jsonc</code> file.</li>
+                <li>Pokemon go inside the <code>selectedPokemon</code> array.</li>
+                <li>Objects use <code>{ }</code>. Lists use <code>[ ]</code>. Text must use quotes.</li>
+                <li>Put a comma between fields and between Pokemon entries, but not after the last item.</li>
+                <li>Run <code>/csr reload</code> after editing files.</li>
+              </ul>
+            </article>
+
+            <article class="panel json-basics">
+              <h3>Common Values</h3>
+              <ul>
+                <li><code>spawnTime</code>: <code>ALL</code>, <code>DAY</code>, or <code>NIGHT</code>.</li>
+                <li><code>spawnWeather</code>: <code>ALL</code>, <code>CLEAR</code>, <code>RAIN</code>, or <code>THUNDER</code>.</li>
+                <li><code>spawnChanceType</code>: <code>COMPETITIVE</code> or <code>INDEPENDENT</code>.</li>
+                <li><code>allowedBlocks</code>: <code>#solid</code>, <code>#water</code>, <code>#air</code>, or block IDs.</li>
+                <li><code>returnTarget</code>: <code>RANDOM</code>, <code>CENTER</code>, or <code>CLOSEST</code>.</li>
+                <li>Most caps use <code>0</code> as unlimited.</li>
+              </ul>
+            </article>
+
+            <article class="panel example-wide">
+              <h3>Full Region File With Two Pokemon</h3>
               <pre><code>{
+  "version": "1.0.1",
+  "configId": "cobblespawnregions",
   "regionId": "forest_spawns",
   "regionName": "Forest Spawns",
+  "pos1": { "x": 100, "y": 64, "z": 100 },
+  "pos2": { "x": 160, "y": 90, "z": 160 },
   "dimension": "minecraft:overworld",
   "mode": "COORDS",
   "priority": 10,
   "spawnTimerTicks": 200,
   "spawnAmountPerSpawn": 1,
+  "requirePlayerInRange": true,
+  "playerActivationRange": 64.0,
+  "forceChunkLoading": false,
+  "chunkLoadRadius": 1,
+  "maxForceLoadedChunks": 25,
+  "selectedPokemon": [
+    {
+      "pokemonName": "pikachu",
+      "formName": "Normal",
+      "aspects": [],
+      "spawnChance": 70.0,
+      "spawnChanceType": "COMPETITIVE",
+      "minLevel": 8,
+      "maxLevel": 18,
+      "sizeSettings": {
+        "allowCustomSize": false,
+        "minSize": 1.0,
+        "maxSize": 1.0
+      },
+      "captureSettings": {
+        "isCatchable": true,
+        "restrictCaptureToLimitedBalls": false,
+        "requiredPokeBalls": ["poke_ball"]
+      },
+      "ivSettings": {
+        "allowCustomIvs": false,
+        "minIVHp": 0,
+        "maxIVHp": 31,
+        "minIVAttack": 0,
+        "maxIVAttack": 31,
+        "minIVDefense": 0,
+        "maxIVDefense": 31,
+        "minIVSpecialAttack": 0,
+        "maxIVSpecialAttack": 31,
+        "minIVSpecialDefense": 0,
+        "maxIVSpecialDefense": 31,
+        "minIVSpeed": 0,
+        "maxIVSpeed": 31
+      },
+      "evSettings": {
+        "allowCustomEvsOnDefeat": false,
+        "evHp": 0,
+        "evAttack": 0,
+        "evDefense": 0,
+        "evSpecialAttack": 0,
+        "evSpecialDefense": 0,
+        "evSpeed": 0
+      },
+      "spawnSettings": {
+        "spawnTime": "DAY",
+        "spawnWeather": "ALL",
+        "allowedBlocks": ["#solid"]
+      },
+      "wanderingSettings": {
+        "enabled": true,
+        "returnTarget": "RANDOM",
+        "speed": 0.5,
+        "tickDelay": 10
+      },
+      "heldItemsOnSpawn": {
+        "allowHeldItemsOnSpawn": false,
+        "itemsWithChance": {
+          "minecraft:cobblestone": 0.1,
+          "cobblemon:pokeball": 100.0
+        }
+      },
+      "moves": {
+        "allowCustomInitialMoves": false,
+        "selectedMoves": []
+      },
+      "maxSpawnCount": 5
+    },
+    {
+      "pokemonName": "bulbasaur",
+      "formName": "Normal",
+      "aspects": [],
+      "spawnChance": 30.0,
+      "spawnChanceType": "COMPETITIVE",
+      "minLevel": 5,
+      "maxLevel": 12,
+      "spawnSettings": {
+        "spawnTime": "ALL",
+        "spawnWeather": "RAIN",
+        "allowedBlocks": ["minecraft:grass_block", "#solid"]
+      },
+      "maxSpawnCount": 3
+    }
+  ],
+  "spawnRestrictions": {
+    "disallowedSpecies": [],
+    "disallowedLabels": [],
+    "exclusionConditions": [],
+    "disableAll": false,
+    "excludeOwnedPokemon": false
+  },
   "maxTotalSpawns": 20
 }</code></pre>
             </article>
-            <article class="panel">
-              <h3>Pokemon Entry</h3>
-              <pre><code>{
-  "pokemonName": "pikachu",
-  "spawnChance": 50.0,
-  "spawnChanceType": "COMPETITIVE",
-  "minLevel": 5,
-  "maxLevel": 20,
-  "maxSpawnCount": 5,
-  "spawnSettings": {
-    "spawnTime": "DAY",
-    "spawnWeather": "ALL",
-    "allowedBlocks": ["#solid"]
+
+            <article class="panel example-wide">
+              <h3>Add Or Edit Pokemon Entries</h3>
+              <p>To add a Pokemon manually, paste a new object inside <code>selectedPokemon</code>. If another Pokemon object comes after it, add a comma after the closing <code>}</code>.</p>
+              <pre><code>"selectedPokemon": [
+  {
+    "pokemonName": "pikachu",
+    "formName": "Normal",
+    "aspects": [],
+    "spawnChance": 50.0,
+    "spawnChanceType": "COMPETITIVE",
+    "minLevel": 5,
+    "maxLevel": 20,
+    "spawnSettings": {
+      "spawnTime": "DAY",
+      "spawnWeather": "ALL",
+      "allowedBlocks": ["#solid"]
+    },
+    "maxSpawnCount": 5
+  },
+  {
+    "pokemonName": "charmander",
+    "formName": "Normal",
+    "aspects": [],
+    "spawnChance": 25.0,
+    "spawnChanceType": "COMPETITIVE",
+    "minLevel": 8,
+    "maxLevel": 18,
+    "spawnSettings": {
+      "spawnTime": "ALL",
+      "spawnWeather": "CLEAR",
+      "allowedBlocks": ["minecraft:stone", "#solid"]
+    },
+    "maxSpawnCount": 2
   }
+]</code></pre>
+            </article>
+
+            <article class="panel">
+              <h3>Shiny, Form, Or Aspect</h3>
+              <pre><code>{
+  "pokemonName": "ponyta",
+  "formName": "galarian",
+  "aspects": ["shiny"],
+  "spawnChance": 2.0,
+  "spawnChanceType": "INDEPENDENT",
+  "minLevel": 20,
+  "maxLevel": 35,
+  "maxSpawnCount": 1
+}</code></pre>
+            </article>
+
+            <article class="panel">
+              <h3>Catch Rules</h3>
+              <pre><code>"captureSettings": {
+  "isCatchable": true,
+  "restrictCaptureToLimitedBalls": true,
+  "requiredPokeBalls": [
+    "poke_ball",
+    "great_ball",
+    "ultra_ball"
+  ]
+}</code></pre>
+            </article>
+
+            <article class="panel">
+              <h3>Custom IVs</h3>
+              <pre><code>"ivSettings": {
+  "allowCustomIvs": true,
+  "minIVHp": 31,
+  "maxIVHp": 31,
+  "minIVAttack": 0,
+  "maxIVAttack": 31,
+  "minIVDefense": 0,
+  "maxIVDefense": 31,
+  "minIVSpecialAttack": 0,
+  "maxIVSpecialAttack": 31,
+  "minIVSpecialDefense": 0,
+  "maxIVSpecialDefense": 31,
+  "minIVSpeed": 31,
+  "maxIVSpeed": 31
+}</code></pre>
+            </article>
+
+            <article class="panel">
+              <h3>Custom EV Reward</h3>
+              <pre><code>"evSettings": {
+  "allowCustomEvsOnDefeat": true,
+  "evHp": 0,
+  "evAttack": 0,
+  "evDefense": 0,
+  "evSpecialAttack": 0,
+  "evSpecialDefense": 10,
+  "evSpeed": 0
+}</code></pre>
+            </article>
+
+            <article class="panel">
+              <h3>Custom Size</h3>
+              <pre><code>"sizeSettings": {
+  "allowCustomSize": true,
+  "minSize": 0.8,
+  "maxSize": 1.4
+}</code></pre>
+            </article>
+
+            <article class="panel">
+              <h3>Held Items On Spawn</h3>
+              <pre><code>"heldItemsOnSpawn": {
+  "allowHeldItemsOnSpawn": true,
+  "itemsWithChance": {
+    "minecraft:diamond": 5.0,
+    "cobblemon:pokeball": 100.0
+  }
+}</code></pre>
+            </article>
+
+            <article class="panel">
+              <h3>Custom Initial Moves</h3>
+              <pre><code>"moves": {
+  "allowCustomInitialMoves": true,
+  "selectedMoves": [
+    {
+      "level": 1,
+      "moveId": "tackle",
+      "forced": true
+    },
+    {
+      "level": 10,
+      "moveId": "quickattack",
+      "forced": false
+    }
+  ]
+}</code></pre>
+            </article>
+
+            <article class="panel">
+              <h3>Stay In Region</h3>
+              <pre><code>"wanderingSettings": {
+  "enabled": true,
+  "returnTarget": "CLOSEST",
+  "speed": 0.6,
+  "tickDelay": 10
+}</code></pre>
+            </article>
+
+            <article class="panel">
+              <h3>Natural Spawn Restrictions</h3>
+              <pre><code>"spawnRestrictions": {
+  "disallowedSpecies": [
+    "cobblemon:pikachu"
+  ],
+  "disallowedLabels": [
+    "legendary"
+  ],
+  "exclusionConditions": [],
+  "disableAll": false,
+  "excludeOwnedPokemon": true
 }</code></pre>
             </article>
           </div>
