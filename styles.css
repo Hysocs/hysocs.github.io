@@ -311,6 +311,10 @@ dd {
   margin: 12px 0 38px;
 }
 
+.quick-start-single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .panel,
 .empty-state {
   border: 1px solid var(--line);
