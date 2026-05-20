@@ -430,11 +430,6 @@ dd {
   grid-column: 1 / -1;
 }
 
-.json-guide pre code {
-  max-height: 720px;
-  overflow: auto;
-}
-
 .json-guide .panel h3 + p {
   color: var(--muted);
   margin-bottom: 14px;
@@ -470,13 +465,13 @@ code {
 
 pre {
   margin: 0;
-  overflow-x: auto;
+  overflow: auto;
 }
 
 pre code {
   display: block;
   min-height: 100%;
-  padding: 44px 16px 16px;
+  padding: 44px 28px 16px 16px;
   border-radius: 8px;
   white-space: pre;
 }
@@ -491,6 +486,8 @@ pre code {
 
 .code-shell pre {
   max-height: 620px;
+  overflow: auto;
+  scrollbar-gutter: stable both-edges;
 }
 
 .code-shell::before {
@@ -508,7 +505,7 @@ pre code {
 .copy-code {
   position: absolute;
   top: 8px;
-  right: 8px;
+  right: 34px;
   z-index: 2;
   border: 1px solid var(--line);
   border-radius: 6px;
