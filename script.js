@@ -1,7 +1,17 @@
 const tabs = document.querySelectorAll(".tab");
 const panels = document.querySelectorAll(".tab-panel");
+const routeToTab = {
+  "/": "cobblespawnregions",
+  "/cobblespawnregions": "cobblespawnregions",
+  "/cobblebattlerewards": "cobblebattlerewards",
+};
 
-function activateTab(targetId) {
+const tabToRoute = {
+  cobblespawnregions: "/cobblespawnregions",
+  cobblebattlerewards: "/cobblebattlerewards",
+};
+
+function activateTab(targetId, updateUrl = true) {
   let activeTheme = "";
 
   tabs.forEach((tab) => {
@@ -16,6 +26,13 @@ function activateTab(targetId) {
 
   document.body.classList.remove("theme-regions-page", "theme-battle-page");
   if (activeTheme) document.body.classList.add(activeTheme);
+
+  if (updateUrl && tabToRoute[targetId]) {
+    const nextPath = tabToRoute[targetId];
+    if (window.location.pathname !== nextPath) {
+      window.history.pushState({ tab: targetId }, "", nextPath);
+    }
+  }
 }
 
 tabs.forEach((tab) => {
@@ -23,6 +40,20 @@ tabs.forEach((tab) => {
     activateTab(tab.dataset.tab);
   });
 });
+
+function activateRoute() {
+  const redirectedPath = sessionStorage.getItem("wiki:path");
+  if (redirectedPath) {
+    sessionStorage.removeItem("wiki:path");
+    window.history.replaceState({}, "", redirectedPath);
+  }
+
+  const targetId = routeToTab[window.location.pathname] || routeToTab["/"];
+  activateTab(targetId, false);
+}
+
+window.addEventListener("popstate", activateRoute);
+activateRoute();
 
 async function loadModrinthVersion(element) {
   const project = element.dataset.modrinthProject;
