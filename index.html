@@ -113,55 +113,29 @@
           </div>
           <div class="feature-grid">
             <article class="panel">
-              <h3>Region Modes</h3>
-              <p><strong>Coords mode</strong> uses the exact two block positions selected with the claim stick.</p>
-              <p><strong>Chunk mode</strong> expands the selected chunks into a full-height region from the world's bottom to top Y.</p>
-              <p>Region IDs are generated from the name by lowercasing it and replacing unsupported characters with underscores.</p>
+              <h3>Region Control</h3>
+              <ul>
+                <li><strong>Coords mode</strong> uses the exact two block positions selected with the claim stick.</li>
+                <li><strong>Chunk mode</strong> expands the selected chunks into a full-height region from the world's bottom to top Y.</li>
+                <li><strong>Priority</strong> decides which region controls overlapping positions.</li>
+                <li><strong>Visualization</strong> toggles particle outlines for selected region bounds.</li>
+                <li><strong>Region IDs</strong> are generated from names by lowercasing and replacing unsupported characters with underscores.</li>
+                <li><strong>Config files</strong> live under <code>config/cobblespawnregions</code>, with regions saved in <code>config/cobblespawnregions/regions</code>.</li>
+              </ul>
             </article>
-          <article class="panel">
-            <h3>Natural Spawn Controls</h3>
-            <p>Natural spawn settings affect wild Cobblemon spawns inside the region that wins priority at a position.</p>
-            <ul>
-              <li><strong>Disable All</strong> blocks natural spawns in the region.</li>
-              <li><strong>Exclude Owned Pokemon</strong> lets owned Pokemon bypass region restrictions.</li>
-              <li><strong>Blocked Species</strong> blocks selected species.</li>
-              <li><strong>Excluded Labels</strong> blocks spawns matching Cobblemon labels.</li>
-              <li><strong>Conditions</strong> blocks spawns matching configured condition strings.</li>
-            </ul>
-          </article>
-          <article class="panel">
-            <h3>Custom Spawn Controls</h3>
-            <p>Custom spawns are Pokemon the region spawns itself. They obey the region timer, selected Pokemon entries, spawn caps, block filters, time, weather, and region priority.</p>
-            <ul>
-              <li><strong>Spawn Timer</strong> is stored in ticks. 20 ticks equals 1 second.</li>
-              <li><strong>Spawn Amount</strong> is the number of spawn attempts each timer cycle.</li>
-              <li><strong>Max Total Spawns</strong> caps all region-owned custom Pokemon. 0 means unlimited.</li>
-              <li><strong>Require Player Nearby</strong> only spawns while a player is within the configured range around the bounds.</li>
-            </ul>
-          </article>
-          <article class="panel">
-            <h3>Pokemon Entry Settings</h3>
-            <div class="settings-grid">
-              <div><strong>Chance</strong><span>Competitive entries are weighted against each other. Independent entries roll their own percent chance first.</span></div>
-              <div><strong>Levels</strong><span>Each spawn picks a level between the configured minimum and maximum.</span></div>
-              <div><strong>Forms and Aspects</strong><span>Forms and aspects are applied to the Cobblemon properties string when spawning.</span></div>
-              <div><strong>Spawn Blocks</strong><span>Allow literal block IDs like <code>minecraft:grass_block</code>, or tags <code>#solid</code>, <code>#water</code>, and <code>#air</code>. Empty means any scanned floor.</span></div>
-              <div><strong>Time and Weather</strong><span>Entries can be limited to DAY, NIGHT, CLEAR, RAIN, THUNDER, or ALL.</span></div>
-              <div><strong>Catch Rules</strong><span>Entries can be uncatchable or limited to selected Pokeball item IDs.</span></div>
-              <div><strong>IVs, EVs, Size, Moves</strong><span>Optional per-entry overrides are applied when the Pokemon is spawned.</span></div>
-              <div><strong>Stay In Region</strong><span>Custom-spawned Pokemon can path back toward a random, center, or closest region point.</span></div>
-            </div>
-          </article>
-          <article class="panel">
-            <h3>Priority and Overlap</h3>
-            <p>When regions overlap, the highest priority region controls that position. If priorities match, smaller regions win before larger regions, then region ID is used as a final tie-breaker.</p>
-            <p>Use <code>/csr priority &lt;regionId&gt; &lt;value&gt;</code> to change priority.</p>
-          </article>
-          <article class="panel">
-            <h3>Config Files</h3>
-            <p>Main config lives at <code>config/cobblespawnregions</code>. Regions are saved as JSON/JSONC files under <code>config/cobblespawnregions/regions</code>.</p>
-            <p>The mod also tracks custom spawned Pokemon in <code>config/cobblespawnregions/tracked_spawns.json</code> so unloaded entities still count against caps.</p>
-          </article>
+            <article class="panel">
+              <h3>Spawn Management</h3>
+              <ul>
+                <li><strong>Natural restrictions</strong> affect wild Cobblemon spawns inside the controlling region.</li>
+                <li><strong>Disable All</strong> blocks natural spawns in a region.</li>
+                <li><strong>Blocked Species, Labels, and Conditions</strong> let you target specific natural spawn types.</li>
+                <li><strong>Custom spawns</strong> are Pokemon the region spawns itself from selected Pokemon entries.</li>
+                <li><strong>Spawn Timer</strong> is stored in ticks. 20 ticks equals 1 second.</li>
+                <li><strong>Max Total Spawns</strong> caps all region-owned custom Pokemon. 0 means unlimited.</li>
+                <li><strong>Pokemon entry settings</strong> include chance, levels, forms, aspects, spawn blocks, time, weather, catch rules, IVs, EVs, size, moves, and stay-in-region behavior.</li>
+                <li><strong>Tracked spawns</strong> are saved in <code>config/cobblespawnregions/tracked_spawns.json</code> so unloaded entities still count against caps.</li>
+              </ul>
+            </article>
           </div>
         </section>
 
