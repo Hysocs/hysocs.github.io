@@ -51,11 +51,11 @@ a:focus-visible {
 }
 
 .header-inner {
-  display: grid;
-  grid-template-columns: minmax(180px, 280px) 1fr;
+  display: flex;
   gap: 24px;
   align-items: center;
-  width: min(1220px, calc(100% - 32px));
+  justify-content: space-between;
+  width: min(1340px, calc(100% - 32px));
   margin: 0 auto;
   padding: 14px 0;
 }
@@ -91,9 +91,13 @@ h3 {
 }
 
 .mod-tabs {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: flex;
+  flex: 1 1 auto;
   gap: 10px;
+  justify-content: flex-end;
+  min-width: 0;
+  overflow-x: auto;
+  padding-bottom: 2px;
 }
 
 .tab {
@@ -106,6 +110,7 @@ h3 {
   font-size: 0.95rem;
   font-weight: 800;
   min-height: 48px;
+  min-width: 184px;
   padding: 0 18px;
   white-space: nowrap;
 }
@@ -124,7 +129,7 @@ h3 {
 
 main,
 footer {
-  width: min(1220px, calc(100% - 32px));
+  width: min(1340px, calc(100% - 32px));
   margin: 0 auto;
 }
 
@@ -138,7 +143,7 @@ footer {
 
 .mod-hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(300px, 430px);
+  grid-template-columns: minmax(0, 1.55fr) minmax(340px, 0.8fr);
   gap: 24px;
   align-items: stretch;
   padding: 34px 0 20px;
@@ -247,7 +252,7 @@ dd {
 
 .quick-start-section {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 360px;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 380px);
   gap: 16px;
   margin: 12px 0 38px;
 }
@@ -268,18 +273,38 @@ dd {
 
 .quick-start ol {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 10px;
-  list-style-position: inside;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 12px;
+  list-style: none;
   padding-left: 0;
+  counter-reset: steps;
 }
 
 .quick-start li {
-  min-height: 126px;
+  position: relative;
+  min-height: 112px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--panel-2);
-  padding: 14px;
+  padding: 16px 16px 16px 52px;
+  overflow-wrap: anywhere;
+  counter-increment: steps;
+}
+
+.quick-start li::before {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(100, 211, 125, 0.18);
+  color: var(--accent);
+  content: counter(steps);
+  font-size: 0.82rem;
+  font-weight: 900;
 }
 
 .image-placeholder {
@@ -310,7 +335,7 @@ dd {
 .image-grid,
 .examples-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
   gap: 16px;
 }
 
@@ -362,12 +387,12 @@ pre code {
 .command-list,
 .settings-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: 10px;
 }
 
 .settings-grid {
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
 }
 
 .command-list div,
@@ -379,10 +404,19 @@ pre code {
   padding: 14px;
 }
 
+.command-list div {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.45fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
 .command-list code {
-  display: inline-block;
+  display: block;
+  width: 100%;
   max-width: 100%;
   overflow-wrap: anywhere;
+  white-space: normal;
 }
 
 .command-list span,
@@ -390,6 +424,10 @@ pre code {
   display: block;
   margin-top: 7px;
   color: var(--muted);
+}
+
+.command-list span {
+  margin-top: 0;
 }
 
 .settings-grid strong {
@@ -410,7 +448,6 @@ footer {
 }
 
 @media (max-width: 980px) {
-  .header-inner,
   .mod-hero,
   .quick-start-section,
   .feature-grid,
@@ -420,16 +457,19 @@ footer {
     grid-template-columns: 1fr;
   }
 
+  .header-inner {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
   .mod-tabs {
-    grid-template-columns: 1fr;
+    justify-content: flex-start;
+    width: 100%;
   }
 
-  .quick-start ol {
+  .command-list div {
     grid-template-columns: 1fr;
-  }
-
-  .quick-start li {
-    min-height: auto;
   }
 }
 
@@ -437,7 +477,7 @@ footer {
   main,
   footer,
   .header-inner {
-    width: min(100% - 24px, 1220px);
+    width: min(100% - 24px, 1340px);
   }
 
   .mod-title {
