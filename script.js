@@ -11,6 +11,8 @@ const routeToTab = {
   "/cobblehunts/": "cobblehunts",
   "/blanketrtp": "blanketrtp",
   "/blanketrtp/": "blanketrtp",
+  "/everlastingutils": "everlastingutils",
+  "/everlastingutils/": "everlastingutils",
 };
 
 const tabToRoute = {
@@ -18,6 +20,7 @@ const tabToRoute = {
   cobblebattlerewards: "/cobblebattlerewards",
   cobblehunts: "/cobblehunts",
   blanketrtp: "/blanketrtp",
+  everlastingutils: "/everlastingutils",
 };
 
 const siteUrl = "https://hysocs.github.io";
@@ -46,6 +49,12 @@ const tabMetadata = {
     description: "Give players safer random teleports with dimensions, cooldowns, warmups, particles, titles, and permission controls.",
     image: `${siteUrl}/assets/blanketrtp-icon.png`,
     themeColor: "#4ade80",
+  },
+  everlastingutils: {
+    title: "EverlastingUtils | Everlasting.mods Wiki",
+    description: "Server-side utility and API library required by Everlasting.mods projects and useful for Fabric mod developers.",
+    image: `${siteUrl}/assets/everlastingutils-icon.png`,
+    themeColor: "#d25481",
   },
 };
 
@@ -95,6 +104,11 @@ const themeColors = {
     theme: "#4ade80",
     dark: "#14532d",
     soft: "#bbf7d0",
+  },
+  "theme-utils-page": {
+    theme: "#d25481",
+    dark: "#6f243d",
+    soft: "#f3a6bf",
   },
 };
 

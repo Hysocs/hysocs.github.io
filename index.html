@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>Everlasting.mods Wiki</title>
-    <meta name="description" content="Documentation for CobbleSpawnRegions, CobbleHunts, CobbleBattleRewards, B-RTP, and more.">
+    <meta name="description" content="Documentation for CobbleSpawnRegions, CobbleHunts, CobbleBattleRewards, B-RTP, EverlastingUtils, and more.">
     <meta name="theme-color" content="#2f8ce7">
     <meta property="og:title" content="Everlasting.mods Wiki">
-    <meta property="og:description" content="Documentation for CobbleSpawnRegions, CobbleHunts, CobbleBattleRewards, B-RTP, and more.">
+    <meta property="og:description" content="Documentation for CobbleSpawnRegions, CobbleHunts, CobbleBattleRewards, B-RTP, EverlastingUtils, and more.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://hysocs.github.io/">
     <meta property="og:image" content="https://hysocs.github.io/assets/cobblespawnregions-icon.png">
     <meta property="og:site_name" content="Everlasting.mods Wiki">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Everlasting.mods Wiki">
-    <meta name="twitter:description" content="Documentation for CobbleSpawnRegions, CobbleHunts, CobbleBattleRewards, B-RTP, and more.">
+    <meta name="twitter:description" content="Documentation for CobbleSpawnRegions, CobbleHunts, CobbleBattleRewards, B-RTP, EverlastingUtils, and more.">
     <meta name="twitter:image" content="https://hysocs.github.io/assets/cobblespawnregions-icon.png">
     <link rel="icon" href="/assets/favicon-16.png" sizes="16x16" type="image/png">
     <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
@@ -54,6 +54,10 @@
             <button id="tab-blanketrtp" class="tab theme-rtp" type="button" role="tab" aria-label="B-RTP" aria-selected="false" aria-controls="blanketrtp" tabindex="-1" data-tab="blanketrtp" data-theme="theme-rtp-page">
               <span class="tab-icon" aria-hidden="true"><img src="assets/blanketrtp-icon.png" alt=""></span>
               <span class="tab-label">B-RTP</span>
+            </button>
+            <button id="tab-everlastingutils" class="tab theme-utils" type="button" role="tab" aria-label="E-Utils" aria-selected="false" aria-controls="everlastingutils" tabindex="-1" data-tab="everlastingutils" data-theme="theme-utils-page">
+              <span class="tab-icon" aria-hidden="true"><img src="assets/everlastingutils-icon.png" alt=""></span>
+              <span class="tab-label">E-Utils</span>
             </button>
             <button id="tab-coming-soon-b" class="tab" type="button" role="tab" aria-label="Under construction" aria-selected="false" aria-controls="coming-soon-b" tabindex="-1" data-tab="coming-soon-b">
               <span class="tab-icon tab-icon-placeholder" aria-hidden="true">+</span>
@@ -112,7 +116,7 @@
                 <span class="version-note">Checking Modrinth...</span>
               </dd>
             </div>
-            <div><dt>Requires</dt><dd class="requirements" data-modrinth-requirements-for="cobblespawnregions"><span class="requirement-link" data-modrinth-requirement="fabric-api">Fabric API</span>, <span class="requirement-link" data-modrinth-requirement="fabric-language-kotlin">Fabric Language Kotlin</span>, <span class="requirement-link" data-modrinth-requirement="cobblemon">Cobblemon</span></dd></div>
+            <div><dt>Requires</dt><dd class="requirements" data-modrinth-requirements-for="cobblespawnregions"><span class="requirement-link" data-modrinth-requirement="fabric-api">Fabric API</span>, <span class="requirement-link" data-modrinth-requirement="fabric-language-kotlin">Fabric Language Kotlin</span>, <span class="requirement-link" data-modrinth-requirement="cobblemon">Cobblemon</span>, <span class="requirement-link" data-modrinth-requirement="e-utils">EverlastingUtils</span></dd></div>
             <div><dt>Modrinth</dt><dd><a href="https://modrinth.com/mod/cobblespawnregions" target="_blank" rel="noopener">Open project page</a></dd></div>
           </dl>
         </section>
@@ -1497,6 +1501,189 @@
   "enableBiomeStandalone": true,
   "biomeStandaloneCommand": "rtpbiome"
 }</code></pre>
+            </article>
+          </div>
+        </section>
+      </section>
+
+      <section id="everlastingutils" class="tab-panel" role="tabpanel" aria-labelledby="tab-everlastingutils" hidden>
+        <section class="mod-hero">
+          <div class="mod-title">
+            <img src="assets/everlastingutils-icon.png" alt="" class="mod-icon">
+            <div>
+              <p class="eyebrow">Fabric 1.21.1</p>
+              <h2>E-Utils</h2>
+              <p class="lead">Server-side utility and API library required by Everlasting.mods projects.</p>
+              <div class="hero-actions">
+                <a class="button-link" href="#everlastingutils-players">Player Setup</a>
+                <a class="button-link secondary" href="#everlastingutils-developers">Developer API</a>
+              </div>
+            </div>
+          </div>
+          <dl class="facts">
+            <div><dt>Mod ID</dt><dd>everlastingutils</dd></div>
+            <div>
+              <dt>Version</dt>
+              <dd>
+                <span
+                  class="modrinth-version"
+                  data-modrinth-project="e-utils"
+                  data-fallback-version="1.1.6"
+                >1.1.6</span>
+                <span class="version-note">Checking Modrinth...</span>
+              </dd>
+            </div>
+            <div><dt>Requires</dt><dd class="requirements" data-modrinth-requirements-for="e-utils"><span class="requirement-link" data-modrinth-requirement="fabric-api">Fabric API</span>, <span class="requirement-link" data-modrinth-requirement="fabric-language-kotlin">Fabric Language Kotlin</span></dd></div>
+            <div><dt>Modrinth</dt><dd><a href="https://modrinth.com/mod/e-utils" target="_blank" rel="noopener">Open project page</a></dd></div>
+          </dl>
+        </section>
+
+        <section id="everlastingutils-players" class="doc-section">
+          <div class="section-heading">
+            <h3>Player Setup</h3>
+          </div>
+          <div class="feature-grid">
+            <article class="panel">
+              <h3>Required Library</h3>
+              <ul>
+                <li>Install EverlastingUtils when another Everlasting.mods mod lists it as a dependency.</li>
+                <li>Put the jar in the same server or client <code>mods</code> folder as the mod that requires it.</li>
+                <li>It does not add gameplay, commands, or in-game setup by itself.</li>
+                <li>Current projects such as CobbleBattleRewards, CobbleHunts, B-RTP, and other newer Everlasting.mods releases use it for shared systems.</li>
+              </ul>
+            </article>
+            <article class="panel">
+              <h3>Dependencies</h3>
+              <ul>
+                <li>Fabric API is required.</li>
+                <li>Fabric Language Kotlin is required.</li>
+                <li>Java 21 is required for Minecraft 1.21.1 servers.</li>
+                <li>For older dependent mods, use EverlastingUtils <code>1.0.2</code> if that is the version they request.</li>
+              </ul>
+            </article>
+            <article class="panel pokemon-settings-panel">
+              <h3>What It Provides</h3>
+              <div class="settings-grid">
+                <div><strong>Configuration</strong><span>JSONC configs, comments, live reloads, secondary files, and migrations.</span></div>
+                <div><strong>Scheduling</strong><span>Server-aware sync and async task scheduling.</span></div>
+                <div><strong>Commands</strong><span>Brigadier command builders with permission checks.</span></div>
+                <div><strong>GUIs</strong><span>Inventory and anvil GUI helpers with callback-based interactions.</span></div>
+                <div><strong>Text</strong><span>MiniMessage parsing into Minecraft text.</span></div>
+                <div><strong>Debugging</strong><span>Per-mod toggleable debug logging helpers.</span></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="everlastingutils-developers" class="doc-section">
+          <div class="section-heading">
+            <h3>Developer API</h3>
+          </div>
+          <div class="json-guide">
+            <article class="panel json-basics">
+              <h3>Gradle Dependency</h3>
+              <pre><code>repositories {
+  maven { url = uri("https://api.modrinth.com/maven") }
+}
+
+dependencies {
+  modImplementation("maven.modrinth:e-utils:1.1.6")
+}</code></pre>
+            </article>
+
+            <article class="panel json-basics">
+              <h3>fabric.mod.json</h3>
+              <pre><code>"depends": {
+  "everlastingutils": "&gt;=1.1.6"
+}</code></pre>
+            </article>
+
+            <article class="panel example-wide">
+              <h3>ConfigManager</h3>
+              <pre><code>data class MyConfig(
+  override val version: String = "1.0.0",
+  override val configId: String = "mymod",
+  var debugMode: Boolean = false,
+  var welcomeMessage: String = "&lt;green&gt;Welcome to my server!"
+) : ConfigData
+
+val configManager = ConfigManager(
+  currentVersion = "1.0.0",
+  defaultConfig = MyConfig(),
+  configClass = MyConfig::class,
+  metadata = ConfigMetadata(
+    headerComments = listOf("Main configuration for MyMod."),
+    sectionComments = mapOf("debugMode" to "Enables detailed console logging.")
+  )
+)
+
+val isDebug = configManager.getCurrentConfig().debugMode</code></pre>
+            </article>
+
+            <article class="panel example-wide">
+              <h3>SchedulerManager</h3>
+              <pre><code>SchedulerManager.scheduleAtFixedRate(
+  id = "mymod-broadcast-task",
+  server = server,
+  initialDelay = 0,
+  period = 5,
+  unit = TimeUnit.MINUTES,
+  runAsync = false
+) {
+  server.playerManager.broadcast(Text.literal("It has been 5 minutes!"), false)
+}</code></pre>
+            </article>
+
+            <article class="panel">
+              <h3>CommandManager</h3>
+              <pre><code>val commandManager = CommandManager(modId = "mymod")
+
+commandManager.command("hello", permission = "mymod.hello") {
+  executes { context -&gt;
+    context.source.sendFeedback({ Text.literal("Hello, world!") }, false)
+    1
+  }
+  subcommand("admin") {
+    executes { context -&gt; 1 }
+  }
+}
+
+commandManager.register()</code></pre>
+            </article>
+
+            <article class="panel">
+              <h3>CustomGui</h3>
+              <pre><code>CustomGui.openGuiFormatted(
+  player = player,
+  title = "&lt;gradient:gold:yellow&gt;My GUI",
+  layout = listOf(
+    CustomGui.createFormattedButton(
+      ItemStack(Items.DIAMOND),
+      "&lt;blue&gt;Click Me!",
+      listOf("&lt;gray&gt;This is a button."),
+      player
+    )
+  ),
+  onInteract = { context -&gt;
+    if (context.slotIndex == 0) {
+      player.sendMessage(Text.literal("You clicked the button!"))
+      CustomGui.closeGui(player)
+    }
+  },
+  onClose = {}
+)</code></pre>
+            </article>
+
+            <article class="panel">
+              <h3>Utility Imports</h3>
+              <ul>
+                <li><code>com.everlastingutils.config.ConfigManager</code> for config files.</li>
+                <li><code>com.everlastingutils.scheduling.SchedulerManager</code> for delayed and repeating tasks.</li>
+                <li><code>com.everlastingutils.command.CommandManager</code> for commands and permission checks.</li>
+                <li><code>com.everlastingutils.gui.CustomGui</code> and <code>AnvilGuiManager</code> for GUI work.</li>
+                <li><code>com.everlastingutils.colors.KyoriHelper</code> for MiniMessage text.</li>
+                <li><code>com.everlastingutils.utils.LogDebug</code> for per-mod debug logging.</li>
+              </ul>
             </article>
           </div>
         </section>
