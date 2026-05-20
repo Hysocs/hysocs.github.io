@@ -26,13 +26,13 @@
               <span class="tab-icon" aria-hidden="true"><img src="assets/cobblespawnregions-icon.png" alt=""></span>
               <span class="tab-label">CobbleSpawnRegions</span>
             </button>
-            <button class="tab theme-battle" type="button" data-tab="cobblebattlerewards" data-theme="theme-battle-page">
-              <span class="tab-icon" aria-hidden="true"><img src="assets/cobblebattlerewards-icon.png" alt=""></span>
-              <span class="tab-label">CobbleBattleRewards</span>
-            </button>
             <button class="tab theme-hunts" type="button" data-tab="cobblehunts" data-theme="theme-hunts-page">
               <span class="tab-icon" aria-hidden="true"><img src="assets/cobblehunts-icon.png" alt=""></span>
               <span class="tab-label">CobbleHunts</span>
+            </button>
+            <button class="tab theme-battle" type="button" data-tab="cobblebattlerewards" data-theme="theme-battle-page">
+              <span class="tab-icon" aria-hidden="true"><img src="assets/cobblebattlerewards-icon.png" alt=""></span>
+              <span class="tab-label">CobbleBattleRewards</span>
             </button>
             <button class="tab theme-rtp" type="button" data-tab="blanketrtp" data-theme="theme-rtp-page">
               <span class="tab-icon" aria-hidden="true"><img src="assets/blanketrtp-icon.png" alt=""></span>
@@ -558,11 +558,11 @@
           <article class="panel quick-start">
             <h3>Quick Start</h3>
             <ol>
-              <li>Start the server once to generate <code>config/cobblebattlerewards/config.jsonc</code>.</li>
-              <li>Edit one reward map: <code>battleWonRewards</code>, <code>battleLostRewards</code>, <code>battleForfeitRewards</code>, or <code>captureRewards</code>.</li>
-              <li>Add a named reward object, such as <code>"money_100": { ... }</code>.</li>
-              <li>Choose <code>type</code>: <code>command</code> or <code>item</code>.</li>
-              <li>Run <code>/cbr reload</code> and test the trigger in-game.</li>
+              <li>Open <code>config/cobblebattlerewards/config.jsonc</code>.</li>
+              <li>Edit the trigger you want to reward: <code>battleWonRewards</code>, <code>battleLostRewards</code>, <code>battleForfeitRewards</code>, or <code>captureRewards</code>.</li>
+              <li>Add a named reward entry such as <code>"money_100": { ... }</code>.</li>
+              <li>Set the reward <code>type</code> to <code>command</code> or <code>item</code>, then fill in the command or item data.</li>
+              <li>Run <code>/cbr reload</code>, then win, lose, forfeit, or capture in-game to test that trigger.</li>
             </ol>
           </article>
         </section>
@@ -865,19 +865,23 @@
           <article class="panel quick-start">
             <h3>Quick Start</h3>
             <ol>
-              <li>Start the server once to generate the <code>config/cobblehunts</code> folder.</li>
-              <li>Run <code>/hunts</code> to open the player hunt GUI.</li>
-              <li>Use global hunts or start a solo mission from the enabled difficulty tiers.</li>
-              <li>Catch a matching Pokemon, then turn it in from the hunt GUI.</li>
-              <li>Use <code>/hunts editor</code> to edit hunts in-game or edit the JSON files directly.</li>
+              <li>Run <code>/hunts editor</code> to set up hunts in-game, or edit the JSON files in <code>config/cobblehunts</code>.</li>
+              <li>Add Pokemon to the hunt pools and add rewards to the loot pools.</li>
+              <li>Players run <code>/hunts</code> to open the hunt GUI and start a global or solo hunt.</li>
+              <li>Players catch a matching Pokemon, then turn it in from the hunt GUI to claim rewards.</li>
             </ol>
           </article>
 
           <article class="panel screenshot-card hero-media">
             <h3>Hunts GUI</h3>
-            <div class="image-placeholder">
-              <span>hunts GUI screenshot or GIF unavailable</span>
-            </div>
+            <iframe
+              class="demo-video"
+              src="https://www.youtube.com/embed/nJ-HtkFRK_k?autoplay=1&mute=1&loop=1&playlist=nJ-HtkFRK_k&controls=1&playsinline=1&rel=0"
+              title="CobbleHunts GUI demo"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
           </article>
         </section>
 
@@ -1217,7 +1221,6 @@
           <article class="panel quick-start">
             <h3>Quick Start</h3>
             <ol>
-              <li>Start the server once to generate <code>config/blanketrtp/config.jsonc</code>.</li>
               <li>Run <code>/rtp</code> to teleport to a random safe location.</li>
               <li>Run <code>/rtp no_glide</code> if you want a normal teleport without glide mode.</li>
               <li>Run <code>/rtp biome minecraft:plains</code> to search for a specific biome.</li>
