@@ -19,6 +19,184 @@ const tabToRoute = {
   blanketrtp: "/blanketrtp",
 };
 
+const sidebarToggle = document.querySelector(".sidebar-toggle");
+
+function setSidebarCollapsed(isCollapsed) {
+  document.body.classList.toggle("is-sidebar-collapsed", isCollapsed);
+
+  if (sidebarToggle) {
+    sidebarToggle.setAttribute("aria-expanded", String(!isCollapsed));
+    sidebarToggle.setAttribute("aria-label", isCollapsed ? "Expand sidebar" : "Collapse sidebar");
+  }
+
+  localStorage.setItem("wiki:sidebar-collapsed", isCollapsed ? "true" : "false");
+}
+
+if (sidebarToggle) {
+  const savedSidebarState = localStorage.getItem("wiki:sidebar-collapsed");
+  setSidebarCollapsed(savedSidebarState === "true");
+
+  sidebarToggle.addEventListener("click", () => {
+    setSidebarCollapsed(!document.body.classList.contains("is-sidebar-collapsed"));
+  });
+}
+
+const themeColors = {
+  "theme-regions-page": {
+    theme: "#2f8ce7",
+    dark: "#0d3c77",
+    soft: "#62b1f2",
+  },
+  "theme-battle-page": {
+    theme: "#f48ac2",
+    dark: "#7d2f5d",
+    soft: "#ffc4df",
+  },
+  "theme-hunts-page": {
+    theme: "#ffd84d",
+    dark: "#8b6500",
+    soft: "#fff08a",
+  },
+  "theme-rtp-page": {
+    theme: "#4ade80",
+    dark: "#14532d",
+    soft: "#bbf7d0",
+  },
+};
+
+const THEME_LERP_DURATION = 500;
+let hasSetInitialTheme = false;
+let themeAnimationId = null;
+let activeThemeName = "theme-regions-page";
+let liveThemeColors = { ...themeColors[activeThemeName] };
+
+function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+}
+
+function parseColor(value, fallback = "#000000") {
+  const raw = String(value || fallback).trim();
+
+  if (raw.startsWith("#")) {
+    const hex = raw.slice(1);
+    const fullHex = hex.length === 3
+      ? hex.split("").map((char) => char + char).join("")
+      : hex.padEnd(6, "0").slice(0, 6);
+
+    return {
+      r: parseInt(fullHex.slice(0, 2), 16),
+      g: parseInt(fullHex.slice(2, 4), 16),
+      b: parseInt(fullHex.slice(4, 6), 16),
+    };
+  }
+
+  const rgbMatch = raw.match(/rgba?\(([^)]+)\)/i);
+  if (rgbMatch) {
+    const [r, g, b] = rgbMatch[1].split(",").map((part) => parseFloat(part.trim()));
+    return { r, g, b };
+  }
+
+  return parseColor(fallback);
+}
+
+function rgbToHex({ r, g, b }) {
+  return `#${[r, g, b]
+    .map((value) => clamp(Math.round(value), 0, 255).toString(16).padStart(2, "0"))
+    .join("")}`;
+}
+
+function lerpColor(fromValue, toValue, amount) {
+  const from = parseColor(fromValue);
+  const to = parseColor(toValue);
+
+  return rgbToHex({
+    r: from.r + (to.r - from.r) * amount,
+    g: from.g + (to.g - from.g) * amount,
+    b: from.b + (to.b - from.b) * amount,
+  });
+}
+
+function readCurrentThemeColors() {
+  const styles = getComputedStyle(document.body);
+
+  return {
+    theme: document.body.style.getPropertyValue("--theme").trim()
+      || styles.getPropertyValue("--theme").trim()
+      || liveThemeColors.theme,
+    dark: document.body.style.getPropertyValue("--theme-dark").trim()
+      || styles.getPropertyValue("--theme-dark").trim()
+      || liveThemeColors.dark,
+    soft: document.body.style.getPropertyValue("--theme-soft").trim()
+      || styles.getPropertyValue("--theme-soft").trim()
+      || liveThemeColors.soft,
+  };
+}
+
+function applyThemeColors(colors) {
+  liveThemeColors = { ...colors };
+
+  document.body.style.setProperty("--theme", colors.theme);
+  document.body.style.setProperty("--theme-dark", colors.dark);
+  document.body.style.setProperty("--theme-soft", colors.soft);
+  document.body.style.setProperty("--accent", colors.soft);
+  document.body.style.setProperty("--accent-2", colors.theme);
+}
+
+function colorsMatch(a, b) {
+  return ["theme", "dark", "soft"].every((key) => {
+    const colorA = parseColor(a[key]);
+    const colorB = parseColor(b[key]);
+    return Math.abs(colorA.r - colorB.r) < 1
+      && Math.abs(colorA.g - colorB.g) < 1
+      && Math.abs(colorA.b - colorB.b) < 1;
+  });
+}
+
+function easeInOutSmooth(amount) {
+  return amount * amount * (3 - 2 * amount);
+}
+
+function applyTheme(themeName, animate = true) {
+  const targetColors = themeColors[themeName];
+  if (!targetColors) return;
+
+  if (themeAnimationId) {
+    cancelAnimationFrame(themeAnimationId);
+    themeAnimationId = null;
+  }
+
+  const fromColors = readCurrentThemeColors();
+  activeThemeName = themeName;
+
+  if (!animate || colorsMatch(fromColors, targetColors)) {
+    applyThemeColors(targetColors);
+    return;
+  }
+
+  const startTime = performance.now();
+
+  function frame(now) {
+    const progress = clamp((now - startTime) / THEME_LERP_DURATION, 0, 1);
+    const eased = easeInOutSmooth(progress);
+
+    applyThemeColors({
+      theme: lerpColor(fromColors.theme, targetColors.theme, eased),
+      dark: lerpColor(fromColors.dark, targetColors.dark, eased),
+      soft: lerpColor(fromColors.soft, targetColors.soft, eased),
+    });
+
+    if (progress < 1) {
+      themeAnimationId = requestAnimationFrame(frame);
+      return;
+    }
+
+    applyThemeColors(targetColors);
+    themeAnimationId = null;
+  }
+
+  themeAnimationId = requestAnimationFrame(frame);
+}
+
 function activateTab(targetId, updateUrl = true) {
   let activeTheme = "";
 
@@ -32,8 +210,10 @@ function activateTab(targetId, updateUrl = true) {
     panel.classList.toggle("is-active", panel.id === targetId);
   });
 
-  document.body.classList.remove("theme-regions-page", "theme-battle-page", "theme-hunts-page", "theme-rtp-page");
-  if (activeTheme) document.body.classList.add(activeTheme);
+  if (activeTheme) {
+    applyTheme(activeTheme, hasSetInitialTheme);
+    hasSetInitialTheme = true;
+  }
 
   if (updateUrl && tabToRoute[targetId]) {
     const nextPath = tabToRoute[targetId];

@@ -7,23 +7,65 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body class="theme-regions-page">
-    <header class="site-header">
-      <div class="header-inner">
-        <div>
-          <p class="eyebrow">Everlasting.mods</p>
-          <h1>Wiki</h1>
-        </div>
-        <nav class="mod-tabs" aria-label="Mod tabs">
-          <button class="tab is-active theme-regions" type="button" data-tab="cobblespawnregions" data-theme="theme-regions-page">CobbleSpawnRegions</button>
-          <button class="tab theme-battle" type="button" data-tab="cobblebattlerewards" data-theme="theme-battle-page">CobbleBattleRewards</button>
-          <button class="tab theme-hunts" type="button" data-tab="cobblehunts" data-theme="theme-hunts-page">CobbleHunts</button>
-          <button class="tab theme-rtp" type="button" data-tab="blanketrtp" data-theme="theme-rtp-page">B-RTP</button>
-          <button class="tab" type="button" data-tab="coming-soon-b">Under constructions</button>
-        </nav>
-      </div>
-    </header>
+    <div class="site-shell">
+      <aside class="site-sidebar" data-sidebar>
+        <div class="sidebar-inner">
+          <div class="sidebar-top">
+            <div class="sidebar-brand">
+              <p class="eyebrow">Everlasting.mods</p>
+              <h1>Wiki</h1>
+            </div>
+            <button class="sidebar-toggle" type="button" aria-label="Collapse sidebar" aria-expanded="true">
+              <span class="sidebar-toggle-icon" aria-hidden="true">‹</span>
+            </button>
+          </div>
 
-    <main>
+          <nav class="mod-tabs" aria-label="Mod tabs">
+            <button class="tab is-active theme-regions" type="button" data-tab="cobblespawnregions" data-theme="theme-regions-page">
+              <span class="tab-icon" aria-hidden="true"><img src="assets/cobblespawnregions-icon.png" alt=""></span>
+              <span class="tab-label">CobbleSpawnRegions</span>
+            </button>
+            <button class="tab theme-battle" type="button" data-tab="cobblebattlerewards" data-theme="theme-battle-page">
+              <span class="tab-icon" aria-hidden="true"><img src="assets/cobblebattlerewards-icon.png" alt=""></span>
+              <span class="tab-label">CobbleBattleRewards</span>
+            </button>
+            <button class="tab theme-hunts" type="button" data-tab="cobblehunts" data-theme="theme-hunts-page">
+              <span class="tab-icon" aria-hidden="true"><img src="assets/cobblehunts-icon.png" alt=""></span>
+              <span class="tab-label">CobbleHunts</span>
+            </button>
+            <button class="tab theme-rtp" type="button" data-tab="blanketrtp" data-theme="theme-rtp-page">
+              <span class="tab-icon" aria-hidden="true"><img src="assets/blanketrtp-icon.png" alt=""></span>
+              <span class="tab-label">B-RTP</span>
+            </button>
+            <button class="tab" type="button" data-tab="coming-soon-b">
+              <span class="tab-icon tab-icon-placeholder" aria-hidden="true">+</span>
+              <span class="tab-label">Under construction</span>
+            </button>
+          </nav>
+
+          <div class="sidebar-links" aria-label="Project links">
+            <a class="sidebar-link" href="https://github.com/Hysocs" target="_blank" rel="noopener" aria-label="GitHub">
+              <span class="sidebar-link-icon" aria-hidden="true">GH</span>
+              <span class="sidebar-link-label">GitHub</span>
+            </a>
+            <a class="sidebar-link" href="https://discord.gg/YTErFwYEpy" target="_blank" rel="noopener" aria-label="Discord">
+              <span class="sidebar-link-icon" aria-hidden="true">DC</span>
+              <span class="sidebar-link-label">Discord</span>
+            </a>
+            <a class="sidebar-link" href="https://modrinth.com/user/Hysocs" target="_blank" rel="noopener" aria-label="Modrinth">
+              <span class="sidebar-link-icon" aria-hidden="true">MR</span>
+              <span class="sidebar-link-label">Modrinth</span>
+            </a>
+            <a class="sidebar-link" href="https://github.com/Hysocs/hysocs.github.io/issues" target="_blank" rel="noopener" aria-label="Issues">
+              <span class="sidebar-link-icon" aria-hidden="true">!</span>
+              <span class="sidebar-link-label">Issues</span>
+            </a>
+          </div>
+        </div>
+      </aside>
+
+      <div class="site-page">
+        <main>
       <section id="cobblespawnregions" class="tab-panel is-active">
         <section class="mod-hero">
           <div class="mod-title">
@@ -1388,11 +1430,13 @@
       <section id="coming-soon-b" class="tab-panel">
         <section class="empty-state"></section>
       </section>
-    </main>
+        </main>
 
-    <footer>
-      <p>Static wiki for GitHub Pages. Source docs generated from the local mod project.</p>
-    </footer>
+        <footer>
+          <p>Static wiki for GitHub Pages. Source docs generated from the local mod project.</p>
+        </footer>
+      </div>
+    </div>
 
     <script src="script.js"></script>
   </body>
