@@ -369,6 +369,11 @@ dd {
   min-height: 430px;
 }
 
+.pokemon-settings-panel {
+  grid-column: 1 / -1;
+  min-height: auto;
+}
+
 .image-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
@@ -422,7 +427,7 @@ pre code {
 }
 
 .settings-grid {
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .command-list div,
@@ -501,6 +506,10 @@ footer {
   .command-list div {
     grid-template-columns: 1fr;
   }
+
+  .settings-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 620px) {
@@ -525,5 +534,9 @@ footer {
   .facts div {
     grid-template-columns: 1fr;
     gap: 2px;
+  }
+
+  .settings-grid {
+    grid-template-columns: 1fr;
   }
 }
