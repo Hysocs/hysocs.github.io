@@ -3,7 +3,9 @@ const panels = document.querySelectorAll(".tab-panel");
 const routeToTab = {
   "/": "cobblespawnregions",
   "/cobblespawnregions": "cobblespawnregions",
+  "/cobblespawnregions/": "cobblespawnregions",
   "/cobblebattlerewards": "cobblebattlerewards",
+  "/cobblebattlerewards/": "cobblebattlerewards",
 };
 
 const tabToRoute = {
