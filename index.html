@@ -127,45 +127,50 @@
 
         <section id="cobblespawnregions-features" class="doc-section">
           <div class="section-heading">
-            <p class="eyebrow">Usage</p>
             <h3>Features</h3>
           </div>
           <div class="feature-grid">
             <article class="panel">
-              <h3>Region Control</h3>
+              <h3>Build Spawn Zones</h3>
               <ul>
-                <li><strong>Coords mode</strong> uses the exact two block positions selected with the claim stick.</li>
-                <li><strong>Chunk mode</strong> expands the selected chunks into a full-height region from the world's bottom to top Y.</li>
-                <li><strong>Priority</strong> decides which region controls overlapping positions.</li>
-                <li><strong>Visualization</strong> toggles particle outlines for selected region bounds.</li>
-                <li><strong>Region IDs</strong> are generated from names by lowercasing and replacing unsupported characters with underscores.</li>
-                <li><strong>Config files</strong> live under <code>config/cobblespawnregions</code>, with regions saved in <code>config/cobblespawnregions/regions</code>.</li>
+                <li><strong>Claim exact areas</strong> with a selection stick, using either block-by-block bounds or full chunk-based regions.</li>
+                <li><strong>Layer multiple zones</strong> with priority, so towns, routes, caves, arenas, and event areas can overlap cleanly.</li>
+                <li><strong>Preview region borders</strong> with particles before committing spawn rules, which makes setup easier for staff.</li>
+                <li><strong>Manage regions in-game</strong> through commands and GUI screens instead of editing every file by hand.</li>
+                <li><strong>Clone and rename regions</strong> to quickly reuse a working setup across similar areas.</li>
               </ul>
             </article>
             <article class="panel">
-              <h3>Spawn Management</h3>
+              <h3>Control Wild Spawns</h3>
               <ul>
-                <li><strong>Natural restrictions</strong> affect wild Cobblemon spawns inside the controlling region.</li>
-                <li><strong>Disable All</strong> blocks natural spawns in a region.</li>
-                <li><strong>Blocked Species, Labels, and Conditions</strong> let you target specific natural spawn types.</li>
-                <li><strong>Custom spawns</strong> are Pokemon the region spawns itself from selected Pokemon entries.</li>
-                <li><strong>Spawn Timer</strong> is stored in ticks. 20 ticks equals 1 second.</li>
-                <li><strong>Max Total Spawns</strong> caps all region-owned custom Pokemon. 0 means unlimited.</li>
-                <li><strong>Pokemon entry settings</strong> include chance, levels, forms, aspects, spawn blocks, time, weather, catch rules, IVs, EVs, size, moves, and stay-in-region behavior.</li>
-                <li><strong>Tracked spawns</strong> are saved in <code>config/cobblespawnregions/tracked_spawns.json</code> so unloaded entities still count against caps.</li>
+                <li><strong>Block natural spawns</strong> entirely in protected or custom encounter areas.</li>
+                <li><strong>Filter specific Pokemon</strong> by species, labels, or scanned conditions without disabling the whole ecosystem.</li>
+                <li><strong>Inspect nearby Pokemon</strong> to discover useful condition values for spawn rules.</li>
+                <li><strong>Use priority regions</strong> so the most specific area controls the final spawn behavior.</li>
+                <li><strong>Reload and test quickly</strong> with in-game checks that show which region controls the player location.</li>
               </ul>
             </article>
-            <article class="panel pokemon-settings-panel">
-              <h3>Pokemon Entry Settings</h3>
+            <article class="panel">
+              <h3>Create Custom Encounters</h3>
+              <ul>
+                <li><strong>Spawn your own Pokemon groups</strong> inside a region, separate from Cobblemon's normal wild spawn table.</li>
+                <li><strong>Set region spawn timers</strong> so an area attempts custom spawns on your schedule.</li>
+                <li><strong>Choose how many spawn attempts happen</strong> each timer cycle and cap the total active custom Pokemon.</li>
+                <li><strong>Require nearby players</strong> so custom encounters only run when someone is close enough to use the area.</li>
+                <li><strong>Force spawns for testing or events</strong> without waiting for the normal timer cycle.</li>
+              </ul>
+            </article>
+            <article class="panel">
+              <h3>What You Can Control</h3>
               <div class="settings-grid">
-                <div><strong>Chance</strong><span>Competitive entries are weighted together. Independent entries roll their own percent chance first.</span></div>
-                <div><strong>Levels</strong><span>Each spawn picks a level between the configured minimum and maximum.</span></div>
-                <div><strong>Forms and Aspects</strong><span>Forms and aspects are applied to the Cobblemon properties string when spawning.</span></div>
-                <div><strong>Spawn Blocks</strong><span>Use block IDs like <code>minecraft:grass_block</code>, or <code>#solid</code>, <code>#water</code>, and <code>#air</code>.</span></div>
-                <div><strong>Time and Weather</strong><span>Limit entries to DAY, NIGHT, CLEAR, RAIN, THUNDER, or ALL.</span></div>
-                <div><strong>Catch Rules</strong><span>Make entries uncatchable or restrict capture to selected Pokeball item IDs.</span></div>
-                <div><strong>IVs, EVs, Size, Moves</strong><span>Apply optional custom stats, scale, and initial move settings when spawned.</span></div>
-                <div><strong>Stay In Region</strong><span>Custom-spawned Pokemon can path back toward a random, center, or closest region point.</span></div>
+                <div><strong>Encounter Tables</strong><span>Add region-owned Pokemon with weighted or independent spawn chances.</span></div>
+                <div><strong>Level Ranges</strong><span>Set min and max levels per Pokemon so each zone has the right difficulty.</span></div>
+                <div><strong>Forms & Aspects</strong><span>Use forms, variants, and aspects such as shiny when building special encounters.</span></div>
+                <div><strong>Habitat Rules</strong><span>Limit spawns by block type, time of day, and weather.</span></div>
+                <div><strong>Catch Control</strong><span>Make encounters uncatchable or require specific Poke Balls.</span></div>
+                <div><strong>Battle Tuning</strong><span>Customize IV ranges, EV rewards, size, held items, and starting moves.</span></div>
+                <div><strong>Population Caps</strong><span>Keep custom spawns from flooding an area, even across chunk unloads.</span></div>
+                <div><strong>Stay In Region</strong><span>Keep custom-spawned Pokemon wandering back toward their assigned zone.</span></div>
               </div>
             </article>
           </div>
@@ -173,7 +178,6 @@
 
         <section id="cobblespawnregions-commands" class="doc-section">
           <div class="section-heading">
-            <p class="eyebrow">Reference</p>
             <h3>Commands</h3>
           </div>
           <article class="panel">
@@ -205,7 +209,6 @@
 
         <section id="cobblespawnregions-config" class="doc-section">
           <div class="section-heading">
-            <p class="eyebrow">Examples</p>
             <h3>Config Guide</h3>
           </div>
           <div class="json-guide">
@@ -557,44 +560,40 @@
 
         <section id="cobblebattlerewards-features" class="doc-section">
           <div class="section-heading">
-            <p class="eyebrow">Usage</p>
             <h3>Features</h3>
           </div>
           <div class="feature-grid">
             <article class="panel">
-              <h3>Reward Triggers</h3>
+              <h3>Reward Battle Moments</h3>
               <ul>
-                <li><strong>battleWonRewards</strong> runs when a player wins a battle.</li>
-                <li><strong>battleLostRewards</strong> runs when a player loses a battle.</li>
-                <li><strong>battleForfeitRewards</strong> runs when a player forfeits or flees.</li>
-                <li><strong>captureRewards</strong> runs when a Pokemon is captured.</li>
-                <li><strong>battleTypes</strong> can limit rewards to <code>wild</code>, <code>npc</code>, or <code>pvp</code>.</li>
-                <li><strong>allowedDimensions</strong> can limit rewards to dimensions such as <code>minecraft:overworld</code>.</li>
+                <li><strong>Pay players for wins</strong> in wild, NPC, or PvP battles.</li>
+                <li><strong>Reward captures</strong> when players catch Pokemon through battle.</li>
+                <li><strong>Use loss and forfeit rewards</strong> for pity prizes, penalties, or server-specific event rules.</li>
+                <li><strong>Run economy or server commands</strong> for money, crates, ranks, points, or any plugin command your server supports.</li>
+                <li><strong>Give item rewards directly</strong> and choose whether full inventories drop rewards or skip them.</li>
               </ul>
             </article>
             <article class="panel">
-              <h3>Reward Filters</h3>
+              <h3>Target The Right Battles</h3>
               <ul>
-                <li><strong>conditions</strong> match the opponent Pokemon. Empty means any Pokemon.</li>
-                <li><strong>conditionsBlacklist</strong> reverses condition logic.</li>
-                <li><strong>minLevel</strong> and <strong>maxLevel</strong> restrict by opponent level.</li>
-                <li><strong>chance</strong> is a percent roll from 0 to 100.</li>
-                <li><strong>cooldown</strong> is per player and reward, in seconds.</li>
-                <li><strong>order</strong> runs lower numbers first, letting rare rewards block common ones.</li>
-                <li><strong>excludedRewards</strong> prevents named lower-priority rewards from also being paid.</li>
+                <li><strong>Make Pokemon-specific rewards</strong> for species, types, shinies, forms, and other Cobblemon properties.</li>
+                <li><strong>Restrict by level</strong> so high-value rewards only come from tougher opponents.</li>
+                <li><strong>Restrict by battle type</strong> to separate wild grinding, NPC trainer rewards, and PvP incentives.</li>
+                <li><strong>Limit by dimension</strong> for location-based rewards such as Nether, End, or event-world bonuses.</li>
+                <li><strong>Use blacklists</strong> to exclude common Pokemon or keep special rewards from stacking with normal ones.</li>
               </ul>
             </article>
             <article class="panel pokemon-settings-panel">
-              <h3>What You Can Use</h3>
+              <h3>Server-Friendly Control</h3>
               <div class="settings-grid">
-                <div><strong>Reward Types</strong><span><code>command</code> and <code>item</code>.</span></div>
-                <div><strong>Battle Types</strong><span><code>wild</code>, <code>npc</code>, and <code>pvp</code>.</span></div>
-                <div><strong>Triggers</strong><span><code>BattleWon</code>, <code>BattleLost</code>, <code>BattleForfeit</code>, and <code>Captured</code>.</span></div>
-                <div><strong>Inventory Full</strong><span><code>drop</code> or <code>skip</code>.</span></div>
-                <div><strong>Species Condition</strong><span>Use resource IDs like <code>cobblemon:pikachu</code>.</span></div>
-                <div><strong>Property Condition</strong><span>Use key/value checks like <code>type=electric</code> or <code>shiny=true</code>.</span></div>
-                <div><strong>AND Groups</strong><span>Use nested lists: <code>["type=electric", "shiny=true"]</code>.</span></div>
-                <div><strong>MiniMessage</strong><span>Messages support tags such as <code>&lt;green&gt;</code> and <code>&lt;gold&gt;</code>.</span></div>
+                <div><strong>Chance Rolls</strong><span>Make rewards guaranteed, rare, or anywhere in between.</span></div>
+                <div><strong>Cooldowns</strong><span>Limit each reward per player to prevent farming abuse.</span></div>
+                <div><strong>Reward Order</strong><span>Let rare rewards run first and block lower-value fallback rewards.</span></div>
+                <div><strong>Custom Messages</strong><span>Show polished MiniMessage feedback when rewards trigger.</span></div>
+                <div><strong>Placeholders</strong><span>Use player, Pokemon, level, battle type, chance, coordinates, and cooldown time.</span></div>
+                <div><strong>Condition Lists</strong><span>Use simple matches or grouped requirements for more specific rewards.</span></div>
+                <div><strong>Live Reload</strong><span>Reload the config after edits without restarting the server.</span></div>
+                <div><strong>Debug Tools</strong><span>List configured rewards and inspect usable Pokemon conditions in-game.</span></div>
               </div>
             </article>
           </div>
@@ -602,7 +601,6 @@
 
         <section id="cobblebattlerewards-commands" class="doc-section">
           <div class="section-heading">
-            <p class="eyebrow">Reference</p>
             <h3>Commands</h3>
           </div>
           <article class="panel">
@@ -618,8 +616,7 @@
 
         <section id="cobblebattlerewards-config" class="doc-section">
           <div class="section-heading">
-            <p class="eyebrow">Examples</p>
-            <h3>Config Usage</h3>
+            <h3>Config Guide</h3>
           </div>
           <div class="json-guide">
             <article class="panel json-basics">
@@ -875,41 +872,40 @@
 
         <section id="cobblehunts-features" class="doc-section">
           <div class="section-heading">
-            <p class="eyebrow">Usage</p>
             <h3>Features</h3>
           </div>
           <div class="feature-grid">
             <article class="panel">
-              <h3>Hunt Types</h3>
+              <h3>Player Hunt Loop</h3>
               <ul>
-                <li><strong>Global hunts</strong> are shared server hunts with one shared timer.</li>
-                <li><strong>Solo hunts</strong> are per-player missions with easy, normal, medium, and hard tiers.</li>
-                <li><strong>Global active count</strong> controls how many global Pokemon are shown at once.</li>
-                <li><strong>Cooldowns</strong> apply after hunts expire or complete.</li>
-                <li><strong>Auto accept</strong> can start solo hunts automatically when a player is ready.</li>
+                <li><strong>Global hunts</strong> give the whole server shared Pokemon targets and a shared countdown.</li>
+                <li><strong>Solo hunts</strong> give each player personal missions with easy, normal, medium, and hard tiers.</li>
+                <li><strong>Players use one GUI</strong> to view active hunts, start solo missions, check rewards, and turn in catches.</li>
+                <li><strong>Matching catches are detected</strong> and can notify players when a caught Pokemon fits an active hunt.</li>
+                <li><strong>Turn-ins can consume the Pokemon</strong> so servers can choose between trophy-style or spend-the-catch gameplay.</li>
               </ul>
             </article>
             <article class="panel">
-              <h3>Turn-In Flow</h3>
+              <h3>Server Events And Progression</h3>
               <ul>
-                <li>Players catch a Pokemon that matches an active hunt.</li>
-                <li>The mod can require the Pokemon to be captured after the hunt started.</li>
-                <li>Turn-ins can remove the Pokemon from the player's storage.</li>
-                <li>Admins can revert a turn-in from the recent removed Pokemon cache.</li>
-                <li>Capture messages can tell players when a caught Pokemon matches an active hunt.</li>
+                <li><strong>Run multiple global hunts</strong> at the same time to create active server-wide goals.</li>
+                <li><strong>Use timers and cooldowns</strong> to pace how often hunts appear and how long players have to finish them.</li>
+                <li><strong>Gate hunt tiers with permissions</strong> for ranks, progression, VIP access, or event groups.</li>
+                <li><strong>Track points on a leaderboard</strong> so frequent hunters have a reason to compete.</li>
+                <li><strong>Auto-start solo hunts</strong> for a faster player flow, or make players choose missions manually.</li>
               </ul>
             </article>
             <article class="panel pokemon-settings-panel">
-              <h3>What A Hunt Can Require</h3>
+              <h3>Custom Hunt Content</h3>
               <div class="settings-grid">
-                <div><strong>Species</strong><span>Use Cobblemon species names such as <code>pikachu</code>.</span></div>
-                <div><strong>Form</strong><span>Use a form name such as <code>Normal</code>, or leave it null.</span></div>
-                <div><strong>Aspects</strong><span>Require one or more Cobblemon aspects in a list.</span></div>
-                <div><strong>Chance</strong><span>Weights how often the entry is selected from its pool.</span></div>
-                <div><strong>Gender</strong><span>Use <code>male</code>, <code>female</code>, <code>genderless</code>, or <code>random</code>.</span></div>
-                <div><strong>Nature</strong><span>Use a nature path such as <code>adamant</code> or <code>timid</code>.</span></div>
-                <div><strong>IV Range</strong><span>A number above 0 picks that many required IV stats at 20+ IVs.</span></div>
-                <div><strong>Rewards</strong><span>Use command or item rewards from the matching loot pool.</span></div>
+                <div><strong>Pokemon Pools</strong><span>Choose different target lists for global hunts and each solo difficulty.</span></div>
+                <div><strong>Weighted Targets</strong><span>Make common targets appear often and rare targets show up less.</span></div>
+                <div><strong>Specific Requirements</strong><span>Require form, aspects, gender, nature, or stronger IV rolls for harder hunts.</span></div>
+                <div><strong>Loot Pools</strong><span>Reward hunts with items or server commands such as economy payouts.</span></div>
+                <div><strong>Reward Modes</strong><span>Pick one weighted reward or roll rewards independently by percentage.</span></div>
+                <div><strong>Tracking Brush</strong><span>Give players a configurable tool that scans for nearby hunt Pokemon and creates a trail.</span></div>
+                <div><strong>Admin Recovery</strong><span>Revert recent turn-ins if a player submits the wrong Pokemon or staff needs to correct a mistake.</span></div>
+                <div><strong>In-Game Editor</strong><span>Build and adjust hunts through GUI screens without requiring every change to be hand-written.</span></div>
               </div>
             </article>
           </div>
@@ -917,7 +913,6 @@
 
         <section id="cobblehunts-commands" class="doc-section">
           <div class="section-heading">
-            <p class="eyebrow">Reference</p>
             <h3>Commands</h3>
           </div>
           <article class="panel">
@@ -936,8 +931,7 @@
 
         <section id="cobblehunts-config" class="doc-section">
           <div class="section-heading">
-            <p class="eyebrow">Examples</p>
-            <h3>Config Usage</h3>
+            <h3>Config Guide</h3>
           </div>
           <div class="json-guide">
             <article class="panel json-basics">
@@ -1205,41 +1199,40 @@
 
         <section id="blanketrtp-features" class="doc-section">
           <div class="section-heading">
-            <p class="eyebrow">Usage</p>
             <h3>Features</h3>
           </div>
           <div class="feature-grid">
             <article class="panel">
-              <h3>Teleport Control</h3>
+              <h3>Safe Random Teleporting</h3>
               <ul>
-                <li><strong>Random RTP</strong> searches inside the configured radius.</li>
-                <li><strong>Biome RTP</strong> scans for a requested biome with configurable attempt and tick limits.</li>
-                <li><strong>Dimension redirects</strong> can send Nether or End RTP requests back to the Overworld.</li>
-                <li><strong>Dimension safety rules</strong> support <code>auto</code>, <code>surface</code>, <code>cave</code>, and <code>floating</code> modes.</li>
-                <li><strong>Slow loading</strong> prepares chunks before releasing the player.</li>
+                <li><strong>Random RTP</strong> sends players to a safe location inside your configured radius.</li>
+                <li><strong>Biome RTP</strong> lets players search for a specific biome instead of teleporting blindly.</li>
+                <li><strong>Dimension-aware safety</strong> supports surface, cave, floating, and automatic location checks.</li>
+                <li><strong>Dimension redirects</strong> can send Nether or End requests back to the Overworld, or to another target world.</li>
+                <li><strong>Busy-search protection</strong> prevents too many RTP searches from running at once.</li>
               </ul>
             </article>
             <article class="panel">
               <h3>Player Experience</h3>
               <ul>
-                <li><strong>Gliding</strong> can teleport players above the target and let them glide down.</li>
-                <li><strong>Glider item</strong> can temporarily equip a configured item such as an elytra.</li>
-                <li><strong>Particles</strong> can trail the player during glide mode.</li>
-                <li><strong>Cooldown tiers</strong> allow VIP/member/default cooldowns through permissions.</li>
-                <li><strong>Messages</strong> use MiniMessage-style text and placeholders.</li>
+                <li><strong>Glide landings</strong> can drop players above the destination and let them fly down instead of appearing instantly.</li>
+                <li><strong>Temporary glider gear</strong> can equip a configured item for the glide and restore the player afterward.</li>
+                <li><strong>Particle trails</strong> make RTP arrivals feel more polished and visible.</li>
+                <li><strong>Slow loading</strong> prepares nearby chunks before releasing the player at the destination.</li>
+                <li><strong>Clear feedback messages</strong> show cooldowns, biome scanning, loading progress, success, and failure states.</li>
               </ul>
             </article>
             <article class="panel pokemon-settings-panel">
-              <h3>Config Knobs</h3>
+              <h3>Server Control</h3>
               <div class="settings-grid">
-                <div><strong>Command Name</strong><span>Default command is <code>rtp</code>.</span></div>
-                <div><strong>Radius</strong><span><code>rtpRadius</code> controls random search distance.</span></div>
-                <div><strong>Biome Search</strong><span>Use max attempts, batch size, and max ticks to tune load.</span></div>
-                <div><strong>Redirects</strong><span>Map one dimension ID to another dimension ID.</span></div>
-                <div><strong>Safety Rules</strong><span>Set mode and optional Y limits per dimension.</span></div>
-                <div><strong>Cooldowns</strong><span>First matching permission tier wins.</span></div>
-                <div><strong>Gliding</strong><span>Toggle height, particles, item slot, and item NBT.</span></div>
-                <div><strong>Slow Load</strong><span>Control chunk radius, delay, and keep-loaded time.</span></div>
+                <div><strong>Custom Command</strong><span>Rename the main RTP command if your server already uses <code>/rtp</code>.</span></div>
+                <div><strong>Permission Tiers</strong><span>Give VIPs, members, and default players different cooldowns.</span></div>
+                <div><strong>Bypass Permission</strong><span>Let staff or trusted groups skip cooldowns entirely.</span></div>
+                <div><strong>Biome Command</strong><span>Use <code>/rtp biome</code> or enable a standalone biome command.</span></div>
+                <div><strong>World Rules</strong><span>Set different safety behavior and Y limits for each dimension.</span></div>
+                <div><strong>Chunk Prep</strong><span>Control how many chunks load, how quickly they load, and how long they stay ready.</span></div>
+                <div><strong>Glide Options</strong><span>Control glide height, particles, equipment slot, item, and item data.</span></div>
+                <div><strong>Reloadable Config</strong><span>Adjust settings and reload without restarting the whole server.</span></div>
               </div>
             </article>
           </div>
@@ -1247,7 +1240,6 @@
 
         <section id="blanketrtp-commands" class="doc-section">
           <div class="section-heading">
-            <p class="eyebrow">Reference</p>
             <h3>Commands</h3>
           </div>
           <article class="panel">
@@ -1265,8 +1257,7 @@
 
         <section id="blanketrtp-config" class="doc-section">
           <div class="section-heading">
-            <p class="eyebrow">Examples</p>
-            <h3>Config Usage</h3>
+            <h3>Config Guide</h3>
           </div>
           <div class="json-guide">
             <article class="panel json-basics">

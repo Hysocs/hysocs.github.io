@@ -318,6 +318,41 @@ document.querySelectorAll(".copy-command").forEach((button) => {
   });
 });
 
+document.querySelectorAll(".command-item").forEach((item) => {
+  const commandText = item.querySelector(".command-box code")?.textContent.trim();
+  if (!commandText || item.querySelector(".command-title")) return;
+
+  const title = document.createElement("h4");
+  title.className = "command-title";
+  title.textContent = createCommandTitle(commandText);
+  item.prepend(title);
+});
+
+function createCommandTitle(commandText) {
+  const ignoredRoots = new Set([
+    "cbr",
+    "cobblebattlerewards",
+    "csr",
+    "hunts",
+    "rtp",
+    "rtpbiome",
+  ]);
+
+  const words = commandText
+    .split(/\s+/)
+    .map((word) => word.replace(/^\//, ""))
+    .filter((word) => word && !word.startsWith("<") && !word.startsWith("["))
+    .filter((word) => !ignoredRoots.has(word.toLowerCase()))
+    .slice(0, 2);
+
+  const titleWords = words.length ? words : [commandText.replace(/^\//, "").split(/\s+/)[0]];
+
+  return titleWords
+    .join(" ")
+    .replace(/[_-]+/g, " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
 function escapeHtml(text) {
   return text
     .replace(/&/g, "&amp;")
