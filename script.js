@@ -6,11 +6,14 @@ const routeToTab = {
   "/cobblespawnregions/": "cobblespawnregions",
   "/cobblebattlerewards": "cobblebattlerewards",
   "/cobblebattlerewards/": "cobblebattlerewards",
+  "/cobblehunts": "cobblehunts",
+  "/cobblehunts/": "cobblehunts",
 };
 
 const tabToRoute = {
   cobblespawnregions: "/cobblespawnregions",
   cobblebattlerewards: "/cobblebattlerewards",
+  cobblehunts: "/cobblehunts",
 };
 
 function activateTab(targetId, updateUrl = true) {
@@ -26,7 +29,7 @@ function activateTab(targetId, updateUrl = true) {
     panel.classList.toggle("is-active", panel.id === targetId);
   });
 
-  document.body.classList.remove("theme-regions-page", "theme-battle-page");
+  document.body.classList.remove("theme-regions-page", "theme-battle-page", "theme-hunts-page");
   if (activeTheme) document.body.classList.add(activeTheme);
 
   if (updateUrl && tabToRoute[targetId]) {

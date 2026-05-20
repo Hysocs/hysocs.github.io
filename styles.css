@@ -146,6 +146,12 @@ h3 {
   --theme-soft: #ffc4df;
 }
 
+.theme-hunts {
+  --theme: #ffd84d;
+  --theme-dark: #8b6500;
+  --theme-soft: #fff08a;
+}
+
 body.theme-regions-page {
   --theme: #2f8ce7;
   --theme-dark: #0d3c77;
@@ -162,6 +168,14 @@ body.theme-battle-page {
   --accent-2: var(--theme);
 }
 
+body.theme-hunts-page {
+  --theme: #ffd84d;
+  --theme-dark: #8b6500;
+  --theme-soft: #fff08a;
+  --accent: var(--theme-soft);
+  --accent-2: var(--theme);
+}
+
 #cobblespawnregions {
   --theme: #2f8ce7;
   --theme-dark: #0d3c77;
@@ -174,6 +188,14 @@ body.theme-battle-page {
   --theme: #f48ac2;
   --theme-dark: #7d2f5d;
   --theme-soft: #ffc4df;
+  --accent: var(--theme-soft);
+  --accent-2: var(--theme);
+}
+
+#cobblehunts {
+  --theme: #ffd84d;
+  --theme-dark: #8b6500;
+  --theme-soft: #fff08a;
   --accent: var(--theme-soft);
   --accent-2: var(--theme);
 }

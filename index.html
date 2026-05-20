@@ -16,6 +16,7 @@
         <nav class="mod-tabs" aria-label="Mod tabs">
           <button class="tab is-active theme-regions" type="button" data-tab="cobblespawnregions" data-theme="theme-regions-page">CobbleSpawnRegions</button>
           <button class="tab theme-battle" type="button" data-tab="cobblebattlerewards" data-theme="theme-battle-page">CobbleBattleRewards</button>
+          <button class="tab theme-hunts" type="button" data-tab="cobblehunts" data-theme="theme-hunts-page">CobbleHunts</button>
           <button class="tab" type="button" data-tab="coming-soon-b">Under constructions</button>
         </nav>
       </div>
@@ -770,6 +771,357 @@
                 <li>Do not put plain item IDs in <code>itemStack</code>; it must be an escaped ItemStack JSON string.</li>
                 <li>Do not use battle types outside <code>wild</code>, <code>npc</code>, or <code>pvp</code>.</li>
                 <li>Do not duplicate reward names inside the same reward map.</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+      </section>
+
+      <section id="cobblehunts" class="tab-panel">
+        <section class="mod-hero">
+          <div class="mod-title">
+            <img src="assets/cobblehunts-icon.png" alt="" class="mod-icon">
+            <div>
+              <p class="eyebrow">Fabric 1.21.1</p>
+              <h2>CobbleHunts</h2>
+              <p class="lead">Pokemon hunt missions for Cobblemon with global hunts, solo difficulty tiers, rewards, leaderboards, and a tracking brush.</p>
+              <div class="hero-actions">
+                <a class="button-link" href="https://modrinth.com/mod/cobblehunts" target="_blank" rel="noopener">View on Modrinth</a>
+                <a class="button-link secondary" href="#hunts-config">Config Guide</a>
+              </div>
+            </div>
+          </div>
+          <dl class="facts">
+            <div><dt>Mod ID</dt><dd>cobblehunts</dd></div>
+            <div>
+              <dt>Version</dt>
+              <dd>
+                <span
+                  class="modrinth-version"
+                  data-modrinth-project="cobblehunts"
+                  data-fallback-version="1.1.2"
+                >1.1.2</span>
+                <span class="version-note">Checking Modrinth...</span>
+              </dd>
+            </div>
+            <div><dt>Requires</dt><dd>Fabric Loader, Fabric API, Fabric Language Kotlin, Cobblemon, EverlastingUtils</dd></div>
+            <div><dt>Modrinth</dt><dd><a href="https://modrinth.com/mod/cobblehunts" target="_blank" rel="noopener">Open project page</a></dd></div>
+          </dl>
+        </section>
+
+        <section class="quick-start-section">
+          <article class="panel quick-start">
+            <h3>Quick Start</h3>
+            <ol>
+              <li>Start the server once so <code>config/cobblehunts</code> generates.</li>
+              <li>Run <code>/hunts</code> to open the player hunt GUI.</li>
+              <li>Use global hunts or start a solo mission from the enabled difficulty tiers.</li>
+              <li>Catch a matching Pokemon, then turn it in from the hunt GUI.</li>
+              <li>Use <code>/hunts editor</code> to edit hunts in-game or edit the JSON files directly.</li>
+            </ol>
+          </article>
+
+          <article class="panel screenshot-card hero-media">
+            <h3>Hunts GUI</h3>
+            <div class="image-placeholder">
+              <span>Add hunts GUI screenshot or GIF here</span>
+            </div>
+          </article>
+        </section>
+
+        <section class="doc-section">
+          <div class="section-heading">
+            <p class="eyebrow">Usage</p>
+            <h3>Features</h3>
+          </div>
+          <div class="feature-grid">
+            <article class="panel">
+              <h3>Hunt Types</h3>
+              <ul>
+                <li><strong>Global hunts</strong> are shared server hunts with one shared timer.</li>
+                <li><strong>Solo hunts</strong> are per-player missions with easy, normal, medium, and hard tiers.</li>
+                <li><strong>Global active count</strong> controls how many global Pokemon are shown at once.</li>
+                <li><strong>Cooldowns</strong> apply after hunts expire or complete.</li>
+                <li><strong>Auto accept</strong> can start solo hunts automatically when a player is ready.</li>
+              </ul>
+            </article>
+            <article class="panel">
+              <h3>Turn-In Flow</h3>
+              <ul>
+                <li>Players catch a Pokemon that matches an active hunt.</li>
+                <li>The mod can require the Pokemon to be captured after the hunt started.</li>
+                <li>Turn-ins can remove the Pokemon from the player's storage.</li>
+                <li>Admins can revert a turn-in from the recent removed Pokemon cache.</li>
+                <li>Capture messages can tell players when a caught Pokemon matches an active hunt.</li>
+              </ul>
+            </article>
+            <article class="panel pokemon-settings-panel">
+              <h3>What A Hunt Can Require</h3>
+              <div class="settings-grid">
+                <div><strong>Species</strong><span>Use Cobblemon species names such as <code>pikachu</code>.</span></div>
+                <div><strong>Form</strong><span>Use a form name such as <code>Normal</code>, or leave it null.</span></div>
+                <div><strong>Aspects</strong><span>Require one or more Cobblemon aspects in a list.</span></div>
+                <div><strong>Chance</strong><span>Weights how often the entry is selected from its pool.</span></div>
+                <div><strong>Gender</strong><span>Use <code>male</code>, <code>female</code>, <code>genderless</code>, or <code>random</code>.</span></div>
+                <div><strong>Nature</strong><span>Use a nature path such as <code>adamant</code> or <code>timid</code>.</span></div>
+                <div><strong>IV Range</strong><span>A number above 0 picks that many required IV stats at 20+ IVs.</span></div>
+                <div><strong>Rewards</strong><span>Use command or item rewards from the matching loot pool.</span></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="doc-section">
+          <div class="section-heading">
+            <p class="eyebrow">Media</p>
+            <h3>Image Slots</h3>
+          </div>
+          <div class="image-grid">
+            <article class="panel screenshot-card">
+              <h3>Main Hunt Menu</h3>
+              <div class="image-placeholder"><span>Add main menu screenshot here</span></div>
+            </article>
+            <article class="panel screenshot-card">
+              <h3>Turn-In GUI</h3>
+              <div class="image-placeholder"><span>Add turn-in screenshot here</span></div>
+            </article>
+            <article class="panel screenshot-card">
+              <h3>Tracking Brush</h3>
+              <div class="image-placeholder"><span>Add tracking brush demo here</span></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="doc-section">
+          <div class="section-heading">
+            <p class="eyebrow">Reference</p>
+            <h3>Commands</h3>
+          </div>
+          <article class="panel">
+            <div class="command-list">
+              <div class="command-item"><div class="command-box"><label>Command</label><code>/hunts</code><button class="copy-command" type="button" data-copy-target="command">Copy</button></div><div class="permission-box"><label>Permission</label><code>cobblehunts.hunts</code><button class="copy-command" type="button" data-copy-target="permission">Copy</button></div><p>Opens the player hunt GUI.</p></div>
+              <div class="command-item"><div class="command-box"><label>Command</label><code>/hunts editor</code><button class="copy-command" type="button" data-copy-target="command">Copy</button></div><div class="permission-box"><label>Permission</label><code>cobblehunts.editor</code><button class="copy-command" type="button" data-copy-target="permission">Copy</button></div><p>Opens the admin hunt editor GUI.</p></div>
+              <div class="command-item"><div class="command-box"><label>Command</label><code>/hunts reload</code><button class="copy-command" type="button" data-copy-target="command">Copy</button></div><div class="permission-box"><label>Permission</label><code>cobblehunts.reload</code><button class="copy-command" type="button" data-copy-target="permission">Copy</button></div><p>Saves, reloads, updates debug state, and restarts hunts.</p></div>
+              <div class="command-item"><div class="command-box"><label>Command</label><code>/hunts cooldowns extend &lt;huntType&gt; &lt;time&gt; [target]</code><button class="copy-command" type="button" data-copy-target="command">Copy</button></div><div class="permission-box"><label>Permission</label><code>cobblehunts.cooldowns</code><button class="copy-command" type="button" data-copy-target="permission">Copy</button></div><p>Adds seconds to a global or solo cooldown. Hunt types are <code>global</code>, <code>soloeasy</code>, <code>solonormal</code>, <code>solomedium</code>, and <code>solohard</code>.</p></div>
+              <div class="command-item"><div class="command-box"><label>Command</label><code>/hunts cooldowns reset &lt;huntType&gt; [target]</code><button class="copy-command" type="button" data-copy-target="command">Copy</button></div><div class="permission-box"><label>Permission</label><code>cobblehunts.cooldowns</code><button class="copy-command" type="button" data-copy-target="permission">Copy</button></div><p>Clears a global cooldown or a target player's solo cooldown.</p></div>
+              <div class="command-item"><div class="command-box"><label>Command</label><code>/hunts cooldowns decrease &lt;huntType&gt; &lt;time&gt; [target]</code><button class="copy-command" type="button" data-copy-target="command">Copy</button></div><div class="permission-box"><label>Permission</label><code>cobblehunts.cooldowns</code><button class="copy-command" type="button" data-copy-target="permission">Copy</button></div><p>Subtracts seconds from a global or solo cooldown without going below the current time.</p></div>
+              <div class="command-item"><div class="command-box"><label>Command</label><code>/hunts revertturnin &lt;target&gt; &lt;pokemon&gt;</code><button class="copy-command" type="button" data-copy-target="command">Copy</button></div><div class="permission-box"><label>Permission</label><code>cobblehunts.revertturnin</code><button class="copy-command" type="button" data-copy-target="permission">Copy</button></div><p>Returns a recently removed turn-in Pokemon to the target player's party.</p></div>
+              <div class="command-item"><div class="command-box"><label>Command</label><code>/hunts givetrackingbrush [amount] [target]</code><button class="copy-command" type="button" data-copy-target="command">Copy</button></div><div class="permission-box"><label>Permission</label><code>cobblehunts.givebrush</code><button class="copy-command" type="button" data-copy-target="permission">Copy</button></div><p>Gives the configured tracking brush item.</p></div>
+            </div>
+          </article>
+        </section>
+
+        <section id="hunts-config" class="doc-section">
+          <div class="section-heading">
+            <p class="eyebrow">Examples</p>
+            <h3>Config Usage</h3>
+          </div>
+          <div class="json-guide">
+            <article class="panel json-basics">
+              <h3>Config Files</h3>
+              <ul>
+                <li><code>config/cobblehunts/config.jsonc</code> controls timers, toggles, messages, permissions, and tracking brush settings.</li>
+                <li><code>config/cobblehunts/pokemon_pools.jsonc</code> controls which Pokemon can appear in each hunt pool.</li>
+                <li><code>config/cobblehunts/loot_pools.jsonc</code> controls rewards for global and solo tiers.</li>
+                <li>Run <code>/hunts reload</code> after edits.</li>
+              </ul>
+            </article>
+
+            <article class="panel json-basics">
+              <h3>Permission Nodes</h3>
+              <ul>
+                <li><code>cobblehunts.hunts</code>: open the hunt GUI.</li>
+                <li><code>cobblehunts.global</code>: access global hunts.</li>
+                <li><code>cobblehunts.solo.easy</code>, <code>.normal</code>, <code>.medium</code>, <code>.hard</code>: access solo tiers.</li>
+                <li><code>cobblehunts.givebrush</code>: give tracking brushes.</li>
+                <li>Default permission and op levels are both <code>2</code>.</li>
+              </ul>
+            </article>
+
+            <article class="panel example-wide">
+              <h3>Main Config</h3>
+              <pre><code>{
+  "version": "1.1.2",
+  "configId": "cobblehunts",
+  "debugEnabled": false,
+  "activeGlobalHuntsAtOnce": 4,
+  "soloEasyCooldown": 120,
+  "soloNormalCooldown": 120,
+  "soloMediumCooldown": 120,
+  "soloHardCooldown": 120,
+  "globalCooldown": 120,
+  "soloEasyTimeLimit": 300,
+  "soloNormalTimeLimit": 300,
+  "soloMediumTimeLimit": 300,
+  "soloHardTimeLimit": 300,
+  "globalTimeLimit": 300,
+  "globalPoints": 100,
+  "soloEasyPoints": 10,
+  "soloNormalPoints": 15,
+  "soloMediumPoints": 25,
+  "soloHardPoints": 40,
+  "globalHuntsEnabled": true,
+  "soloHuntsEnabled": true,
+  "soloEasyEnabled": true,
+  "soloNormalEnabled": true,
+  "soloMediumEnabled": true,
+  "soloHardEnabled": true,
+  "globalHuntCompletionMessage": "&lt;green&gt;%player% &lt;gray&gt;completed a global hunt for &lt;aqua&gt;%pokemon% &lt;gray&gt;and received &lt;gold&gt;%reward%!",
+  "soloHuntCompletionMessage": "&lt;gray&gt;You received &lt;gold&gt;%reward%",
+  "capturedPokemonMessage": "&lt;gray&gt;You caught a &lt;aqua&gt;%pokemon% &lt;gray&gt;that matches an active hunt! Use &lt;yellow&gt;/hunts &lt;gray&gt;to turn it in.",
+  "autoAcceptSoloHunts": false,
+  "enableLeaderboard": true,
+  "takeMonOnTurnIn": true,
+  "autoTurnInOnCapture": false,
+  "rewardMode": "weight",
+  "onlyAllowTurnInIfCapturedAfterHuntStarted": true,
+  "lockGlobalHuntsOnCompletionForAllPlayers": true,
+  "permissions": {
+    "permissionLevel": 2,
+    "opLevel": 2,
+    "huntsPermission": "cobblehunts.hunts",
+    "giveBrushPermission": "cobblehunts.givebrush",
+    "globalHuntPermission": "cobblehunts.global",
+    "soloEasyHuntPermission": "cobblehunts.solo.easy",
+    "soloNormalHuntPermission": "cobblehunts.solo.normal",
+    "soloMediumHuntPermission": "cobblehunts.solo.medium",
+    "soloHardHuntPermission": "cobblehunts.solo.hard"
+  },
+  "trackingBrush": {
+    "scanRadius": 96.0,
+    "scanCooldownSeconds": 30,
+    "trailStepDistance": 16.0,
+    "trailStartDistance": 6.0,
+    "trailTimeoutSeconds": 60,
+    "damageOnScan": 5,
+    "damageOnFailedScan": 2,
+    "damageOnStep": 1,
+    "damageOnFinish": 4,
+    "itemName": "&lt;!italic&gt;&lt;aqua&gt;Hunt Tracking Brush",
+    "lore": [
+      "&lt;!italic&gt;&lt;gray&gt;Use on a block to dust for prints",
+      "&lt;!italic&gt;&lt;gray&gt;of nearby hunt Pokemon."
+    ]
+  }
+}</code></pre>
+            </article>
+
+            <article class="panel example-wide">
+              <h3>Pokemon Pools</h3>
+              <pre><code>{
+  "version": "1.1.2",
+  "configId": "cobblehunts",
+  "globalPokemon": [
+    {
+      "species": "pikachu",
+      "form": "Normal",
+      "aspects": [],
+      "chance": 2.0,
+      "gender": "female",
+      "nature": "timid",
+      "ivRange": "1"
+    }
+  ],
+  "soloEasyPokemon": [
+    {
+      "species": "pidgey",
+      "form": "Normal",
+      "aspects": [],
+      "chance": 1.0,
+      "gender": null,
+      "nature": null,
+      "ivRange": null
+    }
+  ],
+  "soloNormalPokemon": [],
+  "soloMediumPokemon": [],
+  "soloHardPokemon": [
+    {
+      "species": "dragonite",
+      "form": "Normal",
+      "aspects": [],
+      "chance": 1.0,
+      "gender": "male",
+      "nature": "adamant",
+      "ivRange": "2"
+    }
+  ]
+}</code></pre>
+            </article>
+
+            <article class="panel example-wide">
+              <h3>Loot Pools</h3>
+              <pre><code>{
+  "version": "1.1.2",
+  "configId": "cobblehunts",
+  "globalLoot": [
+    {
+      "type": "command",
+      "command": "eco deposit 150 dollars %player%",
+      "chance": 1.0,
+      "serializableItemStack": {
+        "itemStackString": "{\"id\":\"minecraft:paper\",\"count\":1}"
+      }
+    }
+  ],
+  "soloEasyLoot": [
+    {
+      "type": "item",
+      "serializableItemStack": {
+        "itemStackString": "{\"id\":\"cobblemon:poke_ball\",\"count\":8}"
+      },
+      "chance": 1.0
+    }
+  ],
+  "soloNormalLoot": [],
+  "soloMediumLoot": [],
+  "soloHardLoot": []
+}</code></pre>
+            </article>
+
+            <article class="panel">
+              <h3>Add A Pokemon</h3>
+              <pre><code>{
+  "species": "eevee",
+  "form": "Normal",
+  "aspects": [],
+  "chance": 1.0,
+  "gender": "random",
+  "nature": "random",
+  "ivRange": null
+}</code></pre>
+            </article>
+
+            <article class="panel">
+              <h3>Command Reward</h3>
+              <pre><code>{
+  "type": "command",
+  "command": "give %player% minecraft:diamond 1",
+  "chance": 1.0,
+  "serializableItemStack": {
+    "itemStackString": "{\"id\":\"minecraft:diamond\",\"count\":1}"
+  }
+}</code></pre>
+            </article>
+
+            <article class="panel">
+              <h3>Item Reward</h3>
+              <pre><code>{
+  "type": "item",
+  "serializableItemStack": {
+    "itemStackString": "{\"id\":\"cobblemon:rare_candy\",\"count\":1}"
+  },
+  "chance": 1.0
+}</code></pre>
+            </article>
+
+            <article class="panel">
+              <h3>Reward Modes</h3>
+              <ul>
+                <li><code>weight</code> picks one reward using each reward's <code>chance</code> as a weight.</li>
+                <li><code>percentage</code> rolls every reward independently using <code>chance</code> as a 0.0 to 1.0 probability.</li>
+                <li>Do not use a leading slash in command rewards.</li>
+                <li>Use escaped ItemStack JSON strings for <code>itemStackString</code>.</li>
               </ul>
             </article>
           </div>
