@@ -244,12 +244,27 @@
             <article class="panel json-basics">
               <h3>Common Values</h3>
               <ul>
+                <li><code>mode</code>: <code>COORDS</code> for exact block positions or <code>CHUNK</code> for chunk selections.</li>
                 <li><code>spawnTime</code>: <code>ALL</code>, <code>DAY</code>, or <code>NIGHT</code>.</li>
                 <li><code>spawnWeather</code>: <code>ALL</code>, <code>CLEAR</code>, <code>RAIN</code>, or <code>THUNDER</code>.</li>
-                <li><code>spawnChanceType</code>: <code>COMPETITIVE</code> or <code>INDEPENDENT</code>.</li>
-                <li><code>allowedBlocks</code>: <code>#solid</code>, <code>#water</code>, <code>#air</code>, or block IDs.</li>
+                <li><code>spawnChanceType</code>: <code>COMPETITIVE</code> joins the weighted pool; <code>INDEPENDENT</code> rolls its own percent first.</li>
+                <li><code>allowedBlocks</code>: empty list for any floor, <code>#solid</code>, <code>#water</code>, <code>#air</code>, or exact block IDs such as <code>minecraft:grass_block</code>.</li>
                 <li><code>returnTarget</code>: <code>RANDOM</code>, <code>CENTER</code>, or <code>CLOSEST</code>.</li>
-                <li>Most caps use <code>0</code> as unlimited.</li>
+                <li><code>aspects</code>: Cobblemon aspect strings for that Pokemon or form, such as <code>shiny</code>. Use the GUI to see valid aspects for a species.</li>
+                <li><code>formName</code>: Cobblemon form names such as <code>Normal</code> or <code>galarian</code>; blank, <code>normal</code>, <code>default</code>, and <code>standard</code> are treated as the base form.</li>
+              </ul>
+            </article>
+
+            <article class="panel json-basics">
+              <h3>Region Field Options</h3>
+              <ul>
+                <li><code>selectedPokemon</code>: list of Pokemon spawn objects. Empty means the region has no custom spawns.</li>
+                <li><code>requiredPokeBalls</code>: Cobblemon ball IDs without the namespace in this config, for example <code>poke_ball</code>, <code>great_ball</code>, or <code>ultra_ball</code>.</li>
+                <li><code>itemsWithChance</code>: item ID to percent chance, for example <code>"minecraft:diamond": 5.0</code>.</li>
+                <li><code>selectedMoves</code>: move IDs such as <code>tackle</code> or <code>quickattack</code>; <code>forced</code> makes the move start on the Pokemon.</li>
+                <li><code>disallowedSpecies</code>: species IDs such as <code>cobblemon:pikachu</code>.</li>
+                <li><code>disallowedLabels</code>: Cobblemon labels such as <code>legendary</code>, <code>mythical</code>, or other labels present on installed Pokemon data.</li>
+                <li><code>exclusionConditions</code>: condition strings gathered by <code>/csr inspectnearest</code> or the condition scanner GUI.</li>
               </ul>
             </article>
 
@@ -405,6 +420,7 @@
 
             <article class="panel">
               <h3>Shiny, Form, Or Aspect</h3>
+              <p><code>aspects</code> is not one global fixed list. It must match Cobblemon aspects that exist for that species/form. <code>shiny</code> is the common one; forms and addons may expose more.</p>
               <pre><code>{
   "pokemonName": "ponyta",
   "formName": "galarian",
@@ -649,12 +665,49 @@
             </article>
 
             <article class="panel json-basics">
+              <h3>Common Values</h3>
+              <ul>
+                <li><code>inventoryFullBehavior</code>: <code>drop</code> drops item rewards if inventory insert fails; <code>skip</code> does not give the item.</li>
+                <li>Trigger maps: <code>battleWonRewards</code>, <code>battleLostRewards</code>, <code>battleForfeitRewards</code>, and <code>captureRewards</code>.</li>
+                <li><code>type</code>: <code>command</code> or <code>item</code>.</li>
+                <li><code>battleTypes</code>: <code>wild</code>, <code>npc</code>, and <code>pvp</code>.</li>
+                <li><code>allowedDimensions</code>: empty list for all dimensions, or IDs such as <code>minecraft:overworld</code>, <code>minecraft:the_nether</code>, <code>minecraft:the_end</code>, or <code>modid:dimension_name</code>.</li>
+                <li><code>chance</code>: percent from <code>0.0</code> to <code>100.0</code>. <code>100.0</code> is guaranteed.</li>
+              </ul>
+            </article>
+
+            <article class="panel json-basics">
+              <h3>Reward Field Options</h3>
+              <ul>
+                <li><code>command</code>: server command text with no leading slash. Used when <code>type</code> is <code>command</code>.</li>
+                <li><code>itemStack</code>: escaped ItemStack JSON string, for example <code>{"id":"minecraft:diamond","count":1}</code> escaped inside quotes.</li>
+                <li><code>cooldown</code>: seconds per player for that reward. <code>0</code> means no cooldown.</li>
+                <li><code>minLevel</code> and <code>maxLevel</code>: opponent Pokemon level range.</li>
+                <li><code>order</code>: lower numbers run first. Default is <code>999</code>.</li>
+                <li><code>excludedRewards</code>: reward names from the same trigger map that should be blocked after this reward succeeds.</li>
+                <li><code>conditionsBlacklist</code>: <code>false</code> means reward only matching Pokemon; <code>true</code> means reward anything that does not match.</li>
+              </ul>
+            </article>
+
+            <article class="panel json-basics">
+              <h3>Condition Values</h3>
+              <ul>
+                <li>Raw species match: <code>cobblemon:pikachu</code>, <code>cobblemon:zapdos</code>, or another species ID.</li>
+                <li>Property match: <code>key=value</code> or <code>key:value</code>, for example <code>type=electric</code>, <code>type=ghost</code>, <code>shiny=true</code>, or <code>form=galarian</code>.</li>
+                <li>Top-level list items are OR checks: <code>["type=electric", "type=flying"]</code> matches either.</li>
+                <li>Nested lists are AND groups: <code>[["type=electric", "shiny=true"]]</code> requires both.</li>
+                <li>Run <code>/cbr listconditions</code> with a Pokemon in party slot 1 to print the condition keys the mod can read from that Pokemon.</li>
+              </ul>
+            </article>
+
+            <article class="panel json-basics">
               <h3>Placeholders</h3>
               <ul>
                 <li><code>%player%</code>: player name.</li>
                 <li><code>%pokemon%</code>: opponent Pokemon species.</li>
                 <li><code>%level%</code>: opponent Pokemon level.</li>
                 <li><code>%battleType%</code>: <code>wild</code>, <code>npc</code>, or <code>pvp</code>.</li>
+                <li><code>%chance%</code>: configured reward chance.</li>
                 <li><code>%coords%</code>: player X,Y,Z.</li>
                 <li><code>%trigger%</code>: reward trigger.</li>
                 <li><code>%dimension%</code>: player dimension.</li>
@@ -969,6 +1022,29 @@
                 <li><code>cobblehunts.solo.easy</code>, <code>.normal</code>, <code>.medium</code>, <code>.hard</code>: access solo tiers.</li>
                 <li><code>cobblehunts.givebrush</code>: give tracking brushes.</li>
                 <li>Default permission and op levels are both <code>2</code>.</li>
+              </ul>
+            </article>
+
+            <article class="panel json-basics">
+              <h3>Common Values</h3>
+              <ul>
+                <li><code>rewardMode</code>: <code>weight</code> picks one reward by weight; <code>percentage</code> rolls every reward independently.</li>
+                <li>Pokemon pool names: <code>globalPokemon</code>, <code>soloEasyPokemon</code>, <code>soloNormalPokemon</code>, <code>soloMediumPokemon</code>, and <code>soloHardPokemon</code>.</li>
+                <li>Loot pool names: <code>globalLoot</code>, <code>soloEasyLoot</code>, <code>soloNormalLoot</code>, <code>soloMediumLoot</code>, and <code>soloHardLoot</code>.</li>
+                <li>Loot reward <code>type</code>: <code>command</code> or <code>item</code>.</li>
+                <li><code>gender</code>: <code>null</code>, <code>random</code>, <code>male</code>, or <code>female</code>. The editor cycles Any, Male, Female.</li>
+                <li><code>nature</code>: <code>null</code>, <code>random</code>, or one of the 25 Pokemon natures.</li>
+                <li><code>ivRange</code>: <code>null</code>, <code>"1"</code>, <code>"2"</code>, or <code>"3"</code>; it means at least that many IVs are 20 or higher.</li>
+                <li><code>aspects</code>: Cobblemon aspect strings for the species/form, commonly <code>shiny</code>.</li>
+              </ul>
+            </article>
+
+            <article class="panel json-basics">
+              <h3>Nature Values</h3>
+              <ul>
+                <li><code>Adamant</code>, <code>Bashful</code>, <code>Bold</code>, <code>Brave</code>, <code>Calm</code>, <code>Careful</code>, <code>Docile</code>, <code>Gentle</code>, <code>Hardy</code>, <code>Hasty</code>.</li>
+                <li><code>Impish</code>, <code>Jolly</code>, <code>Lax</code>, <code>Lonely</code>, <code>Mild</code>, <code>Modest</code>, <code>Naive</code>, <code>Naughty</code>, <code>Quiet</code>, <code>Quirky</code>.</li>
+                <li><code>Rash</code>, <code>Relaxed</code>, <code>Sassy</code>, <code>Serious</code>, <code>Timid</code>.</li>
               </ul>
             </article>
 
@@ -1295,6 +1371,17 @@
                 <li><code>{biome}</code>: requested biome ID.</li>
                 <li><code>{x}</code>, <code>{y}</code>, <code>{z}</code>: destination coordinates.</li>
                 <li><code>{percent}</code>: slow-load progress percentage.</li>
+              </ul>
+            </article>
+
+            <article class="panel json-basics">
+              <h3>Common Values</h3>
+              <ul>
+                <li><code>dimensionSafetyRules.mode</code>: <code>auto</code>, <code>surface</code>, <code>overworld</code>, <code>cave</code>, <code>nether</code>, <code>floating</code>, or <code>end</code>. <code>overworld</code> aliases <code>surface</code>, <code>nether</code> aliases <code>cave</code>, and <code>end</code> aliases <code>floating</code>.</li>
+                <li><code>dimension</code>, <code>from</code>, and <code>to</code>: full dimension IDs such as <code>minecraft:overworld</code>, or <code>*</code> for wildcard safety rules.</li>
+                <li><code>gliderSlot</code>: equipment slot name such as <code>CHEST</code> for an elytra-style glider item.</li>
+                <li><code>particleType</code>: particle ID such as <code>minecraft:cloud</code>.</li>
+                <li><code>cooldowns.permission</code>: permission node for that tier, or empty string for the fallback tier.</li>
               </ul>
             </article>
 
