@@ -492,7 +492,7 @@ pre code {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
-.command-list div,
+.command-list .command-item,
 .settings-grid div {
   min-width: 0;
   border: 1px solid var(--line);
@@ -501,20 +501,38 @@ pre code {
   padding: 14px;
 }
 
-.command-list div {
+.command-list .command-item {
   display: grid;
-  grid-template-columns: minmax(380px, 0.46fr) minmax(0, 1fr) auto;
-  gap: 16px;
+  grid-template-columns: minmax(0, 1.25fr) minmax(260px, 0.75fr);
+  gap: 12px;
+  align-items: stretch;
+}
+
+.command-box,
+.permission-box {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px 10px;
   align-items: center;
-}
-
-.command-meta {
-  display: grid;
-  gap: 8px;
   min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #111719;
+  padding: 12px;
 }
 
-.command-list code {
+.command-box label,
+.permission-box label {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.command-box code,
+.permission-box code {
   display: block;
   width: 100%;
   max-width: 100%;
@@ -524,21 +542,19 @@ pre code {
   word-break: normal;
 }
 
-.command-meta small {
-  color: var(--muted);
-  font-size: 0.78rem;
-  overflow-wrap: anywhere;
-}
-
-.command-list span,
+.command-list p,
 .settings-grid span {
   display: block;
-  margin-top: 7px;
   color: var(--muted);
 }
 
-.command-list span {
-  margin-top: 0;
+.command-list p {
+  grid-column: 1 / -1;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #151b1d;
+  padding: 12px;
 }
 
 .copy-command {
@@ -599,7 +615,7 @@ footer {
     width: 100%;
   }
 
-  .command-list div {
+  .command-list .command-item {
     grid-template-columns: 1fr;
   }
 

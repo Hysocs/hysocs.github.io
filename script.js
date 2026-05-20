@@ -62,10 +62,10 @@ async function copyText(text) {
 
 document.querySelectorAll(".copy-command").forEach((button) => {
   button.addEventListener("click", async () => {
-    const command = button.closest(".command-list div")?.querySelector("code")?.textContent.trim();
-    if (!command) return;
+    const text = button.closest(".command-box, .permission-box")?.querySelector("code")?.textContent.trim();
+    if (!text) return;
 
-    await copyText(command);
+    await copyText(text);
     const originalText = button.textContent;
     button.textContent = "Copied";
     window.setTimeout(() => {
