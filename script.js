@@ -1,5 +1,6 @@
 const tabs = document.querySelectorAll(".tab");
 const panels = document.querySelectorAll(".tab-panel");
+const backToTopButton = document.querySelector(".back-to-top");
 const routeToTab = {
   "/": "cobblespawnregions",
   "/cobblespawnregions": "cobblespawnregions",
@@ -17,6 +18,35 @@ const tabToRoute = {
   cobblebattlerewards: "/cobblebattlerewards",
   cobblehunts: "/cobblehunts",
   blanketrtp: "/blanketrtp",
+};
+
+const siteUrl = "https://hysocs.github.io";
+
+const tabMetadata = {
+  cobblespawnregions: {
+    title: "CobbleSpawnRegions | Everlasting.mods Wiki",
+    description: "Create named regions that control Cobblemon natural spawns and custom Pokemon spawns.",
+    image: `${siteUrl}/assets/cobblespawnregions-icon.png`,
+    themeColor: "#2f8ce7",
+  },
+  cobblehunts: {
+    title: "CobbleHunts | Everlasting.mods Wiki",
+    description: "Create server-wide Pokemon hunts with editor tools, hunt pools, loot tables, cooldowns, and player rewards.",
+    image: `${siteUrl}/assets/cobblehunts-icon.png`,
+    themeColor: "#ffd84d",
+  },
+  cobblebattlerewards: {
+    title: "CobbleBattleRewards | Everlasting.mods Wiki",
+    description: "Reward players for Cobblemon battles with configurable drops, money, commands, cooldowns, and win or loss rules.",
+    image: `${siteUrl}/assets/cobblebattlerewards-icon.png`,
+    themeColor: "#f48ac2",
+  },
+  blanketrtp: {
+    title: "B-RTP | Everlasting.mods Wiki",
+    description: "Give players safer random teleports with dimensions, cooldowns, warmups, particles, titles, and permission controls.",
+    image: `${siteUrl}/assets/blanketrtp-icon.png`,
+    themeColor: "#4ade80",
+  },
 };
 
 const sidebarToggle = document.querySelector(".sidebar-toggle");
@@ -243,6 +273,43 @@ function scrollToPageTop() {
   });
 }
 
+function getScrollProgress() {
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  return maxScroll > 0 ? window.scrollY / maxScroll : 0;
+}
+
+function updateBackToTopButton() {
+  if (!backToTopButton) return;
+
+  const isVisible = getScrollProgress() >= 0.5;
+  backToTopButton.classList.toggle("is-visible", isVisible);
+  backToTopButton.hidden = !isVisible;
+}
+
+function setMetaContent(selector, content) {
+  const meta = document.head.querySelector(selector);
+  if (meta) meta.setAttribute("content", content);
+}
+
+function updatePageMetadata(targetId) {
+  const metadata = tabMetadata[targetId];
+  if (!metadata) return;
+
+  const route = tabToRoute[targetId] || "/";
+  const url = `${siteUrl}${route}`;
+
+  document.title = metadata.title;
+  setMetaContent('meta[name="description"]', metadata.description);
+  setMetaContent('meta[name="theme-color"]', metadata.themeColor);
+  setMetaContent('meta[property="og:title"]', metadata.title);
+  setMetaContent('meta[property="og:description"]', metadata.description);
+  setMetaContent('meta[property="og:url"]', url);
+  setMetaContent('meta[property="og:image"]', metadata.image);
+  setMetaContent('meta[name="twitter:title"]', metadata.title);
+  setMetaContent('meta[name="twitter:description"]', metadata.description);
+  setMetaContent('meta[name="twitter:image"]', metadata.image);
+}
+
 function activateTab(targetId, updateUrl = true, scrollMode = "top") {
   let activeTheme = "";
 
@@ -261,6 +328,7 @@ function activateTab(targetId, updateUrl = true, scrollMode = "top") {
   });
 
   activeTabId = targetId;
+  updatePageMetadata(targetId);
 
   if (activeTheme) {
     applyTheme(activeTheme, hasSetInitialTheme);
@@ -277,6 +345,8 @@ function activateTab(targetId, updateUrl = true, scrollMode = "top") {
   if (scrollMode === "top") {
     scrollToPageTop();
   }
+
+  updateBackToTopButton();
 }
 
 tabs.forEach((tab) => {
@@ -316,6 +386,16 @@ tabs.forEach((tab) => {
     tabList[nextIndex].click();
   });
 });
+
+if (backToTopButton) {
+  backToTopButton.addEventListener("click", () => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  });
+
+  window.addEventListener("scroll", updateBackToTopButton, { passive: true });
+  window.addEventListener("resize", updateBackToTopButton);
+  updateBackToTopButton();
+}
 
 async function copyText(text) {
   if (navigator.clipboard?.writeText) {
