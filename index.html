@@ -6,7 +6,7 @@
     <title>Everlasting.mods Wiki</title>
     <link rel="stylesheet" href="styles.css">
   </head>
-  <body>
+  <body class="theme-regions-page">
     <header class="site-header">
       <div class="header-inner">
         <div>
@@ -14,8 +14,8 @@
           <h1>Wiki</h1>
         </div>
         <nav class="mod-tabs" aria-label="Mod tabs">
-          <button class="tab is-active theme-regions" type="button" data-tab="cobblespawnregions">CobbleSpawnRegions</button>
-          <button class="tab" type="button" data-tab="coming-soon-a">Under constructions</button>
+          <button class="tab is-active theme-regions" type="button" data-tab="cobblespawnregions" data-theme="theme-regions-page">CobbleSpawnRegions</button>
+          <button class="tab theme-battle" type="button" data-tab="cobblebattlerewards" data-theme="theme-battle-page">CobbleBattleRewards</button>
           <button class="tab" type="button" data-tab="coming-soon-b">Under constructions</button>
         </nav>
       </div>
@@ -470,8 +470,316 @@
         </section>
       </section>
 
-      <section id="coming-soon-a" class="tab-panel">
-        <section class="empty-state"></section>
+      <section id="cobblebattlerewards" class="tab-panel">
+        <section class="mod-hero">
+          <div class="mod-title">
+            <img src="assets/cobblebattlerewards-icon.png" alt="" class="mod-icon">
+            <div>
+              <p class="eyebrow">Fabric 1.21.1</p>
+              <h2>CobbleBattleRewards</h2>
+              <p class="lead">Config-driven rewards for Cobblemon battles, captures, losses, and forfeits.</p>
+              <div class="hero-actions">
+                <a class="button-link" href="https://modrinth.com/mod/cobblebattlerewards" target="_blank" rel="noopener">View on Modrinth</a>
+                <a class="button-link secondary" href="#cbr-config">Config Guide</a>
+              </div>
+            </div>
+          </div>
+          <dl class="facts">
+            <div><dt>Mod ID</dt><dd>cobblebattlerewards</dd></div>
+            <div>
+              <dt>Version</dt>
+              <dd>
+                <span
+                  class="modrinth-version"
+                  data-modrinth-project="cobblebattlerewards"
+                  data-fallback-version="2.0.6"
+                >2.0.6</span>
+                <span class="version-note">Checking Modrinth...</span>
+              </dd>
+            </div>
+            <div><dt>Requires</dt><dd>Fabric Loader, Fabric API, Fabric Language Kotlin, Cobblemon, EverlastingUtils</dd></div>
+            <div><dt>Modrinth</dt><dd><a href="https://modrinth.com/mod/cobblebattlerewards" target="_blank" rel="noopener">Open project page</a></dd></div>
+          </dl>
+        </section>
+
+        <section class="quick-start-section">
+          <article class="panel quick-start">
+            <h3>Quick Start</h3>
+            <ol>
+              <li>Start the server once so <code>config/cobblebattlerewards/config.jsonc</code> is generated.</li>
+              <li>Edit one reward map: <code>battleWonRewards</code>, <code>battleLostRewards</code>, <code>battleForfeitRewards</code>, or <code>captureRewards</code>.</li>
+              <li>Add a named reward object, such as <code>"money_100": { ... }</code>.</li>
+              <li>Choose <code>type</code>: <code>command</code> or <code>item</code>.</li>
+              <li>Run <code>/cbr reload</code> and test the trigger in-game.</li>
+            </ol>
+          </article>
+
+          <article class="panel screenshot-card hero-media">
+            <h3>Config Workflow</h3>
+            <div class="image-placeholder">
+              <span>Add config or reward test GIF here</span>
+            </div>
+          </article>
+        </section>
+
+        <section class="doc-section">
+          <div class="section-heading">
+            <p class="eyebrow">Usage</p>
+            <h3>Features</h3>
+          </div>
+          <div class="feature-grid">
+            <article class="panel">
+              <h3>Reward Triggers</h3>
+              <ul>
+                <li><strong>battleWonRewards</strong> runs when a player wins a battle.</li>
+                <li><strong>battleLostRewards</strong> runs when a player loses a battle.</li>
+                <li><strong>battleForfeitRewards</strong> runs when a player forfeits or flees.</li>
+                <li><strong>captureRewards</strong> runs when a Pokemon is captured.</li>
+                <li><strong>battleTypes</strong> can limit rewards to <code>wild</code>, <code>npc</code>, or <code>pvp</code>.</li>
+                <li><strong>allowedDimensions</strong> can limit rewards to dimensions such as <code>minecraft:overworld</code>.</li>
+              </ul>
+            </article>
+            <article class="panel">
+              <h3>Reward Filters</h3>
+              <ul>
+                <li><strong>conditions</strong> match the opponent Pokemon. Empty means any Pokemon.</li>
+                <li><strong>conditionsBlacklist</strong> reverses condition logic.</li>
+                <li><strong>minLevel</strong> and <strong>maxLevel</strong> restrict by opponent level.</li>
+                <li><strong>chance</strong> is a percent roll from 0 to 100.</li>
+                <li><strong>cooldown</strong> is per player and reward, in seconds.</li>
+                <li><strong>order</strong> runs lower numbers first, letting rare rewards block common ones.</li>
+                <li><strong>excludedRewards</strong> prevents named lower-priority rewards from also being paid.</li>
+              </ul>
+            </article>
+            <article class="panel pokemon-settings-panel">
+              <h3>What You Can Use</h3>
+              <div class="settings-grid">
+                <div><strong>Reward Types</strong><span><code>command</code> and <code>item</code>.</span></div>
+                <div><strong>Battle Types</strong><span><code>wild</code>, <code>npc</code>, and <code>pvp</code>.</span></div>
+                <div><strong>Triggers</strong><span><code>BattleWon</code>, <code>BattleLost</code>, <code>BattleForfeit</code>, and <code>Captured</code>.</span></div>
+                <div><strong>Inventory Full</strong><span><code>drop</code> or <code>skip</code>.</span></div>
+                <div><strong>Species Condition</strong><span>Use resource IDs like <code>cobblemon:pikachu</code>.</span></div>
+                <div><strong>Property Condition</strong><span>Use key/value checks like <code>type=electric</code> or <code>shiny=true</code>.</span></div>
+                <div><strong>AND Groups</strong><span>Use nested lists: <code>["type=electric", "shiny=true"]</code>.</span></div>
+                <div><strong>MiniMessage</strong><span>Messages support tags such as <code>&lt;green&gt;</code> and <code>&lt;gold&gt;</code>.</span></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="doc-section">
+          <div class="section-heading">
+            <p class="eyebrow">Reference</p>
+            <h3>Commands</h3>
+          </div>
+          <article class="panel">
+            <div class="command-list">
+              <div><code>/cobblebattlerewards</code><span>Shows base mod command output. Alias: <code>/cbr</code>.</span></div>
+              <div><code>/cbr reload</code><span>Reloads <code>config/cobblebattlerewards/config.jsonc</code>.</span></div>
+              <div><code>/cbr listrewards</code><span>Prints configured rewards grouped by trigger.</span></div>
+              <div><code>/cbr listconditions</code><span>Prints usable condition keys based on your first party Pokemon.</span></div>
+            </div>
+          </article>
+        </section>
+
+        <section id="cbr-config" class="doc-section">
+          <div class="section-heading">
+            <p class="eyebrow">Examples</p>
+            <h3>Config Usage</h3>
+          </div>
+          <div class="json-guide">
+            <article class="panel json-basics">
+              <h3>JSON Rules For This Mod</h3>
+              <ul>
+                <li>All rewards are edited in <code>config/cobblebattlerewards/config.jsonc</code>.</li>
+                <li>Reward maps are objects: <code>"reward_name": { ... }</code>.</li>
+                <li>Every reward name in the same map must be unique.</li>
+                <li>Text must use quotes. Lists use <code>[ ]</code>. Objects use <code>{ }</code>.</li>
+                <li>Use commas between rewards and fields, but not after the last item.</li>
+                <li>Run <code>/cbr reload</code> after changes.</li>
+              </ul>
+            </article>
+
+            <article class="panel json-basics">
+              <h3>Placeholders</h3>
+              <ul>
+                <li><code>%player%</code>: player name.</li>
+                <li><code>%pokemon%</code>: opponent Pokemon species.</li>
+                <li><code>%level%</code>: opponent Pokemon level.</li>
+                <li><code>%battleType%</code>: <code>wild</code>, <code>npc</code>, or <code>pvp</code>.</li>
+                <li><code>%coords%</code>: player X,Y,Z.</li>
+                <li><code>%trigger%</code>: reward trigger.</li>
+                <li><code>%dimension%</code>: player dimension.</li>
+                <li><code>%time%</code>: cooldown time left, only for cooldown messages.</li>
+              </ul>
+            </article>
+
+            <article class="panel example-wide">
+              <h3>Minimal Full Config</h3>
+              <pre><code>{
+  "version": "2.0.6",
+  "configId": "cobblebattlerewards",
+  "debugEnabled": false,
+  "inventoryFullBehavior": "drop",
+  "battleWonRewards": {
+    "win_money": {
+      "type": "command",
+      "message": "&lt;green&gt;%player% earned $100 for beating %pokemon%!&lt;/green&gt;",
+      "command": "eco deposit 100 dollars %player%",
+      "itemStack": "",
+      "chance": 100.0,
+      "cooldown": 0,
+      "cooldownMessage": "",
+      "battleTypes": ["wild", "npc"],
+      "conditions": [],
+      "conditionsBlacklist": false,
+      "minLevel": 1,
+      "maxLevel": 100,
+      "order": 999,
+      "excludedRewards": [],
+      "allowedDimensions": []
+    }
+  },
+  "battleLostRewards": {},
+  "battleForfeitRewards": {},
+  "captureRewards": {}
+}</code></pre>
+            </article>
+
+            <article class="panel example-wide">
+              <h3>Add A Reward To A Trigger</h3>
+              <p>Paste a named reward inside the trigger map you want. This example belongs inside <code>battleWonRewards</code>.</p>
+              <pre><code>"rare_candy_for_high_level": {
+  "type": "item",
+  "message": "&lt;light_purple&gt;You earned a Rare Candy for beating lvl %level% %pokemon%!&lt;/light_purple&gt;",
+  "command": "",
+  "itemStack": "{\"id\":\"cobblemon:rare_candy\",\"count\":1}",
+  "chance": 20.0,
+  "cooldown": 300,
+  "cooldownMessage": "&lt;red&gt;Wait %time% seconds for another rare candy reward.&lt;/red&gt;",
+  "battleTypes": ["wild"],
+  "conditions": [],
+  "conditionsBlacklist": false,
+  "minLevel": 40,
+  "maxLevel": 100,
+  "order": 1,
+  "excludedRewards": ["common_win_money"],
+  "allowedDimensions": ["minecraft:overworld"]
+}</code></pre>
+            </article>
+
+            <article class="panel">
+              <h3>Command Reward</h3>
+              <pre><code>"money_50": {
+  "type": "command",
+  "message": "&lt;green&gt;You received $50 for winning at %coords%!&lt;/green&gt;",
+  "command": "eco deposit 50 dollars %player%",
+  "chance": 100.0,
+  "battleTypes": ["wild", "npc", "pvp"],
+  "conditions": [],
+  "minLevel": 1,
+  "maxLevel": 100
+}</code></pre>
+            </article>
+
+            <article class="panel">
+              <h3>Item Reward</h3>
+              <pre><code>"pokeballs": {
+  "type": "item",
+  "message": "&lt;aqua&gt;You received 3 Poke Balls!&lt;/aqua&gt;",
+  "itemStack": "{\"id\":\"cobblemon:poke_ball\",\"count\":3}",
+  "chance": 100.0,
+  "battleTypes": ["wild"],
+  "conditions": [],
+  "minLevel": 1,
+  "maxLevel": 100
+}</code></pre>
+            </article>
+
+            <article class="panel">
+              <h3>Species Condition</h3>
+              <pre><code>"pikachu_reward": {
+  "type": "item",
+  "message": "&lt;yellow&gt;Pikachu reward!&lt;/yellow&gt;",
+  "itemStack": "{\"id\":\"minecraft:gold_ingot\",\"count\":3}",
+  "chance": 100.0,
+  "battleTypes": ["wild"],
+  "conditions": ["cobblemon:pikachu"],
+  "order": 1
+}</code></pre>
+            </article>
+
+            <article class="panel">
+              <h3>Type Or Property Condition</h3>
+              <pre><code>"electric_bonus": {
+  "type": "command",
+  "message": "&lt;light_purple&gt;Electric type bonus!&lt;/light_purple&gt;",
+  "command": "eco deposit 50 dollars %player%",
+  "chance": 100.0,
+  "battleTypes": ["wild"],
+  "conditions": ["type=electric"],
+  "order": 2
+}</code></pre>
+            </article>
+
+            <article class="panel">
+              <h3>Require Multiple Conditions</h3>
+              <pre><code>"shiny_electric_bonus": {
+  "type": "item",
+  "message": "&lt;gold&gt;Shiny electric reward!&lt;/gold&gt;",
+  "itemStack": "{\"id\":\"minecraft:diamond\",\"count\":2}",
+  "chance": 100.0,
+  "battleTypes": ["wild"],
+  "conditions": [
+    ["type=electric", "shiny=true"]
+  ],
+  "order": 1
+}</code></pre>
+            </article>
+
+            <article class="panel">
+              <h3>Blacklist Conditions</h3>
+              <pre><code>"not_common_reward": {
+  "type": "item",
+  "message": "&lt;gray&gt;You did not defeat a common Pokemon.&lt;/gray&gt;",
+  "itemStack": "{\"id\":\"minecraft:emerald\",\"count\":1}",
+  "chance": 10.0,
+  "battleTypes": ["wild"],
+  "conditions": [
+    "cobblemon:pidgey",
+    "cobblemon:rattata",
+    "cobblemon:zubat"
+  ],
+  "conditionsBlacklist": true
+}</code></pre>
+            </article>
+
+            <article class="panel">
+              <h3>Capture Reward</h3>
+              <pre><code>"capture_money": {
+  "type": "command",
+  "message": "&lt;green&gt;You received $50 for capturing %pokemon%!&lt;/green&gt;",
+  "command": "eco deposit 50 dollars %player%",
+  "chance": 100.0,
+  "battleTypes": ["wild"],
+  "conditions": [],
+  "minLevel": 1,
+  "maxLevel": 100
+}</code></pre>
+            </article>
+
+            <article class="panel">
+              <h3>What Not To Use</h3>
+              <ul>
+                <li>Do not use reward type names other than <code>command</code> or <code>item</code>.</li>
+                <li>Do not include a leading slash in <code>command</code>.</li>
+                <li>Do not put plain item IDs in <code>itemStack</code>; it must be an escaped ItemStack JSON string.</li>
+                <li>Do not use battle types outside <code>wild</code>, <code>npc</code>, or <code>pvp</code>.</li>
+                <li>Do not duplicate reward names inside the same reward map.</li>
+              </ul>
+            </article>
+          </div>
+        </section>
       </section>
 
       <section id="coming-soon-b" class="tab-panel">

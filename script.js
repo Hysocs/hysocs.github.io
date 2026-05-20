@@ -2,13 +2,20 @@ const tabs = document.querySelectorAll(".tab");
 const panels = document.querySelectorAll(".tab-panel");
 
 function activateTab(targetId) {
+  let activeTheme = "";
+
   tabs.forEach((tab) => {
-    tab.classList.toggle("is-active", tab.dataset.tab === targetId);
+    const isActive = tab.dataset.tab === targetId;
+    tab.classList.toggle("is-active", isActive);
+    if (isActive) activeTheme = tab.dataset.theme || "";
   });
 
   panels.forEach((panel) => {
     panel.classList.toggle("is-active", panel.id === targetId);
   });
+
+  document.body.classList.remove("theme-regions-page", "theme-battle-page");
+  if (activeTheme) document.body.classList.add(activeTheme);
 }
 
 tabs.forEach((tab) => {
