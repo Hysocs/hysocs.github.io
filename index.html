@@ -17,6 +17,7 @@
           <button class="tab is-active theme-regions" type="button" data-tab="cobblespawnregions" data-theme="theme-regions-page">CobbleSpawnRegions</button>
           <button class="tab theme-battle" type="button" data-tab="cobblebattlerewards" data-theme="theme-battle-page">CobbleBattleRewards</button>
           <button class="tab theme-hunts" type="button" data-tab="cobblehunts" data-theme="theme-hunts-page">CobbleHunts</button>
+          <button class="tab theme-rtp" type="button" data-tab="blanketrtp" data-theme="theme-rtp-page">B-RTP</button>
           <button class="tab" type="button" data-tab="coming-soon-b">Under constructions</button>
         </nav>
       </div>
@@ -1123,6 +1124,262 @@
                 <li>Do not use a leading slash in command rewards.</li>
                 <li>Use escaped ItemStack JSON strings for <code>itemStackString</code>.</li>
               </ul>
+            </article>
+          </div>
+        </section>
+      </section>
+
+      <section id="blanketrtp" class="tab-panel">
+        <section class="mod-hero">
+          <div class="mod-title">
+            <img src="assets/blanketrtp-icon.png" alt="" class="mod-icon">
+            <div>
+              <p class="eyebrow">Fabric 1.21.1</p>
+              <h2>B-RTP</h2>
+              <p class="lead">Random teleport and biome teleport for Fabric servers, with cooldown tiers, dimension safety rules, slow chunk loading, and optional glide landings.</p>
+              <div class="hero-actions">
+                <a class="button-link" href="https://modrinth.com/mod/blanketrtp" target="_blank" rel="noopener">View on Modrinth</a>
+                <a class="button-link secondary" href="#rtp-config">Config Guide</a>
+              </div>
+            </div>
+          </div>
+          <dl class="facts">
+            <div><dt>Mod ID</dt><dd>blanketrtp</dd></div>
+            <div>
+              <dt>Version</dt>
+              <dd>
+                <span
+                  class="modrinth-version"
+                  data-modrinth-project="blanketrtp"
+                  data-fallback-version="2.0.6"
+                >2.0.6</span>
+                <span class="version-note">Checking Modrinth...</span>
+              </dd>
+            </div>
+            <div><dt>Requires</dt><dd>Fabric Loader, Fabric API, Fabric Language Kotlin, EverlastingUtils</dd></div>
+            <div><dt>Modrinth</dt><dd><a href="https://modrinth.com/mod/blanketrtp" target="_blank" rel="noopener">Open project page</a></dd></div>
+          </dl>
+        </section>
+
+        <section class="quick-start-section">
+          <article class="panel quick-start">
+            <h3>Quick Start</h3>
+            <ol>
+              <li>Start the server once so <code>config/blanketrtp/config.jsonc</code> generates.</li>
+              <li>Run <code>/rtp</code> to teleport to a random safe location.</li>
+              <li>Run <code>/rtp no_glide</code> if you want a normal teleport without glide mode.</li>
+              <li>Run <code>/rtp biome minecraft:plains</code> to search for a specific biome.</li>
+              <li>Edit cooldowns, redirects, dimension rules, and gliding behavior in the config.</li>
+            </ol>
+          </article>
+
+          <article class="panel screenshot-card hero-media">
+            <h3>Teleport Demo</h3>
+            <div class="image-placeholder">
+              <span>Add RTP or glide GIF here</span>
+            </div>
+          </article>
+        </section>
+
+        <section class="doc-section">
+          <div class="section-heading">
+            <p class="eyebrow">Usage</p>
+            <h3>Features</h3>
+          </div>
+          <div class="feature-grid">
+            <article class="panel">
+              <h3>Teleport Control</h3>
+              <ul>
+                <li><strong>Random RTP</strong> searches inside the configured radius.</li>
+                <li><strong>Biome RTP</strong> scans for a requested biome with configurable attempt and tick limits.</li>
+                <li><strong>Dimension redirects</strong> can send Nether or End RTP requests back to the Overworld.</li>
+                <li><strong>Dimension safety rules</strong> support <code>auto</code>, <code>surface</code>, <code>cave</code>, and <code>floating</code> modes.</li>
+                <li><strong>Slow loading</strong> prepares chunks before releasing the player.</li>
+              </ul>
+            </article>
+            <article class="panel">
+              <h3>Player Experience</h3>
+              <ul>
+                <li><strong>Gliding</strong> can teleport players above the target and let them glide down.</li>
+                <li><strong>Glider item</strong> can temporarily equip a configured item such as an elytra.</li>
+                <li><strong>Particles</strong> can trail the player during glide mode.</li>
+                <li><strong>Cooldown tiers</strong> allow VIP/member/default cooldowns through permissions.</li>
+                <li><strong>Messages</strong> use MiniMessage-style text and placeholders.</li>
+              </ul>
+            </article>
+            <article class="panel pokemon-settings-panel">
+              <h3>Config Knobs</h3>
+              <div class="settings-grid">
+                <div><strong>Command Name</strong><span>Default command is <code>rtp</code>.</span></div>
+                <div><strong>Radius</strong><span><code>rtpRadius</code> controls random search distance.</span></div>
+                <div><strong>Biome Search</strong><span>Use max attempts, batch size, and max ticks to tune load.</span></div>
+                <div><strong>Redirects</strong><span>Map one dimension ID to another dimension ID.</span></div>
+                <div><strong>Safety Rules</strong><span>Set mode and optional Y limits per dimension.</span></div>
+                <div><strong>Cooldowns</strong><span>First matching permission tier wins.</span></div>
+                <div><strong>Gliding</strong><span>Toggle height, particles, item slot, and item NBT.</span></div>
+                <div><strong>Slow Load</strong><span>Control chunk radius, delay, and keep-loaded time.</span></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="doc-section">
+          <div class="section-heading">
+            <p class="eyebrow">Reference</p>
+            <h3>Commands</h3>
+          </div>
+          <article class="panel">
+            <div class="command-list">
+              <div class="command-item"><div class="command-box"><label>Command</label><code>/rtp</code><button class="copy-command" type="button" data-copy-target="command">Copy</button></div><div class="permission-box"><label>Permission</label><code>blanketrtp.rtp</code><button class="copy-command" type="button" data-copy-target="permission">Copy</button></div><p>Runs a normal random teleport. Default permission level and op level are <code>0</code>.</p></div>
+              <div class="command-item"><div class="command-box"><label>Command</label><code>/rtp no_glide</code><button class="copy-command" type="button" data-copy-target="command">Copy</button></div><div class="permission-box"><label>Permission</label><code>blanketrtp.rtp.noglide</code><button class="copy-command" type="button" data-copy-target="permission">Copy</button></div><p>Runs RTP with glide mode disabled for that teleport. Default permission level and op level are <code>0</code>.</p></div>
+              <div class="command-item"><div class="command-box"><label>Command</label><code>/rtp biome &lt;biome&gt;</code><button class="copy-command" type="button" data-copy-target="command">Copy</button></div><div class="permission-box"><label>Permission</label><code>blanketrtp.rtp.biome</code><button class="copy-command" type="button" data-copy-target="permission">Copy</button></div><p>Searches for the requested biome, such as <code>minecraft:plains</code>. Default permission level and op level are <code>0</code>.</p></div>
+              <div class="command-item"><div class="command-box"><label>Command</label><code>/rtp biome &lt;biome&gt; no_glide</code><button class="copy-command" type="button" data-copy-target="command">Copy</button></div><div class="permission-box"><label>Permission</label><code>blanketrtp.rtp.biome</code><button class="copy-command" type="button" data-copy-target="permission">Copy</button></div><p>Biome RTP with glide mode disabled for that teleport.</p></div>
+              <div class="command-item"><div class="command-box"><label>Command</label><code>/rtpbiome &lt;biome&gt;</code><button class="copy-command" type="button" data-copy-target="command">Copy</button></div><div class="permission-box"><label>Permission</label><code>blanketrtp.rtp.biome</code><button class="copy-command" type="button" data-copy-target="permission">Copy</button></div><p>Optional standalone biome command. It only exists when <code>enableBiomeStandalone</code> is true.</p></div>
+              <div class="command-item"><div class="command-box"><label>Command</label><code>/rtp reload</code><button class="copy-command" type="button" data-copy-target="command">Copy</button></div><div class="permission-box"><label>Permission</label><code>blanketrtp.admin.reload</code><button class="copy-command" type="button" data-copy-target="permission">Copy</button></div><p>Reloads the BlanketRTP config. Default permission level and op level are <code>2</code>.</p></div>
+              <div class="command-item"><div class="command-box"><label>Command</label><code>/rtp stopgliding &lt;player&gt;</code><button class="copy-command" type="button" data-copy-target="command">Copy</button></div><div class="permission-box"><label>Permission</label><code>blanketrtp.admin.stopgliding</code><button class="copy-command" type="button" data-copy-target="permission">Copy</button></div><p>Forces a player out of RTP glide mode. Default permission level and op level are <code>2</code>.</p></div>
+            </div>
+          </article>
+        </section>
+
+        <section id="rtp-config" class="doc-section">
+          <div class="section-heading">
+            <p class="eyebrow">Examples</p>
+            <h3>Config Usage</h3>
+          </div>
+          <div class="json-guide">
+            <article class="panel json-basics">
+              <h3>JSON Rules For This Mod</h3>
+              <ul>
+                <li>Main config lives at <code>config/blanketrtp/config.jsonc</code>.</li>
+                <li>Dimension IDs use full IDs such as <code>minecraft:overworld</code>.</li>
+                <li>Biome IDs use full IDs such as <code>minecraft:plains</code>.</li>
+                <li>Cooldown durations, slow load times, and biome tick limits are numbers.</li>
+                <li>Run <code>/rtp reload</code> after edits.</li>
+              </ul>
+            </article>
+
+            <article class="panel json-basics">
+              <h3>Placeholders</h3>
+              <ul>
+                <li><code>{time}</code>: cooldown seconds left.</li>
+                <li><code>{biome}</code>: requested biome ID.</li>
+                <li><code>{x}</code>, <code>{y}</code>, <code>{z}</code>: destination coordinates.</li>
+                <li><code>{percent}</code>: slow-load progress percentage.</li>
+              </ul>
+            </article>
+
+            <article class="panel example-wide">
+              <h3>Full Default Config</h3>
+              <pre><code>{
+  "version": "2.0.6",
+  "configId": "blanketrtp",
+  "commandName": "rtp",
+  "rtpEnabled": true,
+  "rtpRadius": 5000,
+  "dimensionRedirects": [
+    { "from": "minecraft:the_end", "to": "minecraft:overworld" },
+    { "from": "minecraft:the_nether", "to": "minecraft:overworld" }
+  ],
+  "dimensionSafetyRules": [
+    { "dimension": "minecraft:the_nether", "mode": "cave", "allowGlide": false, "minY": 32, "maxY": 120 },
+    { "dimension": "minecraft:the_end", "mode": "floating", "allowGlide": true },
+    { "dimension": "*", "mode": "auto" }
+  ],
+  "cooldownBypassPermission": "blanketrtp.admin.bypass.cooldown",
+  "cooldowns": [
+    { "permission": "blanketrtp.cooldown.vip", "duration": 30 },
+    { "permission": "blanketrtp.cooldown.member", "duration": 60 },
+    { "permission": "", "duration": 120 }
+  ],
+  "glidingOptions": {
+    "enabled": true,
+    "gliderItemEnabled": true,
+    "teleportHeight": 150,
+    "particlesEnabled": true,
+    "particleType": "minecraft:cloud",
+    "particleAmount": 5,
+    "particleUpdateRate": 2,
+    "gliderSlot": "CHEST",
+    "particleOffsetX": 0.0,
+    "particleOffsetY": -0.5,
+    "particleOffsetZ": 0.0,
+    "glider": {
+      "gliderItemId": "minecraft:elytra",
+      "gliderNbtData": "{Damage:0}"
+    }
+  },
+  "slowLoadOptions": {
+    "enabled": true,
+    "radius": 1,
+    "keepLoadedSeconds": 5,
+    "loadDelayMillis": 250
+  },
+  "biomeRtpEnabled": true,
+  "biomeMaxAttempts": 40,
+  "biomeSearchBatchSize": 32,
+  "biomeMaxTicks": 100,
+  "enableBiomeSubcommand": true,
+  "enableBiomeStandalone": false,
+  "biomeStandaloneCommand": "rtpbiome",
+  "permissions": {
+    "rtp": { "node": "blanketrtp.rtp", "permissionLevel": 0, "opLevel": 0 },
+    "rtpNoGlide": { "node": "blanketrtp.rtp.noglide", "permissionLevel": 0, "opLevel": 0 },
+    "rtpBiome": { "node": "blanketrtp.rtp.biome", "permissionLevel": 0, "opLevel": 0 },
+    "reload": { "node": "blanketrtp.admin.reload", "permissionLevel": 2, "opLevel": 2 },
+    "stopGliding": { "node": "blanketrtp.admin.stopgliding", "permissionLevel": 2, "opLevel": 2 }
+  },
+  "debugEnabled": false,
+  "cooldownMessage": "&lt;red&gt;RTP is on cooldown. Please wait &lt;gold&gt;{time} &lt;red&gt;seconds.",
+  "searchingBiomeMessage": "&lt;gold&gt;Scanning world for biome &lt;yellow&gt;{biome}&lt;gold&gt;...",
+  "findingLocationMessage": "&lt;gold&gt;Searching for a safe location...",
+  "teleportSuccessMessage": "&lt;green&gt;Teleported to &lt;yellow&gt;{x}, {y}, {z}&lt;green&gt;!",
+  "failedSearchMessage": "&lt;red&gt;Could not find a safe location after several attempts.",
+  "failedBiomeMessage": "&lt;red&gt;Could not find biome &lt;yellow&gt;{biome} &lt;red&gt;after extensive scanning.",
+  "rtpErrorMessage": "&lt;red&gt;An error occurred during RTP.",
+  "invalidBiomeMessage": "&lt;red&gt;Invalid biome ID.",
+  "glidingStartMessage": "&lt;aqua&gt;Wind catches your wings...",
+  "slowLoadMessage": "&lt;green&gt;Preparing chunks... &lt;yellow&gt;{percent}%"
+}</code></pre>
+            </article>
+
+            <article class="panel">
+              <h3>Disable Gliding</h3>
+              <pre><code>"glidingOptions": {
+  "enabled": false,
+  "gliderItemEnabled": false,
+  "teleportHeight": 150,
+  "particlesEnabled": false,
+  "particleType": "minecraft:cloud"
+}</code></pre>
+            </article>
+
+            <article class="panel">
+              <h3>Cooldown Tiers</h3>
+              <pre><code>"cooldowns": [
+  { "permission": "blanketrtp.cooldown.vip", "duration": 15 },
+  { "permission": "blanketrtp.cooldown.member", "duration": 60 },
+  { "permission": "", "duration": 180 }
+]</code></pre>
+            </article>
+
+            <article class="panel">
+              <h3>Custom Dimension Rule</h3>
+              <pre><code>{
+  "dimension": "minecraft:the_nether",
+  "mode": "cave",
+  "allowGlide": false,
+  "minY": 32,
+  "maxY": 120
+}</code></pre>
+            </article>
+
+            <article class="panel">
+              <h3>Enable Standalone Biome Command</h3>
+              <pre><code>{
+  "enableBiomeSubcommand": true,
+  "enableBiomeStandalone": true,
+  "biomeStandaloneCommand": "rtpbiome"
+}</code></pre>
             </article>
           </div>
         </section>
