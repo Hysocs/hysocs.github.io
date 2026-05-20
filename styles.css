@@ -32,6 +32,7 @@ body {
   color: var(--text);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-height: 1.55;
+  transition: background 260ms ease, color 260ms ease;
 }
 
 a {
@@ -51,6 +52,7 @@ a:focus-visible {
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(13, 17, 18, 0.92);
   backdrop-filter: blur(14px);
+  transition: border-color 260ms ease, background-color 260ms ease;
 }
 
 .header-inner {
@@ -70,6 +72,7 @@ a:focus-visible {
   font-weight: 800;
   letter-spacing: 0;
   text-transform: uppercase;
+  transition: color 260ms ease;
 }
 
 h1,
@@ -116,6 +119,7 @@ h3 {
   min-width: 184px;
   padding: 0 18px;
   white-space: nowrap;
+  transition: background 260ms ease, border-color 260ms ease, color 260ms ease;
 }
 
 .tab:hover,
@@ -208,6 +212,7 @@ footer {
     var(--surface);
   box-shadow: var(--shadow);
   padding: 30px;
+  transition: background 260ms ease, border-color 260ms ease;
 }
 
 .mod-icon {
@@ -245,6 +250,7 @@ footer {
   color: var(--text);
   font-weight: 800;
   padding: 0 16px;
+  transition: background 260ms ease, border-color 260ms ease, color 260ms ease;
 }
 
 .button-link.secondary {
@@ -262,6 +268,7 @@ footer {
   background: var(--panel);
   box-shadow: var(--shadow);
   overflow: hidden;
+  transition: border-color 260ms ease, background-color 260ms ease;
 }
 
 .facts div {
@@ -316,6 +323,7 @@ dd {
   background:
     linear-gradient(90deg, color-mix(in srgb, var(--theme-soft) 12%, transparent), transparent),
     var(--panel);
+  transition: background 260ms ease;
 }
 
 .quick-start ol {
@@ -495,7 +503,7 @@ pre code {
 
 .command-list div {
   display: grid;
-  grid-template-columns: minmax(280px, 0.45fr) minmax(0, 1fr);
+  grid-template-columns: minmax(360px, 0.46fr) minmax(0, 1fr);
   gap: 16px;
   align-items: start;
 }
@@ -504,8 +512,10 @@ pre code {
   display: block;
   width: 100%;
   max-width: 100%;
-  overflow-wrap: anywhere;
-  white-space: normal;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  word-break: normal;
 }
 
 .command-list span,
