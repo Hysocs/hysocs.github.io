@@ -74,38 +74,6 @@
           </article>
         </section>
 
-        <section id="commands" class="doc-section">
-          <div class="section-heading">
-            <p class="eyebrow">Reference</p>
-            <h3>Commands</h3>
-          </div>
-          <article class="panel">
-            <div class="command-list">
-              <div><code>/csr giveclaimstick coords|chunk</code><span>Gives a region selection stick.</span></div>
-              <div><code>/csr create &lt;name&gt;</code><span>Creates a region from the current two-point selection.</span></div>
-              <div><code>/csr list</code><span>Lists regions by priority order.</span></div>
-              <div><code>/csr gui</code><span>Opens the region list GUI.</span></div>
-              <div><code>/csr edit &lt;regionId&gt;</code><span>Opens the editor for one region.</span></div>
-              <div><code>/csr visualize &lt;regionId&gt;</code><span>Toggles particle visualization for the region bounds.</span></div>
-              <div><code>/csr check</code><span>Shows which region controls your current position and active natural restrictions.</span></div>
-              <div><code>/csr info &lt;regionId&gt;</code><span>Prints bounds, priority, spawn settings, caps, and restriction counts.</span></div>
-              <div><code>/csr teleport &lt;regionId&gt;</code><span>Teleports to a region.</span></div>
-              <div><code>/csr delete &lt;regionId&gt;</code><span>Deletes a region and clears its tracked custom spawns.</span></div>
-              <div><code>/csr reload</code><span>Reloads config files and rescans loaded chunks.</span></div>
-              <div><code>/csr addmon &lt;regionId&gt; &lt;pokemon&gt; [form] [aspects]</code><span>Adds a custom spawn entry.</span></div>
-              <div><code>/csr removemon &lt;regionId&gt; &lt;pokemon&gt; [form] [aspects]</code><span>Removes a custom spawn entry.</span></div>
-              <div><code>/csr forcespawn &lt;regionId&gt; [amount]</code><span>Immediately attempts custom spawns.</span></div>
-              <div><code>/csr killspawned &lt;regionId&gt; [loaded|tracked]</code><span>Removes region-managed spawned Pokemon.</span></div>
-              <div><code>/csr setspawnamount &lt;regionId&gt; &lt;amount&gt;</code><span>Changes attempts per timer cycle.</span></div>
-              <div><code>/csr playeractivation &lt;regionId&gt; true|false [range]</code><span>Requires or disables nearby-player activation.</span></div>
-              <div><code>/csr forcechunks &lt;regionId&gt; true|false [maxChunks] [radius]</code><span>Toggles force-loaded chunks for a region.</span></div>
-              <div><code>/csr clone &lt;sourceRegionId&gt; &lt;newName&gt;</code><span>Copies settings from one region onto the current selection.</span></div>
-              <div><code>/csr rename &lt;regionId&gt; &lt;newName&gt;</code><span>Changes the display name.</span></div>
-              <div><code>/csr inspectnearest</code><span>Prints details about the nearest Pokemon and extracted conditions.</span></div>
-            </div>
-          </article>
-        </section>
-
         <section class="doc-section">
           <div class="section-heading">
             <p class="eyebrow">Usage</p>
@@ -150,6 +118,38 @@
               </div>
             </article>
           </div>
+        </section>
+
+        <section id="commands" class="doc-section">
+          <div class="section-heading">
+            <p class="eyebrow">Reference</p>
+            <h3>Commands</h3>
+          </div>
+          <article class="panel">
+            <div class="command-list">
+              <div><code>/csr giveclaimstick coords|chunk</code><span>Gives a region selection stick.</span></div>
+              <div><code>/csr create &lt;name&gt;</code><span>Creates a region from the current two-point selection.</span></div>
+              <div><code>/csr list</code><span>Lists regions by priority order.</span></div>
+              <div><code>/csr gui</code><span>Opens the region list GUI.</span></div>
+              <div><code>/csr edit &lt;regionId&gt;</code><span>Opens the editor for one region.</span></div>
+              <div><code>/csr visualize &lt;regionId&gt;</code><span>Toggles particle visualization for the region bounds.</span></div>
+              <div><code>/csr check</code><span>Shows which region controls your current position and active natural restrictions.</span></div>
+              <div><code>/csr info &lt;regionId&gt;</code><span>Prints bounds, priority, spawn settings, caps, and restriction counts.</span></div>
+              <div><code>/csr teleport &lt;regionId&gt;</code><span>Teleports to a region.</span></div>
+              <div><code>/csr delete &lt;regionId&gt;</code><span>Deletes a region and clears its tracked custom spawns.</span></div>
+              <div><code>/csr reload</code><span>Reloads config files and rescans loaded chunks.</span></div>
+              <div><code>/csr addmon &lt;regionId&gt; &lt;pokemon&gt; [form] [aspects]</code><span>Adds a custom spawn entry.</span></div>
+              <div><code>/csr removemon &lt;regionId&gt; &lt;pokemon&gt; [form] [aspects]</code><span>Removes a custom spawn entry.</span></div>
+              <div><code>/csr forcespawn &lt;regionId&gt; [amount]</code><span>Immediately attempts custom spawns.</span></div>
+              <div><code>/csr killspawned &lt;regionId&gt; [loaded|tracked]</code><span>Removes region-managed spawned Pokemon.</span></div>
+              <div><code>/csr setspawnamount &lt;regionId&gt; &lt;amount&gt;</code><span>Changes attempts per timer cycle.</span></div>
+              <div><code>/csr playeractivation &lt;regionId&gt; true|false [range]</code><span>Requires or disables nearby-player activation.</span></div>
+              <div><code>/csr forcechunks &lt;regionId&gt; true|false [maxChunks] [radius]</code><span>Toggles force-loaded chunks for a region.</span></div>
+              <div><code>/csr clone &lt;sourceRegionId&gt; &lt;newName&gt;</code><span>Copies settings from one region onto the current selection.</span></div>
+              <div><code>/csr rename &lt;regionId&gt; &lt;newName&gt;</code><span>Changes the display name.</span></div>
+              <div><code>/csr inspectnearest</code><span>Prints details about the nearest Pokemon and extracted conditions.</span></div>
+            </div>
+          </article>
         </section>
 
         <section class="doc-section">
