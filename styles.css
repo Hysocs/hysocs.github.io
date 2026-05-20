@@ -7,11 +7,11 @@
   --text: #f4f7f2;
   --muted: #a9b4ae;
   --line: #2c3639;
-  --accent: #64d37d;
-  --accent-2: #7fc7d9;
-  --theme: #64d37d;
-  --theme-dark: #203b2a;
-  --theme-soft: #7fc7d9;
+  --accent: #62b1f2;
+  --accent-2: #2f8ce7;
+  --theme: #2f8ce7;
+  --theme-dark: #0d3c77;
+  --theme-soft: #62b1f2;
   --warn: #e7c15f;
   --shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
 }
@@ -269,7 +269,7 @@ dd {
 
 .quick-start-section {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 380px);
+  grid-template-columns: minmax(340px, 0.76fr) minmax(520px, 1fr);
   gap: 16px;
   margin: 12px 0 38px;
 }
@@ -290,7 +290,7 @@ dd {
 
 .quick-start ol {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: 1fr;
   gap: 12px;
   list-style: none;
   padding-left: 0;
@@ -299,7 +299,7 @@ dd {
 
 .quick-start li {
   position: relative;
-  min-height: 112px;
+  min-height: 82px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--panel-2);
@@ -326,7 +326,7 @@ dd {
 
 .image-placeholder {
   display: grid;
-  min-height: 190px;
+  min-height: 220px;
   place-items: center;
   border: 1px dashed rgba(169, 180, 174, 0.42);
   border-radius: 8px;
@@ -334,6 +334,10 @@ dd {
   color: var(--muted);
   text-align: center;
   padding: 18px;
+}
+
+.hero-media .image-placeholder {
+  min-height: 420px;
 }
 
 .doc-section {
