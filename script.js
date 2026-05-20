@@ -126,6 +126,21 @@ document.querySelectorAll("pre > code").forEach((code) => {
   shell.appendChild(copyButton);
 });
 
+function updateCodeShellScrollState() {
+  document.querySelectorAll(".code-shell").forEach((shell) => {
+    const pre = shell.querySelector("pre");
+    if (!pre) return;
+
+    shell.classList.toggle(
+      "has-scrollbar",
+      pre.scrollHeight > pre.clientHeight || pre.scrollWidth > pre.clientWidth,
+    );
+  });
+}
+
+updateCodeShellScrollState();
+window.addEventListener("resize", updateCodeShellScrollState);
+
 function activateRoute() {
   const redirectedPath = sessionStorage.getItem("wiki:path");
   if (redirectedPath) {

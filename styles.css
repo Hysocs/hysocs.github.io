@@ -487,6 +487,9 @@ pre code {
 .code-shell pre {
   max-height: 620px;
   overflow: auto;
+}
+
+.code-shell.has-scrollbar pre {
   scrollbar-gutter: stable;
 }
 
@@ -505,7 +508,7 @@ pre code {
 .copy-code {
   position: absolute;
   top: 8px;
-  right: 34px;
+  right: 8px;
   z-index: 2;
   border: 1px solid var(--line);
   border-radius: 6px;
@@ -514,6 +517,10 @@ pre code {
   cursor: pointer;
   font-weight: 800;
   padding: 7px 10px;
+}
+
+.code-shell.has-scrollbar .copy-code {
+  right: 34px;
 }
 
 .copy-code:hover,
