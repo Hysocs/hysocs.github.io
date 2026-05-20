@@ -74,6 +74,58 @@ document.querySelectorAll(".copy-command").forEach((button) => {
   });
 });
 
+function escapeHtml(text) {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function highlightJsonCode(text) {
+  return escapeHtml(text).replace(
+    /("(?:\\.|[^"\\])*")(\s*:)?|\b(true|false|null)\b|-?\b\d+(?:\.\d+)?\b/g,
+    (match, stringValue, keyColon, literalValue) => {
+      if (stringValue) {
+        const className = keyColon ? "json-key" : "json-string";
+        return `<span class="${className}">${stringValue}</span>${keyColon || ""}`;
+      }
+
+      if (literalValue) {
+        return `<span class="json-literal">${literalValue}</span>`;
+      }
+
+      return `<span class="json-number">${match}</span>`;
+    },
+  );
+}
+
+document.querySelectorAll("pre > code").forEach((code) => {
+  const pre = code.parentElement;
+  if (!pre || pre.closest(".code-shell")) return;
+
+  const rawCode = code.textContent;
+  code.innerHTML = highlightJsonCode(rawCode);
+
+  const shell = document.createElement("div");
+  shell.className = "code-shell";
+  pre.parentNode.insertBefore(shell, pre);
+  shell.appendChild(pre);
+
+  const copyButton = document.createElement("button");
+  copyButton.className = "copy-code";
+  copyButton.type = "button";
+  copyButton.textContent = "Copy";
+  copyButton.addEventListener("click", async () => {
+    await copyText(rawCode.trim());
+    copyButton.textContent = "Copied";
+    window.setTimeout(() => {
+      copyButton.textContent = "Copy";
+    }, 1200);
+  });
+
+  shell.appendChild(copyButton);
+});
+
 function activateRoute() {
   const redirectedPath = sessionStorage.getItem("wiki:path");
   if (redirectedPath) {

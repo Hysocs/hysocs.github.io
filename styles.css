@@ -476,9 +476,70 @@ pre {
 pre code {
   display: block;
   min-height: 100%;
-  padding: 16px;
+  padding: 44px 16px 16px;
   border-radius: 8px;
   white-space: pre;
+}
+
+.code-shell {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #0b1012;
+}
+
+.code-shell pre {
+  max-height: 620px;
+}
+
+.code-shell::before {
+  content: "JSON";
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  z-index: 1;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+.copy-code {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #151d20;
+  color: var(--text);
+  cursor: pointer;
+  font-weight: 800;
+  padding: 7px 10px;
+}
+
+.copy-code:hover,
+.copy-code:focus-visible {
+  border-color: var(--accent);
+  color: #ffffff;
+  outline: none;
+}
+
+.json-key {
+  color: #7dd3fc;
+}
+
+.json-string {
+  color: #b8f28b;
+}
+
+.json-number {
+  color: #f8c471;
+}
+
+.json-literal {
+  color: #f5a6ff;
 }
 
 .command-list,
