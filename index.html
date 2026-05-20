@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>Everlasting.mods Wiki</title>
     <link rel="stylesheet" href="styles.css">
   </head>
@@ -113,9 +114,14 @@
 
           <article class="panel screenshot-card hero-media">
             <h3>Claiming Demo</h3>
-            <video class="demo-video" controls autoplay muted loop playsinline preload="auto">
-              <source src="assets/csr-example-creation.mp4" type="video/mp4">
-            </video>
+            <iframe
+              class="demo-video"
+              src="https://www.youtube.com/embed/ELRujfHpuOg?autoplay=1&mute=1&loop=1&playlist=ELRujfHpuOg&controls=1&playsinline=1&rel=0"
+              title="CobbleSpawnRegions claiming demo"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
           </article>
         </section>
 
