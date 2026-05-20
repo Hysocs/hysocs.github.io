@@ -524,7 +524,7 @@ pre code {
 }
 
 .code-shell.has-scrollbar .copy-code {
-  right: 42px;
+  right: 35px;
 }
 
 .copy-code:hover,
