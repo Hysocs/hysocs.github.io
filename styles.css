@@ -84,22 +84,8 @@ body.is-sidebar-collapsed {
 }
 
 .sidebar-brand {
-  display: flex;
-  gap: 10px;
-  align-items: center;
   min-width: 0;
   overflow: hidden;
-}
-
-.sidebar-brand-icon {
-  flex: 0 0 auto;
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-}
-
-.sidebar-brand-copy {
-  min-width: 0;
 }
 
 .sidebar-brand .eyebrow {
