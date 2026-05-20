@@ -169,18 +169,18 @@
         <section class="doc-section">
           <div class="section-heading">
             <p class="eyebrow">Examples</p>
-            <h3>JSON Config Guide</h3>
+            <h3>Config Guide</h3>
           </div>
           <div class="json-guide">
             <article class="panel json-basics">
-              <h3>Before Editing JSON</h3>
+              <h3>JSON Rules For This Mod</h3>
               <ul>
                 <li>Region files live in <code>config/cobblespawnregions/regions</code>.</li>
                 <li>Each region is one <code>region_name.jsonc</code> file.</li>
                 <li>Pokemon go inside the <code>selectedPokemon</code> array.</li>
                 <li>Objects use <code>{ }</code>. Lists use <code>[ ]</code>. Text must use quotes.</li>
                 <li>Put a comma between fields and between Pokemon entries, but not after the last item.</li>
-                <li>Run <code>/csr reload</code> after editing files.</li>
+                <li>Run <code>/csr reload</code> after saving changes.</li>
               </ul>
             </article>
 
@@ -508,7 +508,7 @@
           <article class="panel quick-start">
             <h3>Quick Start</h3>
             <ol>
-              <li>Start the server once so <code>config/cobblebattlerewards/config.jsonc</code> is generated.</li>
+              <li>Start the server once to generate <code>config/cobblebattlerewards/config.jsonc</code>.</li>
               <li>Edit one reward map: <code>battleWonRewards</code>, <code>battleLostRewards</code>, <code>battleForfeitRewards</code>, or <code>captureRewards</code>.</li>
               <li>Add a named reward object, such as <code>"money_100": { ... }</code>.</li>
               <li>Choose <code>type</code>: <code>command</code> or <code>item</code>.</li>
@@ -592,7 +592,7 @@
                 <li>Every reward name in the same map must be unique.</li>
                 <li>Text must use quotes. Lists use <code>[ ]</code>. Objects use <code>{ }</code>.</li>
                 <li>Use commas between rewards and fields, but not after the last item.</li>
-                <li>Run <code>/cbr reload</code> after changes.</li>
+                <li>Run <code>/cbr reload</code> after saving changes.</li>
               </ul>
             </article>
 
@@ -814,7 +814,7 @@
           <article class="panel quick-start">
             <h3>Quick Start</h3>
             <ol>
-              <li>Start the server once so <code>config/cobblehunts</code> generates.</li>
+              <li>Start the server once to generate the <code>config/cobblehunts</code> folder.</li>
               <li>Run <code>/hunts</code> to open the player hunt GUI.</li>
               <li>Use global hunts or start a solo mission from the enabled difficulty tiers.</li>
               <li>Catch a matching Pokemon, then turn it in from the hunt GUI.</li>
@@ -924,7 +924,7 @@
                 <li><code>config/cobblehunts/config.jsonc</code> controls timers, toggles, messages, permissions, and tracking brush settings.</li>
                 <li><code>config/cobblehunts/pokemon_pools.jsonc</code> controls which Pokemon can appear in each hunt pool.</li>
                 <li><code>config/cobblehunts/loot_pools.jsonc</code> controls rewards for global and solo tiers.</li>
-                <li>Run <code>/hunts reload</code> after edits.</li>
+                <li>Run <code>/hunts reload</code> after saving changes.</li>
               </ul>
             </article>
 
@@ -1165,11 +1165,11 @@
           <article class="panel quick-start">
             <h3>Quick Start</h3>
             <ol>
-              <li>Start the server once so <code>config/blanketrtp/config.jsonc</code> generates.</li>
+              <li>Start the server once to generate <code>config/blanketrtp/config.jsonc</code>.</li>
               <li>Run <code>/rtp</code> to teleport to a random safe location.</li>
               <li>Run <code>/rtp no_glide</code> if you want a normal teleport without glide mode.</li>
               <li>Run <code>/rtp biome minecraft:plains</code> to search for a specific biome.</li>
-              <li>Edit cooldowns, redirects, dimension rules, and gliding behavior in the config.</li>
+              <li>Edit cooldowns, redirects, dimension rules, and gliding behavior in the config, then run <code>/rtp reload</code> to apply changes.</li>
             </ol>
           </article>
 
@@ -1254,7 +1254,7 @@
                 <li>Dimension IDs use full IDs such as <code>minecraft:overworld</code>.</li>
                 <li>Biome IDs use full IDs such as <code>minecraft:plains</code>.</li>
                 <li>Cooldown durations, slow load times, and biome tick limits are numbers.</li>
-                <li>Run <code>/rtp reload</code> after edits.</li>
+                <li>Run <code>/rtp reload</code> after saving changes.</li>
               </ul>
             </article>
 
