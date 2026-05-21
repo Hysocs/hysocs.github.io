@@ -67,19 +67,19 @@
 
           <div class="sidebar-links" aria-label="Project links">
             <a class="sidebar-link" href="https://github.com/Hysocs" target="_blank" rel="noopener" aria-label="GitHub">
-              <span class="sidebar-link-icon" aria-hidden="true">GH</span>
+              <span class="sidebar-link-icon" aria-hidden="true">git</span>
               <span class="sidebar-link-label">GitHub</span>
             </a>
             <a class="sidebar-link" href="https://discord.gg/YTErFwYEpy" target="_blank" rel="noopener" aria-label="Discord">
-              <span class="sidebar-link-icon" aria-hidden="true">DC</span>
+              <span class="sidebar-link-icon" aria-hidden="true">chat</span>
               <span class="sidebar-link-label">Discord</span>
             </a>
             <a class="sidebar-link" href="https://modrinth.com/user/Hysocs" target="_blank" rel="noopener" aria-label="Modrinth">
-              <span class="sidebar-link-icon" aria-hidden="true">MR</span>
+              <span class="sidebar-link-icon" aria-hidden="true">mod</span>
               <span class="sidebar-link-label">Modrinth</span>
             </a>
             <a class="sidebar-link" href="https://github.com/Hysocs/hysocs.github.io/issues" target="_blank" rel="noopener" aria-label="Issues">
-              <span class="sidebar-link-icon" aria-hidden="true">!</span>
+              <span class="sidebar-link-icon" aria-hidden="true">bug</span>
               <span class="sidebar-link-label">Issues</span>
             </a>
           </div>
@@ -93,13 +93,12 @@
           <div class="mod-title">
             <img src="assets/cobblespawnregions-icon.png" alt="" class="mod-icon">
             <div>
-              <p class="eyebrow">Fabric 1.21.1</p>
               <h2>CobbleSpawnRegions</h2>
-              <p class="lead">Create named regions that control Cobblemon natural spawns and custom Pokemon spawns.</p>
+              <p class="lead">Create named regions that control Cobblemon natural spawns and custom Pokemon spawns. Use it to create custom spawns for separate towns, routes, caves, arenas, and event areas without needing to modify the natural spawn behavior per world.</p>
               <div class="hero-actions">
-                <a class="button-link" href="#cobblespawnregions-features">View Features</a>
-                <a class="button-link secondary" href="#cobblespawnregions-commands">View Commands</a>
-                <a class="button-link secondary" href="#cobblespawnregions-config">View Config Guide</a>
+                <a class="button-link" href="#cobblespawnregions-features">Region Features</a>
+                <a class="button-link secondary" href="#cobblespawnregions-commands">Commands</a>
+                <a class="button-link secondary" href="#cobblespawnregions-config">Config Guide</a>
               </div>
             </div>
           </div>
@@ -113,17 +112,22 @@
                   data-modrinth-project="cobblespawnregions"
                   data-fallback-version="1.0.1"
                 >1.0.1</span>
-                <span class="version-note">Checking Modrinth...</span>
               </dd>
             </div>
+            <div><dt>Game Version</dt><dd><span class="game-version-value">1.21.1</span></dd></div>
+            <div><dt>Updated</dt><dd><span class="modrinth-updated" data-modrinth-project="cobblespawnregions">Checking Modrinth...</span></dd></div>
+            <div><dt>Downloads</dt><dd><span class="modrinth-downloads" data-modrinth-project="cobblespawnregions">Checking Modrinth...</span></dd></div>
             <div><dt>Requires</dt><dd class="requirements" data-modrinth-requirements-for="cobblespawnregions"><span class="requirement-link" data-modrinth-requirement="fabric-api">Fabric API</span>, <span class="requirement-link" data-modrinth-requirement="fabric-language-kotlin">Fabric Language Kotlin</span>, <span class="requirement-link" data-modrinth-requirement="cobblemon">Cobblemon</span>, <span class="requirement-link" data-modrinth-requirement="e-utils">EverlastingUtils</span></dd></div>
             <div><dt>Modrinth</dt><dd><a href="https://modrinth.com/mod/cobblespawnregions" target="_blank" rel="noopener">Open project page</a></dd></div>
           </dl>
         </section>
 
         <section class="quick-start-section">
-          <article class="panel quick-start">
+          <div class="section-heading">
             <h3>Quick Start</h3>
+          </div>
+          <article class="panel quick-start">
+            <h3>Region Setup</h3>
             <ol>
               <li>Run <code>/csr giveclaimstick coords</code> or <code>/csr giveclaimstick chunk</code>.</li>
               <li>Left-click a block with the stick to set point 1.</li>
@@ -148,11 +152,11 @@
 
         <section id="cobblespawnregions-features" class="doc-section">
           <div class="section-heading">
-            <h3>Features</h3>
+            <h3>Region Features</h3>
           </div>
           <div class="feature-grid">
             <article class="panel">
-              <h3>Build Spawn Zones</h3>
+              <h3>Region Claims</h3>
               <ul>
                 <li><strong>Claim exact areas</strong> with a selection stick, using either block-by-block bounds or full chunk-based regions.</li>
                 <li><strong>Layer multiple zones</strong> with priority, so towns, routes, caves, arenas, and event areas can overlap cleanly.</li>
@@ -162,7 +166,7 @@
               </ul>
             </article>
             <article class="panel">
-              <h3>Control Wild Spawns</h3>
+              <h3>Natural Spawn Rules</h3>
               <ul>
                 <li><strong>Block natural spawns</strong> entirely in protected or custom encounter areas.</li>
                 <li><strong>Filter specific Pokemon</strong> by species, labels, or scanned conditions without disabling the whole ecosystem.</li>
@@ -172,7 +176,7 @@
               </ul>
             </article>
             <article class="panel">
-              <h3>Create Custom Encounters</h3>
+              <h3>Custom Pokemon Entries</h3>
               <ul>
                 <li><strong>Spawn your own Pokemon groups</strong> inside a region, separate from Cobblemon's normal wild spawn table.</li>
                 <li><strong>Set region spawn timers</strong> so an area attempts custom spawns on your schedule.</li>
@@ -182,7 +186,7 @@
               </ul>
             </article>
             <article class="panel">
-              <h3>What You Can Control</h3>
+              <h3>Spawn Fields</h3>
               <div class="settings-grid">
                 <div><strong>Encounter Tables</strong><span>Add region-owned Pokemon with weighted or independent spawn chances.</span></div>
                 <div><strong>Level Ranges</strong><span>Set min and max levels per Pokemon so each zone has the right difficulty.</span></div>
@@ -193,6 +197,18 @@
                 <div><strong>Population Caps</strong><span>Keep custom spawns from flooding an area, even across chunk unloads.</span></div>
                 <div><strong>Stay In Region</strong><span>Keep custom-spawned Pokemon wandering back toward their assigned zone.</span></div>
               </div>
+            </article>
+            <article class="panel doc-note">
+              <h3>Example: Spawn Town</h3>
+              <p>For a protected spawn town, claim the full town as one high-priority region, set natural spawns to blocked, and leave custom spawns empty. Use <code>/csr check</code> at the town edge to confirm the correct region wins before reloading for players.</p>
+            </article>
+            <article class="panel doc-note">
+              <h3>Common Mistakes</h3>
+              <ul>
+                <li>Use chunk mode for large towns or routes. Exact coordinate mode is better for small buildings, caves, arenas, and event rooms.</li>
+                <li>If two regions overlap, the highest priority region controls the final spawn behavior.</li>
+                <li>After hand-editing JSONC files, run <code>/csr reload</code> and then <code>/csr check</code> in-game.</li>
+              </ul>
             </article>
           </div>
         </section>
@@ -554,13 +570,12 @@
           <div class="mod-title">
             <img src="assets/cobblebattlerewards-icon.png" alt="" class="mod-icon">
             <div>
-              <p class="eyebrow">Fabric 1.21.1</p>
               <h2>CobbleBattleRewards</h2>
-              <p class="lead">Config-driven rewards for Cobblemon battles, captures, losses, and forfeits.</p>
+              <p class="lead">Config-driven rewards for Cobblemon battles, captures, losses, and forfeits. Use it to reward money, items, crate keys, and command rewards</p>
               <div class="hero-actions">
-                <a class="button-link" href="#cobblebattlerewards-features">View Features</a>
-                <a class="button-link secondary" href="#cobblebattlerewards-commands">View Commands</a>
-                <a class="button-link secondary" href="#cobblebattlerewards-config">View Config Guide</a>
+                <a class="button-link" href="#cobblebattlerewards-features">Reward Features</a>
+                <a class="button-link secondary" href="#cobblebattlerewards-commands">Commands</a>
+                <a class="button-link secondary" href="#cobblebattlerewards-config">Config Guide</a>
               </div>
             </div>
           </div>
@@ -574,17 +589,22 @@
                   data-modrinth-project="cobblebattlerewards"
                   data-fallback-version="2.0.6"
                 >2.0.6</span>
-                <span class="version-note">Checking Modrinth...</span>
               </dd>
             </div>
+            <div><dt>Game Version</dt><dd><span class="game-version-value">1.21.1</span></dd></div>
+            <div><dt>Updated</dt><dd><span class="modrinth-updated" data-modrinth-project="cobblebattlerewards">Checking Modrinth...</span></dd></div>
+            <div><dt>Downloads</dt><dd><span class="modrinth-downloads" data-modrinth-project="cobblebattlerewards">Checking Modrinth...</span></dd></div>
             <div><dt>Requires</dt><dd class="requirements" data-modrinth-requirements-for="cobblebattlerewards"><span class="requirement-link" data-modrinth-requirement="fabric-api">Fabric API</span>, <span class="requirement-link" data-modrinth-requirement="fabric-language-kotlin">Fabric Language Kotlin</span>, <span class="requirement-link" data-modrinth-requirement="cobblemon">Cobblemon</span>, <span class="requirement-link" data-modrinth-requirement="e-utils">EverlastingUtils</span></dd></div>
             <div><dt>Modrinth</dt><dd><a href="https://modrinth.com/mod/cobblebattlerewards" target="_blank" rel="noopener">Open project page</a></dd></div>
           </dl>
         </section>
 
         <section class="quick-start-section quick-start-single">
-          <article class="panel quick-start">
+          <div class="section-heading">
             <h3>Quick Start</h3>
+          </div>
+          <article class="panel quick-start">
+            <h3>Reward Setup</h3>
             <ol>
               <li>Open <code>config/cobblebattlerewards/config.jsonc</code>.</li>
               <li>Edit the trigger you want to reward: <code>battleWonRewards</code>, <code>battleLostRewards</code>, <code>battleForfeitRewards</code>, or <code>captureRewards</code>.</li>
@@ -597,11 +617,11 @@
 
         <section id="cobblebattlerewards-features" class="doc-section">
           <div class="section-heading">
-            <h3>Features</h3>
+            <h3>Reward Features</h3>
           </div>
           <div class="feature-grid">
             <article class="panel">
-              <h3>Reward Battle Moments</h3>
+              <h3>Battle Outcomes</h3>
               <ul>
                 <li><strong>Pay players for wins</strong> in wild, NPC, or PvP battles.</li>
                 <li><strong>Reward captures</strong> when players catch Pokemon through battle.</li>
@@ -611,7 +631,7 @@
               </ul>
             </article>
             <article class="panel">
-              <h3>Target The Right Battles</h3>
+              <h3>Reward Conditions</h3>
               <ul>
                 <li><strong>Make Pokemon-specific rewards</strong> for species, types, shinies, forms, and other Cobblemon properties.</li>
                 <li><strong>Restrict by level</strong> so high-value rewards only come from tougher opponents.</li>
@@ -621,7 +641,7 @@
               </ul>
             </article>
             <article class="panel pokemon-settings-panel">
-              <h3>Server-Friendly Control</h3>
+              <h3>Cooldowns And Messages</h3>
               <div class="settings-grid">
                 <div><strong>Chance Rolls</strong><span>Make rewards guaranteed, rare, or anywhere in between.</span></div>
                 <div><strong>Cooldowns</strong><span>Limit each reward per player to prevent farming abuse.</span></div>
@@ -632,6 +652,18 @@
                 <div><strong>Live Reload</strong><span>Reload the config after edits without restarting the server.</span></div>
                 <div><strong>Debug Tools</strong><span>List configured rewards and inspect usable Pokemon conditions in-game.</span></div>
               </div>
+            </article>
+            <article class="panel doc-note">
+              <h3>Example: First Economy Reward</h3>
+              <p>Start with one low-value wild battle reward, reload with <code>/cbr reload</code>, and test it against a common Pokemon before adding rare species, PvP rules, or cooldown logic.</p>
+            </article>
+            <article class="panel doc-note">
+              <h3>Testing Notes</h3>
+              <ul>
+                <li>Put rare rewards before fallback rewards when reward order matters.</li>
+                <li>Use cooldowns on money and crate commands before opening the config to all battle types.</li>
+                <li>If a reward does not trigger, check the battle type and Pokemon condition list first.</li>
+              </ul>
             </article>
           </div>
         </section>
@@ -892,13 +924,12 @@
           <div class="mod-title">
             <img src="assets/cobblehunts-icon.png" alt="" class="mod-icon">
             <div>
-              <p class="eyebrow">Fabric 1.21.1</p>
               <h2>CobbleHunts</h2>
-              <p class="lead">Pokemon hunt missions for Cobblemon with global hunts, solo difficulty tiers, rewards, leaderboards, and a tracking brush.</p>
+              <p class="lead">Hunt missions for Cobblemon with global hunts, solo difficulty tiers, rewards, leaderboards, and a tracking brush. Use it to run catch-based server goals and events easily in one automated gui</p>
               <div class="hero-actions">
-                <a class="button-link" href="#cobblehunts-features">View Features</a>
-                <a class="button-link secondary" href="#cobblehunts-commands">View Commands</a>
-                <a class="button-link secondary" href="#cobblehunts-config">View Config Guide</a>
+                <a class="button-link" href="#cobblehunts-features">Hunt Features</a>
+                <a class="button-link secondary" href="#cobblehunts-commands">Commands</a>
+                <a class="button-link secondary" href="#cobblehunts-config">Config Guide</a>
               </div>
             </div>
           </div>
@@ -912,17 +943,22 @@
                   data-modrinth-project="cobblehunts"
                   data-fallback-version="1.1.2"
                 >1.1.2</span>
-                <span class="version-note">Checking Modrinth...</span>
               </dd>
             </div>
+            <div><dt>Game Version</dt><dd><span class="game-version-value">1.21.1</span></dd></div>
+            <div><dt>Updated</dt><dd><span class="modrinth-updated" data-modrinth-project="cobblehunts">Checking Modrinth...</span></dd></div>
+            <div><dt>Downloads</dt><dd><span class="modrinth-downloads" data-modrinth-project="cobblehunts">Checking Modrinth...</span></dd></div>
             <div><dt>Requires</dt><dd class="requirements" data-modrinth-requirements-for="cobblehunts"><span class="requirement-link" data-modrinth-requirement="fabric-api">Fabric API</span>, <span class="requirement-link" data-modrinth-requirement="fabric-language-kotlin">Fabric Language Kotlin</span>, <span class="requirement-link" data-modrinth-requirement="cobblemon">Cobblemon</span>, <span class="requirement-link" data-modrinth-requirement="e-utils">EverlastingUtils</span></dd></div>
             <div><dt>Modrinth</dt><dd><a href="https://modrinth.com/mod/cobblehunts" target="_blank" rel="noopener">Open project page</a></dd></div>
           </dl>
         </section>
 
         <section class="quick-start-section">
-          <article class="panel quick-start">
+          <div class="section-heading">
             <h3>Quick Start</h3>
+          </div>
+          <article class="panel quick-start">
+            <h3>Hunt Setup</h3>
             <ol>
               <li>Run <code>/hunts editor</code> to set up hunts in-game, or edit the JSON files in <code>config/cobblehunts</code>.</li>
               <li>Add Pokemon to the hunt pools and add rewards to the loot pools.</li>
@@ -946,11 +982,11 @@
 
         <section id="cobblehunts-features" class="doc-section">
           <div class="section-heading">
-            <h3>Features</h3>
+            <h3>Hunt Features</h3>
           </div>
           <div class="feature-grid">
             <article class="panel">
-              <h3>Player Hunt Loop</h3>
+              <h3>Player Turn-Ins</h3>
               <ul>
                 <li><strong>Global hunts</strong> give the whole server shared Pokemon targets and a shared countdown.</li>
                 <li><strong>Solo hunts</strong> give each player personal missions with easy, normal, medium, and hard tiers.</li>
@@ -960,7 +996,7 @@
               </ul>
             </article>
             <article class="panel">
-              <h3>Server Events And Progression</h3>
+              <h3>Global And Solo Hunts</h3>
               <ul>
                 <li><strong>Run multiple global hunts</strong> at the same time to create active server-wide goals.</li>
                 <li><strong>Use timers and cooldowns</strong> to pace how often hunts appear and how long players have to finish them.</li>
@@ -970,7 +1006,7 @@
               </ul>
             </article>
             <article class="panel pokemon-settings-panel">
-              <h3>Custom Hunt Content</h3>
+              <h3>Targets And Loot</h3>
               <div class="settings-grid">
                 <div><strong>Pokemon Pools</strong><span>Choose different target lists for global hunts and each solo difficulty.</span></div>
                 <div><strong>Weighted Targets</strong><span>Make common targets appear often and rare targets show up less.</span></div>
@@ -981,6 +1017,18 @@
                 <div><strong>Admin Recovery</strong><span>Revert recent turn-ins if a player submits the wrong Pokemon or staff needs to correct a mistake.</span></div>
                 <div><strong>In-Game Editor</strong><span>Build and adjust hunts through GUI screens without requiring every change to be hand-written.</span></div>
               </div>
+            </article>
+            <article class="panel doc-note">
+              <h3>Example: Weekend Hunt</h3>
+              <p>For an event hunt, create a short global timer, keep the target pool small, and use command rewards for keys, points, or cosmetics. Test turn-in behavior with one caught Pokemon before adding consume rules.</p>
+            </article>
+            <article class="panel doc-note">
+              <h3>Staff Checks</h3>
+              <ul>
+                <li>Confirm each hunt tier has at least one valid Pokemon target and one reachable reward.</li>
+                <li>Use permissions to hide harder solo tiers until players should see them.</li>
+                <li>Document whether turn-ins consume Pokemon so players do not lose trophies unexpectedly.</li>
+              </ul>
             </article>
           </div>
         </section>
@@ -1247,13 +1295,12 @@
           <div class="mod-title">
             <img src="assets/blanketrtp-icon.png" alt="" class="mod-icon">
             <div>
-              <p class="eyebrow">Fabric 1.21.1</p>
               <h2>B-RTP</h2>
-              <p class="lead">Random teleport and biome teleport for Fabric servers, with cooldown tiers, dimension safety rules, slow chunk loading, and optional glide landings.</p>
+              <p class="lead">Random teleport and biome teleport for Fabric servers, with cooldown tiers, dimension safety rules, slow chunk loading, and optional glide landings. Use it to give players safer exploration teleports without causing tps drops or lag.</p>
               <div class="hero-actions">
-                <a class="button-link" href="#blanketrtp-features">View Features</a>
-                <a class="button-link secondary" href="#blanketrtp-commands">View Commands</a>
-                <a class="button-link secondary" href="#blanketrtp-config">View Config Guide</a>
+                <a class="button-link" href="#blanketrtp-features">Teleport Features</a>
+                <a class="button-link secondary" href="#blanketrtp-commands">Commands</a>
+                <a class="button-link secondary" href="#blanketrtp-config">Config Guide</a>
               </div>
             </div>
           </div>
@@ -1267,17 +1314,22 @@
                   data-modrinth-project="blanketrtp"
                   data-fallback-version="2.0.6"
                 >2.0.6</span>
-                <span class="version-note">Checking Modrinth...</span>
               </dd>
             </div>
+            <div><dt>Game Version</dt><dd><span class="game-version-value">1.21.1</span></dd></div>
+            <div><dt>Updated</dt><dd><span class="modrinth-updated" data-modrinth-project="blanketrtp">Checking Modrinth...</span></dd></div>
+            <div><dt>Downloads</dt><dd><span class="modrinth-downloads" data-modrinth-project="blanketrtp">Checking Modrinth...</span></dd></div>
             <div><dt>Requires</dt><dd class="requirements" data-modrinth-requirements-for="blanketrtp"><span class="requirement-link" data-modrinth-requirement="fabric-api">Fabric API</span>, <span class="requirement-link" data-modrinth-requirement="fabric-language-kotlin">Fabric Language Kotlin</span>, <span class="requirement-link" data-modrinth-requirement="e-utils">EverlastingUtils</span></dd></div>
             <div><dt>Modrinth</dt><dd><a href="https://modrinth.com/mod/blanketrtp" target="_blank" rel="noopener">Open project page</a></dd></div>
           </dl>
         </section>
 
         <section class="quick-start-section">
-          <article class="panel quick-start">
+          <div class="section-heading">
             <h3>Quick Start</h3>
+          </div>
+          <article class="panel quick-start">
+            <h3>Teleport Setup</h3>
             <ol>
               <li>Run <code>/rtp</code> to teleport to a random safe location.</li>
               <li>Run <code>/rtp no_glide</code> if you want a normal teleport without glide mode.</li>
@@ -1296,11 +1348,11 @@
 
         <section id="blanketrtp-features" class="doc-section">
           <div class="section-heading">
-            <h3>Features</h3>
+            <h3>Teleport Features</h3>
           </div>
           <div class="feature-grid">
             <article class="panel">
-              <h3>Safe Random Teleporting</h3>
+              <h3>Location Search</h3>
               <ul>
                 <li><strong>Random RTP</strong> sends players to a safe location inside your configured radius.</li>
                 <li><strong>Biome RTP</strong> lets players search for a specific biome instead of teleporting blindly.</li>
@@ -1310,7 +1362,7 @@
               </ul>
             </article>
             <article class="panel">
-              <h3>Player Experience</h3>
+              <h3>Arrival Behavior</h3>
               <ul>
                 <li><strong>Glide landings</strong> can drop players above the destination and let them fly down instead of appearing instantly.</li>
                 <li><strong>Temporary glider gear</strong> can equip a configured item for the glide and restore the player afterward.</li>
@@ -1320,7 +1372,7 @@
               </ul>
             </article>
             <article class="panel pokemon-settings-panel">
-              <h3>Server Control</h3>
+              <h3>Permissions And Worlds</h3>
               <div class="settings-grid">
                 <div><strong>Custom Command</strong><span>Rename the main RTP command if your server already uses <code>/rtp</code>.</span></div>
                 <div><strong>Permission Tiers</strong><span>Give VIPs, members, and default players different cooldowns.</span></div>
@@ -1331,6 +1383,18 @@
                 <div><strong>Glide Options</strong><span>Control glide height, particles, equipment slot, item, and item data.</span></div>
                 <div><strong>Reloadable Config</strong><span>Adjust settings and reload without restarting the whole server.</span></div>
               </div>
+            </article>
+            <article class="panel doc-note">
+              <h3>Example: New Player RTP</h3>
+              <p>Give default players a conservative radius and cooldown, then add wider radius permission tiers for trusted groups. Test each dimension separately because surface, cave, and floating safety checks behave differently.</p>
+            </article>
+            <article class="panel doc-note">
+              <h3>Operational Notes</h3>
+              <ul>
+                <li>Keep busy-search limits low on smaller servers to avoid many expensive biome searches at once.</li>
+                <li>Use slow loading when players report arriving before nearby chunks are ready.</li>
+                <li>Redirect Nether or End RTP only if your server rules expect players to land in another world.</li>
+              </ul>
             </article>
           </div>
         </section>
@@ -1511,9 +1575,8 @@
           <div class="mod-title">
             <img src="assets/everlastingutils-icon.png" alt="" class="mod-icon">
             <div>
-              <p class="eyebrow">Fabric 1.21.1</p>
               <h2>E-Utils</h2>
-              <p class="lead">Server-side utility and API library required by Everlasting.mods projects.</p>
+              <p class="lead">Server-side utility and API library required by Everlasting.mods projects. Install it alongside dependent mods so their config, GUI, command, text, scheduling, and debug systems can load correctly.</p>
               <div class="hero-actions">
                 <a class="button-link" href="#everlastingutils-players">Player Setup</a>
                 <a class="button-link secondary" href="#everlastingutils-developers">Developer API</a>
@@ -1530,9 +1593,11 @@
                   data-modrinth-project="e-utils"
                   data-fallback-version="1.1.6"
                 >1.1.6</span>
-                <span class="version-note">Checking Modrinth...</span>
               </dd>
             </div>
+            <div><dt>Game Version</dt><dd><span class="game-version-value">1.21.1</span></dd></div>
+            <div><dt>Updated</dt><dd><span class="modrinth-updated" data-modrinth-project="e-utils">Checking Modrinth...</span></dd></div>
+            <div><dt>Downloads</dt><dd><span class="modrinth-downloads" data-modrinth-project="e-utils">Checking Modrinth...</span></dd></div>
             <div><dt>Requires</dt><dd class="requirements" data-modrinth-requirements-for="e-utils"><span class="requirement-link" data-modrinth-requirement="fabric-api">Fabric API</span>, <span class="requirement-link" data-modrinth-requirement="fabric-language-kotlin">Fabric Language Kotlin</span></dd></div>
             <div><dt>Modrinth</dt><dd><a href="https://modrinth.com/mod/e-utils" target="_blank" rel="noopener">Open project page</a></dd></div>
           </dl>
@@ -1562,7 +1627,7 @@
               </ul>
             </article>
             <article class="panel pokemon-settings-panel">
-              <h3>What It Provides</h3>
+              <h3>Shared Systems</h3>
               <div class="settings-grid">
                 <div><strong>Configuration</strong><span>JSONC configs, comments, live reloads, secondary files, and migrations.</span></div>
                 <div><strong>Scheduling</strong><span>Server-aware sync and async task scheduling.</span></div>
@@ -1571,6 +1636,10 @@
                 <div><strong>Text</strong><span>MiniMessage parsing into Minecraft text.</span></div>
                 <div><strong>Debugging</strong><span>Per-mod toggleable debug logging helpers.</span></div>
               </div>
+            </article>
+            <article class="panel doc-note">
+              <h3>Version Notes</h3>
+              <p>Match EverlastingUtils to the dependent mod's listed requirement. Most setup problems come from mixing a newer utility jar with an older mod build, or leaving Fabric Language Kotlin out of the mods folder.</p>
             </article>
           </div>
         </section>

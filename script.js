@@ -250,9 +250,147 @@ if ("scrollRestoration" in window.history) {
 }
 
 let activeTabId = document.querySelector(".tab-panel.is-active")?.id || null;
+const contentTabConfig = {
+  cobblespawnregions: [
+    { key: "quick-start", label: "Quick Start", selector: ".quick-start-section" },
+    { key: "features", label: "Region Features", selector: "#cobblespawnregions-features" },
+    { key: "commands", label: "Commands", selector: "#cobblespawnregions-commands" },
+    { key: "config", label: "Config Guide", selector: "#cobblespawnregions-config" },
+  ],
+  cobblebattlerewards: [
+    { key: "quick-start", label: "Quick Start", selector: ".quick-start-section" },
+    { key: "features", label: "Reward Features", selector: "#cobblebattlerewards-features" },
+    { key: "commands", label: "Commands", selector: "#cobblebattlerewards-commands" },
+    { key: "config", label: "Config Guide", selector: "#cobblebattlerewards-config" },
+  ],
+  cobblehunts: [
+    { key: "quick-start", label: "Quick Start", selector: ".quick-start-section" },
+    { key: "features", label: "Hunt Features", selector: "#cobblehunts-features" },
+    { key: "commands", label: "Commands", selector: "#cobblehunts-commands" },
+    { key: "config", label: "Config Guide", selector: "#cobblehunts-config" },
+  ],
+  blanketrtp: [
+    { key: "quick-start", label: "Quick Start", selector: ".quick-start-section" },
+    { key: "features", label: "Teleport Features", selector: "#blanketrtp-features" },
+    { key: "commands", label: "Commands", selector: "#blanketrtp-commands" },
+    { key: "config", label: "Config Guide", selector: "#blanketrtp-config" },
+  ],
+  everlastingutils: [
+    { key: "players", label: "Player Setup", selector: "#everlastingutils-players" },
+    { key: "developers", label: "Developer API", selector: "#everlastingutils-developers" },
+  ],
+};
+const activeContentTabs = new Map();
 
 function getActiveTabId() {
   return activeTabId || document.querySelector(".tab-panel.is-active")?.id || null;
+}
+
+function getContentTabSections(panel) {
+  const config = contentTabConfig[panel?.id] || [];
+
+  return config
+    .map((item) => ({
+      ...item,
+      section: panel.querySelector(item.selector),
+    }))
+    .filter((item) => item.section);
+}
+
+function activateContentTab(panel, targetKey, shouldScroll = false) {
+  const items = getContentTabSections(panel);
+  if (!items.length) return false;
+
+  const selected = items.find((item) => item.key === targetKey) || items[0];
+  activeContentTabs.set(panel.id, selected.key);
+
+  items.forEach((item) => {
+    const isActive = item.key === selected.key;
+    item.section.classList.add("content-section");
+    item.section.hidden = !isActive;
+    item.section.classList.toggle("is-active", isActive);
+  });
+
+  panel.querySelectorAll(".content-tab").forEach((button) => {
+    const isActive = button.dataset.contentTab === selected.key;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-selected", String(isActive));
+    button.tabIndex = isActive ? 0 : -1;
+  });
+
+  if (shouldScroll) {
+    panel.querySelector(".content-tabs")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  updateCodeShellScrollState();
+  updateBackToTopButton();
+  return true;
+}
+
+function setupContentTabs() {
+  panels.forEach((panel) => {
+    const items = getContentTabSections(panel);
+    if (!items.length || panel.querySelector(".content-tabs")) return;
+
+    const nav = document.createElement("nav");
+    nav.className = "content-tabs";
+    nav.setAttribute("aria-label", `${panel.id} sections`);
+    nav.setAttribute("role", "tablist");
+
+    items.forEach((item, index) => {
+      item.section.classList.add("content-section");
+      item.section.dataset.contentSection = item.key;
+
+      const button = document.createElement("button");
+      button.className = "content-tab";
+      button.type = "button";
+      button.textContent = item.label;
+      button.dataset.contentTab = item.key;
+      button.setAttribute("role", "tab");
+      button.setAttribute("aria-selected", index === 0 ? "true" : "false");
+      button.tabIndex = index === 0 ? 0 : -1;
+
+      button.addEventListener("click", () => {
+        activateContentTab(panel, item.key);
+        window.history.replaceState(window.history.state || {}, "", window.location.pathname);
+      });
+
+      button.addEventListener("keydown", (event) => {
+        const buttons = [...nav.querySelectorAll(".content-tab")];
+        const currentIndex = buttons.indexOf(button);
+        let nextIndex = currentIndex;
+
+        if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+          nextIndex = (currentIndex + 1) % buttons.length;
+        } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+          nextIndex = (currentIndex - 1 + buttons.length) % buttons.length;
+        } else if (event.key === "Home") {
+          nextIndex = 0;
+        } else if (event.key === "End") {
+          nextIndex = buttons.length - 1;
+        } else {
+          return;
+        }
+
+        event.preventDefault();
+        buttons[nextIndex].focus();
+        buttons[nextIndex].click();
+      });
+
+      nav.appendChild(button);
+    });
+
+    panel.querySelector(".mod-hero")?.appendChild(nav);
+    activateContentTab(panel, activeContentTabs.get(panel.id) || items[0].key);
+  });
+}
+
+function activateContentTabForTarget(target, shouldScroll = false) {
+  const panel = target?.closest(".tab-panel");
+  const section = target?.closest(".content-section");
+  if (!panel || !section) return false;
+
+  return activateContentTab(panel, section.dataset.contentSection, shouldScroll);
 }
 
 function withInstantScroll(callback) {
@@ -326,6 +464,7 @@ function updatePageMetadata(targetId) {
 
 function activateTab(targetId, updateUrl = true, scrollMode = "top") {
   let activeTheme = "";
+  let activePanel = null;
 
   tabs.forEach((tab) => {
     const isActive = tab.dataset.tab === targetId;
@@ -339,9 +478,14 @@ function activateTab(targetId, updateUrl = true, scrollMode = "top") {
     const isActive = panel.id === targetId;
     panel.classList.toggle("is-active", isActive);
     panel.hidden = !isActive;
+    if (isActive) activePanel = panel;
   });
 
   activeTabId = targetId;
+  if (activePanel) {
+    activateContentTab(activePanel, activeContentTabs.get(activePanel.id));
+  }
+
   updatePageMetadata(targetId);
 
   if (activeTheme) {
@@ -560,6 +704,7 @@ function scrollToPageSection(target) {
   const activePanel = document.querySelector(".tab-panel.is-active");
   if (!target || !activePanel || !activePanel.contains(target)) return false;
 
+  activateContentTabForTarget(target);
   target.scrollIntoView({ behavior: "smooth", block: "start" });
   return true;
 }
@@ -577,6 +722,7 @@ document.querySelectorAll(".hero-actions a[href^='#']").forEach((link) => {
 });
 
 setupHeroActionGradients();
+setupContentTabs();
 
 function activateRoute() {
   const redirectedPath = sessionStorage.getItem("wiki:path");
@@ -692,9 +838,7 @@ async function loadModrinthVersion(element) {
   }
 
   element.textContent = latestListedVersion.version_number;
-  if (note) {
-    note.textContent = `Latest on Modrinth for ${latestListedVersion.game_versions.join(", ")}`;
-  }
+  if (note) note.textContent = "";
 }
 
 document.querySelectorAll(".modrinth-version").forEach(loadModrinthVersion);
@@ -722,6 +866,42 @@ async function getModrinthProject(projectIdOrSlug) {
 
   return modrinthProjectCache.get(slug);
 }
+
+function formatModrinthDate(value) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+
+  return new Intl.DateTimeFormat(undefined, {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  }).format(date);
+}
+
+function formatCompactNumber(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return "";
+
+  return new Intl.NumberFormat(undefined, {
+    notation: "compact",
+    maximumFractionDigits: number >= 1000 ? 1 : 0,
+  }).format(number);
+}
+
+async function loadProjectUpdated(element) {
+  const project = await getModrinthProject(element.dataset.modrinthProject);
+  const updated = formatModrinthDate(project?.updated);
+  element.textContent = updated || "Unavailable";
+}
+
+async function loadProjectDownloads(element) {
+  const project = await getModrinthProject(element.dataset.modrinthProject);
+  const downloads = formatCompactNumber(project?.downloads);
+  element.textContent = downloads || "Unavailable";
+}
+
+document.querySelectorAll(".modrinth-updated").forEach(loadProjectUpdated);
+document.querySelectorAll(".modrinth-downloads").forEach(loadProjectDownloads);
 
 async function getModrinthVersionById(versionId) {
   const id = String(versionId || "").trim();
