@@ -871,11 +871,28 @@ function formatModrinthDate(value) {
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return "";
 
-  return new Intl.DateTimeFormat(undefined, {
+  const formattedDate = new Intl.DateTimeFormat(undefined, {
     month: "short",
     day: "numeric",
     year: "numeric",
   }).format(date);
+
+  const relativeDays = formatRelativeDays(date);
+  return relativeDays ? `${formattedDate} (${relativeDays})` : formattedDate;
+}
+
+function formatRelativeDays(date) {
+  const today = new Date();
+  const dateStart = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  const days = Math.round((todayStart - dateStart) / 86400000);
+  const absoluteDays = Math.abs(days);
+
+  if (days < 0) {
+    return `in ${absoluteDays} ${absoluteDays === 1 ? "day" : "days"}`;
+  }
+
+  return `${days} ${days === 1 ? "day" : "days"} ago`;
 }
 
 function formatCompactNumber(value) {
