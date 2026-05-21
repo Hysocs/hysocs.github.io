@@ -1,0 +1,30 @@
+{
+  "cobblebattlerewards": {
+    "projectId": 1275662,
+    "slug": "cobblebattlerewards",
+    "url": "https://www.curseforge.com/minecraft/mc-mods/cobblebattlerewards",
+    "downloads": 16418,
+    "updated": "2025-12-12"
+  },
+  "cobblehunts": {
+    "projectId": 1276069,
+    "slug": "cobblehunts",
+    "url": "https://www.curseforge.com/minecraft/mc-mods/cobblehunts",
+    "downloads": 3827,
+    "updated": "2025-12-12"
+  },
+  "blanketrtp": {
+    "projectId": 1394114,
+    "slug": "b-rtp",
+    "url": "https://www.curseforge.com/minecraft/mc-mods/b-rtp",
+    "downloads": 165,
+    "updated": "2026-05-18"
+  },
+  "e-utils": {
+    "projectId": 1275646,
+    "slug": "e-utils",
+    "url": "https://www.curseforge.com/minecraft/mc-mods/e-utils",
+    "downloads": 336542,
+    "updated": "2026-05-16"
+  }
+}

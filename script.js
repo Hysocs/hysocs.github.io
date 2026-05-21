@@ -748,9 +748,41 @@ activateRoute();
 
 const MODRINTH_MOD_BASE_URL = "https://modrinth.com/mod/";
 const MODRINTH_USER_AGENT = "Everlasting.mods-Wiki/1.0.0 (Minecraft mod documentation site; https://github.com/Hysocs/hysocs.github.io)";
+const CURSEFORGE_STATS_URL = "assets/curseforge-stats.json";
+const FALLBACK_CURSEFORGE_STATS = {
+  cobblebattlerewards: {
+    projectId: 1275662,
+    slug: "cobblebattlerewards",
+    url: "https://www.curseforge.com/minecraft/mc-mods/cobblebattlerewards",
+    downloads: 16418,
+    updated: "2025-12-12",
+  },
+  cobblehunts: {
+    projectId: 1276069,
+    slug: "cobblehunts",
+    url: "https://www.curseforge.com/minecraft/mc-mods/cobblehunts",
+    downloads: 3827,
+    updated: "2025-12-12",
+  },
+  blanketrtp: {
+    projectId: 1394114,
+    slug: "b-rtp",
+    url: "https://www.curseforge.com/minecraft/mc-mods/b-rtp",
+    downloads: 165,
+    updated: "2026-05-18",
+  },
+  "e-utils": {
+    projectId: 1275646,
+    slug: "e-utils",
+    url: "https://www.curseforge.com/minecraft/mc-mods/e-utils",
+    downloads: 336542,
+    updated: "2026-05-16",
+  },
+};
 const modrinthVersionCache = new Map();
 const modrinthProjectCache = new Map();
 const modrinthVersionByIdCache = new Map();
+let curseforgeStatsPromise = null;
 const skippedRequirementProjects = new Set(["fabric-loader", "fabricloader", "minecraft"]);
 const requirementProjectAliases = {
   everlastingutils: "e-utils",
@@ -905,6 +937,39 @@ function formatCompactNumber(value) {
   }).format(number);
 }
 
+function formatWholeNumber(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return "";
+
+  return new Intl.NumberFormat().format(number);
+}
+
+async function getCurseForgeStats() {
+  if (!curseforgeStatsPromise) {
+    curseforgeStatsPromise = fetch(CURSEFORGE_STATS_URL)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`CurseForge stats returned ${response.status}`);
+        }
+        return response.json();
+      })
+      .catch((error) => {
+        console.info("Could not load local CurseForge stats:", error);
+        return FALLBACK_CURSEFORGE_STATS;
+      });
+  }
+
+  return curseforgeStatsPromise;
+}
+
+async function getCurseForgeProject(projectIdOrSlug) {
+  const slug = normalizeRequirementSlug(projectIdOrSlug);
+  if (!slug) return null;
+
+  const stats = await getCurseForgeStats();
+  return stats[slug] || null;
+}
+
 async function loadProjectUpdated(element) {
   const project = await getModrinthProject(element.dataset.modrinthProject);
   const updated = formatModrinthDate(project?.updated);
@@ -912,9 +977,44 @@ async function loadProjectUpdated(element) {
 }
 
 async function loadProjectDownloads(element) {
-  const project = await getModrinthProject(element.dataset.modrinthProject);
-  const downloads = formatCompactNumber(project?.downloads);
-  element.textContent = downloads || "Unavailable";
+  const modrinthProject = await getModrinthProject(element.dataset.modrinthProject);
+  const curseforgeProject = await getCurseForgeProject(element.dataset.curseforgeProject || element.dataset.modrinthProject);
+  const modrinthDownloads = Number(modrinthProject?.downloads);
+  const curseforgeDownloads = Number(curseforgeProject?.downloads);
+  const hasModrinthDownloads = Number.isFinite(modrinthDownloads);
+  const hasCurseforgeDownloads = Number.isFinite(curseforgeDownloads);
+  const totalDownloads =
+    (hasModrinthDownloads ? modrinthDownloads : 0) +
+    (hasCurseforgeDownloads ? curseforgeDownloads : 0);
+
+  if (!totalDownloads) {
+    element.textContent = "Unavailable";
+    return;
+  }
+
+  const sourceCounts = [
+    hasModrinthDownloads ? `Modrinth ${formatCompactNumber(modrinthDownloads)}` : "",
+    hasCurseforgeDownloads ? `CurseForge ${formatCompactNumber(curseforgeDownloads)}` : "",
+  ].filter(Boolean);
+
+  element.classList.add("download-count");
+  element.title = [
+    hasModrinthDownloads ? `Modrinth: ${formatWholeNumber(modrinthDownloads)}` : "",
+    hasCurseforgeDownloads ? `CurseForge: ${formatWholeNumber(curseforgeDownloads)}` : "",
+  ].filter(Boolean).join(" + ");
+  element.replaceChildren(
+    Object.assign(document.createElement("strong"), {
+      textContent: `${formatCompactNumber(totalDownloads)} total`,
+    }),
+  );
+
+  if (sourceCounts.length > 1) {
+    element.append(
+      Object.assign(document.createElement("small"), {
+        textContent: sourceCounts.join(" + "),
+      }),
+    );
+  }
 }
 
 document.querySelectorAll(".modrinth-updated").forEach(loadProjectUpdated);

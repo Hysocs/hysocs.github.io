@@ -503,6 +503,21 @@ dd {
   font-weight: 900;
 }
 
+.download-count {
+  display: grid;
+  gap: 2px;
+  line-height: 1.25;
+}
+
+.download-count strong {
+  color: var(--text);
+}
+
+.download-count small {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
 .version-note {
   display: none;
   color: var(--muted);
@@ -520,6 +535,16 @@ dd {
 }
 
 .requirement-link {
+  font-weight: 800;
+}
+
+.platform-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+}
+
+.platform-links a {
   font-weight: 800;
 }
 
