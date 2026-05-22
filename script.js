@@ -13,6 +13,8 @@ const routeToTab = {
   "/blanketrtp/": "blanketrtp",
   "/everlastingutils": "everlastingutils",
   "/everlastingutils/": "everlastingutils",
+  "/under-construction": "coming-soon-b",
+  "/under-construction/": "coming-soon-b",
 };
 
 const tabToRoute = {
@@ -21,6 +23,7 @@ const tabToRoute = {
   cobblehunts: "/cobblehunts",
   blanketrtp: "/blanketrtp",
   everlastingutils: "/everlastingutils",
+  "coming-soon-b": "/under-construction",
 };
 
 const siteUrl = "https://hysocs.github.io";
@@ -55,6 +58,12 @@ const tabMetadata = {
     description: "Server-side utility and API library required by Everlasting.mods projects and useful for Fabric mod developers.",
     image: `${siteUrl}/assets/everlastingutils-icon.png`,
     themeColor: "#d25481",
+  },
+  "coming-soon-b": {
+    title: "Under Construction | Everlasting.mods Wiki",
+    description: "A fake dev loading screen and Cobbleraids preview for unreleased Everlasting.mods projects.",
+    image: `${siteUrl}/assets/cobblespawnregions-icon.png`,
+    themeColor: "#2f8ce7",
   },
 };
 
