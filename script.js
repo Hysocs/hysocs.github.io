@@ -1166,3 +1166,104 @@ document.addEventListener("click", (event) => {
     event.preventDefault();
   }
 });
+
+
+// Under construction console showcase
+const constructionGame = document.querySelector("[data-construction-game]");
+const loadingLog = document.querySelector("[data-loading-log]");
+const loadingBar = document.querySelector("[data-loading-bar]");
+const secretGrid = document.querySelector("[data-secret-grid]");
+const sparseGridHeader = document.querySelector("[data-sparse-grid]");
+
+const constructionLogs = [
+  { level: "boot", text: "Booting everlasting_dev_server.exe... please pretend this is stable.", type: "normal" },
+  { level: "cfg", text: "Added <strong>407</strong> more JSONC options because one toggle looked lonely.", type: "danger" },
+  { level: "cfg", text: "Split config files detected. Migration scare has been scheduled for next reboot.", type: "danger" },
+  { level: "cfg", text: "Unsplit config files detected. Single giant JSONC blob restored for tradition.", type: "weird" },
+  { level: "meme", text: "Renamed CobbleSpawnRegions to <strong>Large Area Of Mons</strong>. Wiki links have entered witness protection.", type: "weird" },
+  { level: "csr", text: "<strong>/csr reload</strong> completed. Please now run /csr check, /csr info, and then ask why nothing changed.", type: "normal" },
+  { level: "hunts", text: "CobbleHunts generated a hunt pool so configurable it started hunting the config editor.", type: "weird" },
+  { level: "br", text: "CobbleBattleRewards added rewards for winning, losing, existing, and opening the config file.", type: "normal" },
+  { level: "rtp", text: "B-RTP renamed internally to <strong>Blanket Randomly Teleports Probably</strong>. Safety not guaranteed, vibes guaranteed.", type: "weird" },
+  { level: "utils", text: "EverlastingUtils now requires <strong>EverlastingUtilsUtils</strong>. This dependency is also server-side. Probably.", type: "danger" },
+  { level: "utils", text: "EverlastingUtilsUtils requires EverlastingUtils. Circular dependency achieved. Ship it.", type: "danger" },
+  { level: "cmd", text: "Command format updated from readable to <strong>/mod subcommand thing value optionalThing maybeTrue</strong>.", type: "weird" },
+  { level: "cmd", text: "Added permission node: <strong>everlasting.command.admin.reload.reload.confirm.real</strong>.", type: "danger" },
+  { level: "free", text: "Price check complete: mods are still free. Business department found crying in a JSONC comment.", type: "success" },
+  { level: "free", text: "Paid version canceled because then I would have to provide responsible release dates.", type: "normal" },
+  { level: "break", text: "Developer visibility check failed. Last seen months ago adding one checkbox to a GUI.", type: "danger" },
+  { level: "break", text: "Random break detected. Marking project as 'not abandoned, just ominously quiet'.", type: "weird" },
+  { level: "other", text: "Scanning for other projects... none found. Definitely not working on anything else. Do not look behind the wiki.", type: "normal" },
+  { level: "raid", text: "Cobbleraids preview mounted below. This is the only leak the console is legally allowed to admit.", type: "success" },
+  { level: "cfg", text: "Config comments preserved. Just kidding, migration ate three of them and blamed formatting.", type: "danger" },
+  { level: "patch", text: "Patch note: fixed typo, accidentally invented a new system, documentation pending.", type: "weird" },
+  { level: "warn", text: "Large Area Of Mons requesting one more GUI screen before release. It says this is the last one.", type: "danger" },
+  { level: "info", text: "Loading stuck at <strong>99%</strong>. This is intended behavior and counts as suspense.", type: "normal" },
+];
+
+function addConstructionLogLine(entry) {
+  if (!loadingLog) return;
+
+  const line = document.createElement("div");
+  line.className = `loading-log-line is-${entry.type || "normal"}`;
+  line.innerHTML = `<span>${new Date().toLocaleTimeString([], { hour12: false })}</span><em>${entry.level || "log"}</em><span>${entry.text}</span>`;
+  loadingLog.appendChild(line);
+
+  while (loadingLog.children.length > 16) {
+    loadingLog.firstElementChild?.remove();
+  }
+}
+
+function startConstructionLoader() {
+  if (!constructionGame || !loadingLog) return;
+
+  let index = 0;
+  addConstructionLogLine(constructionLogs[index]);
+  if (loadingBar) loadingBar.style.width = "7%";
+
+  window.setInterval(() => {
+    index = (index + 1) % constructionLogs.length;
+    addConstructionLogLine(constructionLogs[index]);
+
+    if (loadingBar) {
+      const fakeProgress = Math.min(99, 7 + ((index + 1) / constructionLogs.length) * 92);
+      loadingBar.style.width = `${fakeProgress}%`;
+    }
+  }, 1150);
+}
+
+function startSecretVideos() {
+  secretGrid?.querySelectorAll("video").forEach((video) => {
+    video.play?.().catch(() => {});
+  });
+}
+
+function spawnSparseGridSquare() {
+  if (!sparseGridHeader) return;
+
+  const square = document.createElement("span");
+  square.className = "sparse-grid-square";
+
+  const bounds = sparseGridHeader.getBoundingClientRect();
+  const cell = 22;
+  const columns = Math.max(1, Math.floor(bounds.width / cell));
+  const rows = Math.max(1, Math.floor(bounds.height / cell));
+
+  square.style.left = `${Math.floor(Math.random() * columns) * cell}px`;
+  square.style.top = `${Math.floor(Math.random() * rows) * cell}px`;
+  square.style.setProperty("--grid-life", `${3200 + Math.random() * 3200}ms`);
+
+  sparseGridHeader.appendChild(square);
+  square.addEventListener("animationend", () => square.remove(), { once: true });
+}
+
+function startSparseGrid() {
+  if (!sparseGridHeader) return;
+  window.setInterval(() => {
+    if (Math.random() < 0.72) spawnSparseGridSquare();
+  }, 900);
+}
+
+startConstructionLoader();
+startSecretVideos();
+startSparseGrid();
