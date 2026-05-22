@@ -31,37 +31,37 @@ const siteUrl = "https://hysocs.github.io";
 const tabMetadata = {
   cobblespawnregions: {
     title: "CobbleSpawnRegions | Everlasting.mods Wiki",
-    description: "Create named regions that control Cobblemon natural spawns and custom Pokemon spawns.",
+    description: "Create named regions that control Cobblemon natural spawns and custom Pokemon spawns. Wiki docs for server owners, admins, and me when I forget my own commands.",
     image: `${siteUrl}/assets/cobblespawnregions-icon.png`,
     themeColor: "#2f8ce7",
   },
   cobblehunts: {
     title: "CobbleHunts | Everlasting.mods Wiki",
-    description: "Create server-wide Pokemon hunts with editor tools, hunt pools, loot tables, cooldowns, and player rewards.",
+    description: "Create server-wide Pokemon hunts with editor tools, hunt pools, loot tables, cooldowns, and player rewards. Wiki docs for server owners, admins, and me when I forget my own commands.",
     image: `${siteUrl}/assets/cobblehunts-icon.png`,
     themeColor: "#ffd84d",
   },
   cobblebattlerewards: {
     title: "CobbleBattleRewards | Everlasting.mods Wiki",
-    description: "Reward players for Cobblemon battles with configurable drops, money, commands, cooldowns, and win or loss rules.",
+    description: "Reward players for Cobblemon battles with configurable drops, money, commands, cooldowns, and win or loss rules. Wiki docs for server owners, admins, and me when I forget my own commands.",
     image: `${siteUrl}/assets/cobblebattlerewards-icon.png`,
     themeColor: "#f48ac2",
   },
   blanketrtp: {
     title: "B-RTP | Everlasting.mods Wiki",
-    description: "Give players safer random teleports with dimensions, cooldowns, warmups, particles, titles, and permission controls.",
+    description: "Give players safer random teleports with dimensions, cooldowns, warmups, particles, titles, and permission controls. Wiki docs for server owners, admins, and me when I forget my own commands.",
     image: `${siteUrl}/assets/blanketrtp-icon.png`,
     themeColor: "#4ade80",
   },
   everlastingutils: {
     title: "EverlastingUtils | Everlasting.mods Wiki",
-    description: "Server-side utility and API library required by Everlasting.mods projects and useful for Fabric mod developers.",
+    description: "Server-side utility and API library required by Everlasting.mods projects and useful for Fabric mod developers. Wiki docs for server owners, admins, and me when I forget my own commands.",
     image: `${siteUrl}/assets/everlastingutils-icon.png`,
     themeColor: "#d25481",
   },
   "coming-soon-b": {
     title: "Under Construction | Everlasting.mods Wiki",
-    description: "A fake dev loading screen and Cobbleraids preview for unreleased Everlasting.mods projects.",
+    description: "A fake dev loading screen and Cobbleraids preview for unreleased Everlasting.mods projects. Wiki docs for server owners, admins, and me when I forget my own commands.",
     image: `${siteUrl}/assets/cobblespawnregions-icon.png`,
     themeColor: "#2f8ce7",
   },
